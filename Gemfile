@@ -41,3 +41,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "haml-rails", "~> 0.9"
 gem 'devise', '~> 4.2'
+gem 'acts-as-taggable-on', '~> 4.0'
