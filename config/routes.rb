@@ -9,4 +9,7 @@ Rails.application.routes.draw do
       post 'send_emails'
     end
   end
+
+  get 'settings', to: 'home#settings'
+  post 'update_settings', to: 'home#update_settings'
 end

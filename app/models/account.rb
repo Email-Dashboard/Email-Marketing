@@ -30,6 +30,10 @@ class Account < ApplicationRecord
   has_many :users
   has_many :campaigns
 
+  has_one  :mail_setting
+
+  after_create :create_mail_setting
+
   # Parse CSV file and create new users with tags
   # Returns how many users created and which values not created with details
   def import_users_from_csv(csv_file, _tags)

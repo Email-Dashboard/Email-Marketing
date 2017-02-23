@@ -1,4 +1,5 @@
 class CampaignsController < ApplicationController
+  before_action :authenticate_account!
   before_action :set_campaign, only: [:show, :destroy, :send_emails]
   before_action :set_campaign_users, only: :create
 
