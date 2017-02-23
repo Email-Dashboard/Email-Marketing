@@ -28,4 +28,27 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :users
+  has_many :campaigns
+
+  # Parse CSV file and create new users with tags
+  # Returns how many users created and which values not created with details
+  def import_users_from_csv(csv_file, _tags)
+    imported_user_count = 0
+    import_errors = []
+
+    CSV.foreach(csv_file.path) do |row|
+      new_user = users.new(name: row[0], email: row[1])
+
+      new_user.tag_list.add(_tags.downcase.split(',')) if _tags.present?
+      if new_user.save
+        imported_user_count += 1
+      else
+        import_errors << new_user.errors.details.try(:values).try(:first).try(:first).try(:values)
+      end
+    end
+    { imported_users: imported_user_count, import_errors: import_errors }
+  rescue => e
+    Rails.logger.info("ERROR WHILE IMPORTING CSV: #{e}")
+    { imported_users: 0, import_errors: e }
+  end
 end
