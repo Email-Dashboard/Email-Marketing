@@ -40,7 +40,16 @@ class CampaignsController < ApplicationController
   end
 
   def send_emails
-    # sa
+    @campaign.users.each do |_user|
+      begin
+        UserMailer.campaign_email(_user, params[:subject], params[:content]).deliver_now
+        campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
+        campaign_user.sent!
+      rescue => e
+        Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")
+      end
+    end
+    redirect_to @campaign, notice: 'Emails was successfully sent!'
   end
 
   private
@@ -61,7 +70,6 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.fetch(:campaign, {})
     params.require(:campaign).permit(:name, :tag_list)
   end
 end

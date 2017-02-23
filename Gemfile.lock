@@ -1,14 +1,3 @@
-GIT
-  remote: git://github.com/activerecord-hackery/ransack.git
-  revision: 8ca8c95c6543c5da9b98a4e2747a0a4023d60bfc
-  specs:
-    ransack (1.8.2)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -133,6 +122,10 @@ GEM
       activerecord
       kaminari-core (= 1.0.0)
     kaminari-core (1.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -151,8 +144,6 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
-    polyamorous (1.3.1)
-      activerecord (>= 3.0)
     public_suffix (2.0.5)
     puma (3.7.1)
     rack (2.0.1)
@@ -269,10 +260,10 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
+  letter_opener
   listen (~> 3.0.5)
   puma (~> 3.0)
   rails (~> 5.0.1)
-  ransack!
   rspec-rails
   sass-rails (~> 5.0)
   shoulda-matchers

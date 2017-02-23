@@ -40,6 +40,9 @@ group :development do
   gem 'annotate'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Open Letters Locally
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -49,4 +52,3 @@ gem 'acts-as-taggable-on', '~> 4.0'
 gem 'devise', '~> 4.2'
 gem 'haml-rails', '~> 0.9'
 gem 'kaminari'
-gem 'ransack', github: 'activerecord-hackery/ransack'
