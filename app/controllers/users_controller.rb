@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_account!
 
   def index
-    @users = current_account.users.page(params[:page])
+    @q = current_account.users.ransack(params[:q])
+    @q.sorts = 'created_at DESC' if @q.sorts.empty?
+    @users = @q.result(distinct: true).page(params[:page])
   end
 
   def destroy
