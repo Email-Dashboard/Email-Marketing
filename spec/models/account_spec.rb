@@ -33,11 +33,11 @@ RSpec.describe Account, type: :model do
   let!(:user_b) { FactoryGirl.create(:user, account: account_b) }
 
   context 'Check Account Users' do
-    it "should valid account_a customers" do
+    it 'should valid account_a customers' do
       expect(account_a.users).to include(user_a)
     end
 
-    it "should invalid account_a user" do
+    it 'should invalid account_a user' do
       expect(account_b.users).to_not include(user_a)
     end
   end

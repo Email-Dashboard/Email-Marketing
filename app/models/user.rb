@@ -12,6 +12,10 @@
 
 class User < ApplicationRecord
   belongs_to :account
+
+  has_many :campaign_users
+  has_many :campaigns, through: :campaign_users
+
   acts_as_taggable # Alias for user tags
 
   # Check the uniqueness by email and account_id
