@@ -3,4 +3,10 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :users, only: [:index, :destroy]
+
+  resources :campaigns, except: [:edit, :update] do
+    member do
+      post 'send_emails'
+    end
+  end
 end

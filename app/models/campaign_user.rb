@@ -14,6 +14,8 @@ class CampaignUser < ApplicationRecord
   belongs_to :campaign
   belongs_to :user
 
+  enum status: %w(draft sent delivered not_delivered read)
+
   # custom validation for account uniqueness
   validate :validate_sources_accounts
 
