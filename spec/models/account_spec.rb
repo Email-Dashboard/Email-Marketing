@@ -24,5 +24,21 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should validate_presence_of(:email) }
+
+  let!(:account_a) { FactoryGirl.create(:account) }
+  let!(:account_b) { FactoryGirl.create(:account) }
+
+  let!(:user_a) { FactoryGirl.create(:user, account: account_a) }
+  let!(:user_b) { FactoryGirl.create(:user, account: account_b) }
+
+  context 'Check Account Users' do
+    it "should valid account_a customers" do
+      expect(account_a.users).to include(user_a)
+    end
+
+    it "should invalid account_a user" do
+      expect(account_b.users).to_not include(user_a)
+    end
+  end
 end
