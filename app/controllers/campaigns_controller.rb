@@ -64,7 +64,8 @@ class CampaignsController < ApplicationController
     @campaign_users = if params[:q] == 'all'
                         current_account.users.all
                       else
-                        q = current_account.users.ransack(params[:q])
+                        query = Rack::Utils.parse_nested_query(params[:q]) # convert string params to hash
+                        q = current_account.users.ransack(query)
                         q.result(distinct: true)
                       end
   end

@@ -40,7 +40,7 @@
                 %label.label-info
                   = campaign.name
             %td
-              = link_to 'Sil', user_path(user), class: 'btn btn-danger btn-sm', |
+              = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
                 method: :delete, data: { confirm: 'Are you sure?' }
 
     = paginate @users
