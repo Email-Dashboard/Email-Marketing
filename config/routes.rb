@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   devise_for :accounts
+
+  authenticated :account do
+    root 'users#index', as: :authenticated_root
+  end
+
   root to: 'home#index'
 
-  resources :users, only: [:index, :destroy]
+  resources :users, only: [:index, :destroy, :new, :create]
 
   resources :campaigns, except: [:edit, :update] do
     member do

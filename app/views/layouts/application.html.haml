@@ -15,45 +15,51 @@
             / Logo
             .logo
               %h1= link_to 'Smart Email Marketing', root_path
-          .col-md-5
+
+          - if current_account
+            .col-md-5
+            .col-md-2
+              .navbar.navbar-inverse{:role => "banner"}
+                %nav.collapse.navbar-collapse.bs-navbar-collapse.navbar-right{:role => "navigation"}
+                  %ul.nav.navbar-nav
+                    %li.dropdown
+                      %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                        My Account
+                        %b.caret
+                      %ul.dropdown-menu.animated.fadeInUp
+                        %li
+                          %a{:href => "/settings"} Settings
+                        %li
+                          = link_to('Logout', destroy_account_session_path, :method => :delete)
+          - else
+            .col-md-3
+            .col-md-4.text-right{style: 'margin-top: 5px;'}
+              = link_to('Login', new_account_session_path, class: 'btn col-md-6 text-right')
+              = link_to 'Register', new_account_registration_path, class: 'btn btn-primary col-md-6 text-right'
+
+      .page-content
+        .row
           .col-md-2
-            .navbar.navbar-inverse{:role => "banner"}
-              %nav.collapse.navbar-collapse.bs-navbar-collapse.navbar-right{:role => "navigation"}
-                %ul.nav.navbar-nav
-                  %li.dropdown
-                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                      My Account
-                      %b.caret
-                    %ul.dropdown-menu.animated.fadeInUp
-                      %li
-                        %a{:href => "profile.html"} Profile
-                      %li
-                        %a{:href => "login.html"} Logout
-    .page-content
-      .row
-        .col-md-2
-          .sidebar.content-box{:style => "display: block;"}
-            %ul.nav
-              / Main menu
-              %li.current
-                %a{:href => root_path}
-                  %i.glyphicon.glyphicon-home
-                  Dashboard
-              %li.current
-                %a{:href => root_path}
-                  %i.glyphicon.glyphicon-th-list
-                  Kullanıcılar
-              %li.current
-                %a{:href => root_path}
-                  %i.glyphicon.glyphicon-star-empty
-                  Üyelik Tipleri
-              %li.current
-                %a{:href => root_path}
-                  %i.glyphicon.glyphicon-heart
-                  Tahminler
-              %li.current
-                %a{:href => root_path}
-                  %i.glyphicon.glyphicon-play-circle
-                  Slider
-        .col-md-10
-          = yield
+            - if current_account
+              .sidebar.content-box{:style => "display: block;"}
+                %ul.nav
+                  / Main menu
+                  %li.current
+                    %a{:href => users_path}
+                      %i.glyphicon.glyphicon-home
+                      Users
+                  %li.current
+                    %a{:href => new_user_path}
+                      %i.glyphicon.glyphicon-th-list
+                      Import Users
+                  %li.current
+                    %a{:href => campaigns_path}
+                      %i.glyphicon.glyphicon-star-empty
+                      Campaigns
+                  %li.current
+                    %a{:href => settings_path}
+                      %i.glyphicon.glyphicon-heart
+                      Settings
+
+          .col-md-10
+            = yield

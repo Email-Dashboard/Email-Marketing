@@ -1,0 +1,16 @@
+- if notice
+  .alert.alert-warning
+    %p#notice= notice
+.col-md-12.content-box-large.panel-heading
+  = form_tag users_path, method: :post, multipart: true do
+
+    = label_tag 'Impor Users From CSV File'
+    = file_field_tag :file, class: 'form-control'
+
+    = label_tag 'Tags'
+    = text_field_tag :tags, nil, placeholder: 'Separate with comma (new users, paid users, etc...)', class: 'form-control'
+    .actions
+      .col-md-6
+        = submit_tag 'Import User List', class: 'btn btn-primary'
+      .col-md-6.text-right
+        = link_to 'Go To All Users', users_path, class: 'btn btn-default'

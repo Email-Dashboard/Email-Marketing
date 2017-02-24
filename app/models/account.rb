@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #
 
+require 'csv'
 class Account < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
