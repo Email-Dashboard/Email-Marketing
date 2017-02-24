@@ -1,0 +1,37 @@
+%p#notice= notice
+%h3
+  #{@campaign.name}
+  - @campaign.tags.each do |tag|
+    %span.badge{style: 'background-color: #337ab7'}
+      = tag
+
+.col-md-12.content-box-large.panel-heading
+  = form_tag send_emails_campaign_path(@campaign), method: :post do
+    = label_tag 'Mail Subject'
+    = text_field_tag 'subject', nil, class: 'form-control'
+
+    = label_tag 'Mail Content'
+    = text_area_tag 'content', nil, class: 'form-control', rows: 5
+
+    %p.text-muted
+      To put each user name in the emails use: [*NAME*] keyword instead of name. Dear [*NAME*], etc...
+
+    .actions
+      = submit_tag 'Sent Campaign Email', class: 'btn btn-primary'
+
+.col-md-12
+  = paginate @campaign_users
+  %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+    %thead
+      %tr
+        %th Email
+        %th Name
+        %th Email Status
+    %tbody
+      - @campaign_users.each do |camp_user|
+        %tr
+          %td= camp_user.user.email
+          %td= camp_user.user.name
+          %td= camp_user.status
+
+= link_to 'Back', campaigns_path

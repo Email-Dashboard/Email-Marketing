@@ -21,6 +21,7 @@
 #  updated_at             :datetime         not null
 #
 
+require 'csv'
 class Account < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -29,6 +30,10 @@ class Account < ApplicationRecord
 
   has_many :users
   has_many :campaigns
+
+  has_one  :mail_setting
+
+  after_create :create_mail_setting
 
   # Parse CSV file and create new users with tags
   # Returns how many users created and which values not created with details

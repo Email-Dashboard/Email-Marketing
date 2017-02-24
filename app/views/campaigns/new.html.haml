@@ -1,0 +1,25 @@
+%h1 New campaign
+.col-md-6.content-box-large.panel-heading
+  = form_for @campaign do |f|
+    - if @campaign.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@campaign.errors.count, "error")} prohibited this campaign from being saved:"
+        %ul
+          - @campaign.errors.full_messages.each do |msg|
+            %li= msg
+
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+
+    %label
+      Tag List
+      %small.text-muted
+        (separate with comma)
+    = f.text_field :tag_list, class: 'form-control', placeholder: 'marketing, newest, popular, etc...'
+
+    = hidden_field_tag 'q', params[:q]
+
+    .actions
+      = f.submit 'Save', class: 'btn btn-primary'
+.col-md-12
+  = link_to 'All Campaigns', campaigns_path, class: 'btn btn-default'

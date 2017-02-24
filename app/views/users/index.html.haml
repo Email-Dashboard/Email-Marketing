@@ -1,0 +1,48 @@
+- if notice
+  .alert.alert-warning
+    %p#notice= notice
+.content-box-large
+  .panel-heading
+    .panel-body.search-panel
+      .portlet-title{'data-toggle': 'collapse', 'data-target': '#search-body'}
+        %h4
+          User Search
+          %span.glyphicon.glyphicon-chevron-down.pull-right
+      .portlet-body.collapse{id: 'search-body'}
+        = render partial: 'users/user_search'
+
+  .panel-body
+    .col-md-6
+      %h4
+        Listing User
+        %span.badge= @q.result(distinct: true).count
+    .col-md-6.text-right
+      = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].present? ? params[:q] : 'all')), class: 'btn btn-success'
+    %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      %thead
+        %tr
+          %th Email
+          %th Name
+          %th Tags
+          %th Campaigns
+          %th.text-center #
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td= user.email
+            %td= user.name
+            %td
+              - user.tags.each do |tag|
+                %span.badge{style: 'background-color: #337ab7'}
+                  = tag
+            %td
+              - user.campaigns.each do |campaign|
+                %label.label-info
+                  = campaign.name
+            %td
+              = link_to 'Sil', user_path(user), class: 'btn btn-danger btn-sm', |
+                method: :delete, data: { confirm: 'Are you sure?' }
+
+    = paginate @users
+    .col-sm-12.text-right
+      = link_to 'Import New Users From CSV', new_user_path, class: 'btn btn-primary'

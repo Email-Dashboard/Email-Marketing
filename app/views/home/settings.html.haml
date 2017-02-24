@@ -1,0 +1,28 @@
+- if notice
+  .alert.alert-warning
+    %p#notice= notice
+
+.col-md-12.content-box-large.panel-heading
+  = form_tag update_settings_path, method: :post do
+    = label_tag 'Send Message From Email:'
+    = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
+    %hr
+    %h4.text-muted SMTP Settings
+
+    = label_tag 'smtp address'
+    = text_field_tag 'smtp[address]', @settings.address, class: 'form-control', placeholder: 'smtp.examplemailserver.com'
+
+    = label_tag 'smtp port'
+    = text_field_tag 'smtp[port]', @settings.port, class: 'form-control', placeholder: '587'
+
+    = label_tag 'Your verified domain'
+    = text_field_tag 'smtp[domain]', @settings.domain, class: 'form-control', placeholder: 'example.com'
+
+    = label_tag 'username'
+    = text_field_tag 'smtp[user_name]', @settings.user_name, class: 'form-control', placeholder: 'username'
+
+    = label_tag 'password'
+    = text_field_tag 'smtp[password]', @settings.password, class: 'form-control', placeholder: 'password'
+
+    .actions
+      = submit_tag 'Update Settings', class: 'btn btn-primary'
