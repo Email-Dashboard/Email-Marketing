@@ -46,7 +46,7 @@
                   / Main menu
                   %li.current
                     %a{:href => users_path}
-                      %i.glyphicon.glyphicon-home
+                      %i.glyphicon.glyphicon-user
                       Users
                   %li.current
                     %a{:href => new_user_path}
@@ -57,8 +57,12 @@
                       %i.glyphicon.glyphicon-star-empty
                       Campaigns
                   %li.current
-                    %a{:href => settings_path}
+                    %a{:href => email_templates_path}
                       %i.glyphicon.glyphicon-heart
+                      Templates
+                  %li.current
+                    %a{:href => settings_path}
+                      %i.glyphicon.glyphicon-cog
                       Settings
 
           .col-md-10
