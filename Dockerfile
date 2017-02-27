@@ -9,11 +9,17 @@ WORKDIR /smart-email-marketing
 ADD Gemfile /smart-email-marketing/Gemfile
 ADD Gemfile.lock /smart-email-marketing/Gemfile.lock
 RUN bundle install --without development test
-ADD . /smart-email-marketing
 
-RUN export SECRET_TOKEN=`rake secret`
+ENV RAILS_ENV production
+ENV RACK_ENV production
+
+ADD . /smart-email-marketing
 
 EXPOSE 8080
 
+RUN RAILS_ENV=production bundle exec rake assets:precompile
+RUN chown -R root:root /smart-email-marketing
+
 RUN rake db:migrate RAILS_ENV=production
-CMD ["puma","-C","config/puma_production.rb"]
+
+CMD ["puma","-C","config/puma_production.rb", "-e production"]

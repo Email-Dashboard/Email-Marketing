@@ -1,6 +1,7 @@
 #!/usr/bin/env puma
 
-environment ENV.fetch 'RAILS_ENV', 'production'
+# environment ENV.fetch 'RAILS_ENV', 'production'
+environment 'production'
 
 daemonize false
 
