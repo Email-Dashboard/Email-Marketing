@@ -8,7 +8,7 @@
         %h4
           User Search
           %span.glyphicon.glyphicon-chevron-down.pull-right
-      .portlet-body.collapse{id: 'search-body'}
+      .portlet-body.collapse{id: 'search-body', class: "#{ 'in' if params[:q].present? }" }
         = render partial: 'users/user_search'
 
   .panel-body
@@ -24,7 +24,7 @@
           %th Email
           %th Name
           %th Tags
-          %th Campaigns
+          %th Campaigns (campaign tags)
           %th.text-center #
       %tbody
         - @users.each do |user|
@@ -37,8 +37,11 @@
                   = tag
             %td
               - user.campaigns.each do |campaign|
-                %label.label-info
+                %label.tag-label
                   = campaign.name
+                  - campaign.tags.each do |tag|
+                    %span.badge{style: 'background-color: #777777'}
+                      = tag
             %td
               = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
                 method: :delete, data: { confirm: 'Are you sure?' }
