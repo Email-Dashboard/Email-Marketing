@@ -41,6 +41,12 @@ class CampaignsController < ApplicationController
   end
 
   def send_emails
+    # Redirect to settings path if account doesnt have settings.
+    unless current_account.mail_setting.try(:all_present?)
+      redirect_to settings_path, notice: 'Your settings informations are required!'
+      return
+    end
+
     @campaign.users.each do |_user|
       begin
         UserMailer.campaign_email(_user, params[:subject], params[:content]).deliver_now
