@@ -21,6 +21,7 @@ class CampaignsController < ApplicationController
   def create
     @campaign = current_account.campaigns.new(campaign_params)
     @campaign.users = @campaign_users
+    @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
     respond_to do |format|
       if @campaign.save
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }

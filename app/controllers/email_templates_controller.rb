@@ -6,15 +6,13 @@ class EmailTemplatesController < ApplicationController
     @email_templates = current_account.email_templates.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @email_template = current_account.email_templates.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @email_template = current_account.email_templates.new(email_template_params)
@@ -50,13 +48,14 @@ class EmailTemplatesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_email_template
-      @email_template = current_account.email_templates.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def email_template_params
-      params.fetch(:email_template, {}).permit!
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_email_template
+    @email_template = current_account.email_templates.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def email_template_params
+    params.fetch(:email_template, {}).permit!
+  end
 end
