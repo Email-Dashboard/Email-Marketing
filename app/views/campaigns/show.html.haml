@@ -8,10 +8,10 @@
 .col-md-12.content-box-large.panel-heading
   = form_tag send_emails_campaign_path(@campaign), method: :post do
     = label_tag 'Mail Subject'
-    = text_field_tag 'subject', nil, class: 'form-control'
+    = text_field_tag 'subject', @campaign.try(:email_template).try(:subject), class: 'form-control'
 
     = label_tag 'Mail Content'
-    = text_area_tag 'content', nil, class: 'form-control', rows: 5
+    = text_area_tag 'content', @campaign.try(:email_template).try(:body), class: 'form-control', rows: 5
 
     %p.text-muted
       To put each user name in the emails use: [*NAME*] keyword instead of name. Dear [*NAME*], etc...
