@@ -11,6 +11,7 @@ ADD Gemfile.lock /smart-email-marketing/Gemfile.lock
 RUN bundle install
 ADD . /smart-email-marketing
 
+RUN export SECRET_TOKENMM=`rake secret`
 
 EXPOSE 8080
 
