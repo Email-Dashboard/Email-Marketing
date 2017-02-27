@@ -8,10 +8,10 @@ WORKDIR /smart-email-marketing
 
 ADD Gemfile /smart-email-marketing/Gemfile
 ADD Gemfile.lock /smart-email-marketing/Gemfile.lock
-RUN bundle install
+RUN bundle install --without development test
 ADD . /smart-email-marketing
 
-RUN export SECRET_TOKENMM=`rake secret`
+RUN export SECRET_TOKEN=`rake secret`
 
 EXPOSE 8080
 
