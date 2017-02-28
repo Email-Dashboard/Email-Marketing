@@ -1,0 +1,21 @@
+.col-md-12.content-box-large.panel-heading
+  = form_for @email_template do |f|
+    - if @email_template.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@email_template.errors.count, "error")} prohibited this email_template from being saved:"
+        %ul
+          - @email_template.errors.full_messages.each do |msg|
+            %li= msg
+
+
+    = f.label 'Mail Subject'
+    = f.text_field :subject, class: 'form-control'
+
+    = f.label 'Mail Content'
+    = f.text_area :body, class: 'form-control', rows: 5
+
+    %p.text-muted
+      To put each user name in the emails use: [*NAME*] keyword instead of name. Dear [*NAME*], etc...
+
+    .actions
+      = f.submit 'Save Email Template', class: 'btn btn-primary'

@@ -30,6 +30,7 @@ class Account < ApplicationRecord
 
   has_many :users
   has_many :campaigns
+  has_many :email_templates
 
   has_one  :mail_setting
 

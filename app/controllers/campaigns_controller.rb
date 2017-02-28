@@ -21,6 +21,7 @@ class CampaignsController < ApplicationController
   def create
     @campaign = current_account.campaigns.new(campaign_params)
     @campaign.users = @campaign_users
+    @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
     respond_to do |format|
       if @campaign.save
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
@@ -77,6 +78,6 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.require(:campaign).permit(:name, :tag_list)
+    params.require(:campaign).permit(:name, :tag_list, :email_template_id)
   end
 end

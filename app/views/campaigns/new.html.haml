@@ -17,6 +17,10 @@
         (separate with comma)
     = f.text_field :tag_list, class: 'form-control', placeholder: 'marketing, newest, popular, etc...'
 
+    .form-control{style: 'margin-top: 2%;'}
+      = f.label :email_template
+      = f.select 'email_template_id', content_tag(:option, 'New Template', value: 'new_template') + options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
+
     = hidden_field_tag 'q', params[:q]
 
     .actions

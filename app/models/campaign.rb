@@ -11,6 +11,7 @@
 
 class Campaign < ApplicationRecord
   belongs_to :account
+  belongs_to :email_template, optional: true
 
   has_many :campaign_users
   has_many :users, through: :campaign_users
