@@ -21,8 +21,3 @@ services:
     environment:
       VIRTUAL_HOST: smart-mailing.eastus.cloudapp.azure.com
       SECRET_KEY_BASE: yourSercretKeyBase
-
-networks:
-  default:
-    external:
-      name: nginx-proxy
