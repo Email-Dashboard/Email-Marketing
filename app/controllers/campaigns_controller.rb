@@ -49,9 +49,11 @@ class CampaignsController < ApplicationController
 
     @campaign.users.each do |_user|
       begin
-        UserMailer.campaign_email(_user, params[:subject], params[:content]).deliver_now
         campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
-        campaign_user.sent!
+        if campaign_user.draft?
+          UserMailer.campaign_email(_user, params[:subject], params[:content]).deliver_now
+          campaign_user.sent!
+        end
       rescue => e
         Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")
       end
