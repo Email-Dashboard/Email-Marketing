@@ -690,3 +690,17 @@
   padding-left: 15px !important;
   padding-right: 15px !important;
 }
+
+.tag-label {
+  display: inline-block;
+  min-width: 10px;
+  padding: 2px 7px;
+  background-color: #5bc0de;
+  border-radius: 5px;
+}
+
+.tag-select {
+  display: inline-table;
+  background-color: #eeeeee;
+  margin: 1px;
+}
