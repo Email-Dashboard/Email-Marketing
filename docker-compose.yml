@@ -1,0 +1,23 @@
+version: '2'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami:
+    image: jwilder/whoami
+    container_name: whoami
+    environment:
+      - VIRTUAL_HOST=whoami.local
+
+  web:
+    image: mojilala/smart-emailing:0.0.1
+    volumes:
+      - /your/db/store/path:/var/db
+    environment:
+      VIRTUAL_HOST: yourhost.com
+      SECRET_KEY_BASE: yourSercretKeyBase

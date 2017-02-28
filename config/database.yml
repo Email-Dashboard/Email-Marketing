@@ -22,4 +22,4 @@ test:
 
 production:
   <<: *default
-  database: db/marketing_production.sqlite3
+  database: /var/db/marketing_production.sqlite3
