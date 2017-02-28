@@ -24,10 +24,8 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       if @campaign.save
         format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
-        format.json { render :show, status: :created, location: @campaign }
       else
         format.html { render :new }
-        format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,7 +34,6 @@ class CampaignsController < ApplicationController
     @campaign.destroy
     respond_to do |format|
       format.html { redirect_to campaigns_url, notice: 'Campaign was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

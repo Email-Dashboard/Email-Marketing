@@ -23,7 +23,25 @@
               %tr
                 %td= f.label :created_at_greater_than
                 %td= f.date_field :created_at_gt, class: 'form-control'
+          %table.table.table-condensed.table-hover.table-bordered.collapse{id: 'tags-body', class: "#{ 'in' if params[:q].present? }" }
+            %tbody
+              %tr
+                %td= f.label 'User Tag Name Equal'
+                %td
+                  - @all_tags.each do |tag|
+                    .col-sm-1.tag-select
+                      = check_box_tag('q[tags_id_in][]', tag.id, (@q.tags_id_in.present? && @q.tags_id_in.include?(tag.id)) ? true : false )
+                      = tag.name
+              %tr
+                %td= f.label 'User Campaign Tag Name Equal'
+                %td
+                  - @all_tags.each do |tag|
+                    .col-sm-1.tag-select
+                      = check_box_tag('q[campaigns_tags_id_in][]', tag.id, (@q.campaigns_tags_id_in.present? && @q.campaigns_tags_id_in.include?(tag.id)) ? true : false )
+                      = tag.name
           Grouping Combinator:
           .btn= f.select :m, options_for_select(%w(and or).map{ |ps| [ps, ps] }, @q.m), include_blank: false
+          .pull-right{'data-toggle': 'collapse', 'data-target': '#tags-body'}
+            %a Advenced Tag Search
   = f.submit "Search", class: 'btn btn-info'
   = link_to 'Clear', users_path, class: 'btn btn-warning actions'

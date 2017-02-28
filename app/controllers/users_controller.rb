@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_account!
 
   def index
+    @all_tags = ActsAsTaggableOn::Tag.order('taggings_count desc')
+    # Filter with ransack
     @q = current_account.users.ransack(params[:q])
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
     @users = @q.result(distinct: true).page(params[:page])
