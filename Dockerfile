@@ -17,7 +17,7 @@ ADD . /smart-email-marketing
 
 EXPOSE 8080
 
-RUN RAILS_ENV=production bundle exec rake assets:precompile
+RUN bundle exec rake RAILS_ENV=production assets:precompile
 RUN chown -R root:root /smart-email-marketing
 
 RUN rake db:migrate RAILS_ENV=production

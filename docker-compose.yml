@@ -15,12 +15,12 @@ services:
       - VIRTUAL_HOST=whoami.local
 
   web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    image: mojilala/smart-emailing:0.0.1
     volumes:
-      - .:/smart-email-marketing
-    ports:
-      - "3000:3000"
+      - /your/db/store/path:/var/db
+    environment:
+      VIRTUAL_HOST: smart-mailing.eastus.cloudapp.azure.com
+      SECRET_KEY_BASE: yourSercretKeyBase
 
 networks:
   default:
