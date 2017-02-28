@@ -19,5 +19,5 @@ services:
     volumes:
       - /your/db/store/path:/var/db
     environment:
-      VIRTUAL_HOST: smart-mailing.eastus.cloudapp.azure.com
+      VIRTUAL_HOST: yourhost.com
       SECRET_KEY_BASE: yourSercretKeyBase
