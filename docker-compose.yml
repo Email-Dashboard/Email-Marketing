@@ -15,7 +15,7 @@ services:
       - VIRTUAL_HOST=whoami.local
 
   web:
-    image: mojilala/smart-emailing:0.0.1
+    image: mojilala/smart-emailing:latest
     volumes:
       - /your/db/store/path:/var/db
     environment:
