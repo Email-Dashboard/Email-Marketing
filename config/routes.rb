@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     member do
       post 'send_emails'
     end
+
+    collection do
+      post 'event_receiver'
+    end
   end
 
   resources :email_templates

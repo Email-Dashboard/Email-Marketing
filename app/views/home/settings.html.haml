@@ -4,10 +4,14 @@
 
 .col-md-12.content-box-large.panel-heading
   = form_tag update_settings_path, method: :post do
-    = label_tag 'Send Message From Email:'
+    = label_tag 'Send emails from email:'
     = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
     %hr
     %h4.text-muted SMTP Settings
+
+    = label_tag 'Set smtp provider:'
+    = text_field_tag 'smtp[provider]', @settings.provider, class: 'form-control', placeholder: 'sendgrid'
+    %hr
 
     = label_tag 'smtp address'
     = text_field_tag 'smtp[address]', @settings.address, class: 'form-control', placeholder: 'smtp.examplemailserver.com'

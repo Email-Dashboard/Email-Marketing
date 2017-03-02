@@ -1,7 +1,8 @@
 class CampaignsController < ApplicationController
-  before_action :authenticate_account!
-  before_action :set_campaign, only: [:show, :destroy, :send_emails]
-  before_action :set_campaign_users, only: :create
+  before_action      :authenticate_account!, except: :event_receiver
+  before_action      :set_campaign, only: [:show, :destroy, :send_emails]
+  before_action      :set_campaign_users, only: :create
+  skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
     @campaigns = current_account.campaigns.all
@@ -39,9 +40,9 @@ class CampaignsController < ApplicationController
   end
 
   def send_emails
-    # Redirect to settings path if account doesnt have settings.
+    # Redirect to settings path if account doesn't have settings.
     unless current_account.mail_setting.try(:all_present?)
-      redirect_to settings_path, notice: 'Your settings informations are required!'
+      redirect_to settings_path, notice: 'Your settings information are required!'
       return
     end
 
@@ -49,14 +50,27 @@ class CampaignsController < ApplicationController
       begin
         campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
         if campaign_user.draft?
-          UserMailer.campaign_email(_user, params[:subject], params[:content]).deliver_now
-          campaign_user.sent!
+          UserMailer.campaign_email(campaign_user, params[:subject], params[:content]).deliver_now
+          campaign_user.processed!
         end
       rescue => e
         Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")
       end
     end
-    redirect_to @campaign, notice: 'Emails was successfully sent!'
+    redirect_to @campaign, notice: 'Emails were successfully sent!'
+  end
+
+  # This method handling requests from Sendgrid Event Notification
+  # It updates sent emails statuses
+  # Info: https://sendgrid.com/docs/API_Reference/Webhooks/event.html
+  def event_receiver
+    data_parsed = JSON.parse(request.raw_post)
+
+    data_parsed.each do |info|
+      campaign_user = CampaignUser.find_by(id: info['campaign_user_id'])
+      campaign_user.update(status: info['event']) if campaign_user
+    end
+    head :no_content
   end
 
   private

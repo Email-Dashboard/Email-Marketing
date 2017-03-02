@@ -14,7 +14,7 @@ class CampaignUser < ApplicationRecord
   belongs_to :campaign
   belongs_to :user
 
-  enum status: %w(draft sent delivered not_delivered read)
+  enum status: %w(draft processed dropped delivered deferred bounce open click spamreport unsubscribe group_unsubscribe group_resubscribe)
 
   # custom validation for account uniqueness
   validate :validate_sources_accounts
