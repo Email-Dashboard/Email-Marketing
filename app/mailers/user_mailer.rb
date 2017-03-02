@@ -1,9 +1,8 @@
 class UserMailer < ApplicationMailer
-  def campaign_email(_user, _campaign, _subject, _content = '')
-    @user    = _user
+  def campaign_email(campaign_user, _subject, _content = '')
+    @user    = campaign_user.user
     @subject = _subject
     @content = _content
-    category = "Campaign-#{_campaign.id}"
-    send_email_with_delivery_options(@user, @subject, category)
+    send_email_with_delivery_options(campaign_user, @subject)
   end
 end
