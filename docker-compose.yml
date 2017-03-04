@@ -16,8 +16,14 @@ services:
 
   web:
     image: mojilala/smart-emailing:latest
+    pull: true
     volumes:
       - /your/db/store/path:/var/db
     environment:
       VIRTUAL_HOST: yourhost.com
       SECRET_KEY_BASE: yourSercretKeyBase
+
+  sidekiq:
+    build: /home/ubuntu/apps/rankings/current
+    restart: always
+    command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'

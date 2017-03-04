@@ -1,7 +1,6 @@
 class CampaignsController < ApplicationController
   before_action      :authenticate_account!, except: :event_receiver
   before_action      :set_campaign, only: [:show, :destroy, :send_emails]
-  before_action      :set_campaign_users, only: :create
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
@@ -20,16 +19,16 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @campaign = current_account.campaigns.new(campaign_params)
-    @campaign.users = @campaign_users
-    @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
-    respond_to do |format|
-      if @campaign.save
-        format.html { redirect_to @campaign, notice: 'Campaign was successfully created.' }
-      else
-        format.html { render :new }
-      end
-    end
+    # @campaign = current_account.campaigns.new(campaign_params)
+    # @campaign.users = @campaign_users
+    # @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
+
+    CreateCampaignJob.perform_later(params[:q],
+                                    campaign_params.to_hash,
+                                    current_account.id)
+
+    redirect_to campaigns_path, notice: 'Your campaign ll create in a few minutes.'
+
   end
 
   def destroy
@@ -78,16 +77,6 @@ class CampaignsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
     @campaign = current_account.campaigns.find(params[:id])
-  end
-
-  def set_campaign_users
-    @campaign_users = if params[:q] == 'all'
-                        current_account.users.all
-                      else
-                        query = Rack::Utils.parse_nested_query(params[:q]) # convert string params to hash
-                        q = current_account.users.ransack(query)
-                        q.result(distinct: true)
-                      end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
