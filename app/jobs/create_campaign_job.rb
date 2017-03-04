@@ -10,17 +10,20 @@ class CreateCampaignJob < ApplicationJob
     current_account = Account.find account_id
 
     # Set Campaign Users from the query
-    @campaign_users = if query == 'all'
-                        current_account.users.all
-                      else
-                        query = Rack::Utils.parse_nested_query(query) # convert string params to hash
-                        q = current_account.users.ransack(query)
-                        q.result(distinct: true)
-                      end
+    campaign_users = if query == 'all'
+                       current_account.users.all
+                     else
+                       query = Rack::Utils.parse_nested_query(query) # convert string params to hash
+                       q = current_account.users.ransack(query)
+                       q.result(distinct: true)
+                     end
 
 
-    @campaign = current_account.campaigns.new(campaign_params)
-    @campaign.users = @campaign_users
-    @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
+    campaign = current_account.campaigns.new(campaign_params)
+    campaign.users = campaign_users
+    campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
+    unless campaign.save
+      Rails.logger.info("CAMPAIGN NOT SAVE: #{campaign.errors.messages}")
+    end
   end
 end

@@ -27,7 +27,7 @@ class CampaignsController < ApplicationController
                                     campaign_params.to_hash,
                                     current_account.id)
 
-    redirect_to campaigns_path, notice: 'Your campaign ll create in a few minutes.'
+    redirect_to campaigns_path, notice: 'Your campaign is creating... It will take a few seconds, refresh the page to see changes.'
 
   end
 
