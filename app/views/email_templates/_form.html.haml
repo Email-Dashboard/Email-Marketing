@@ -11,11 +11,13 @@
     = f.label 'Mail Subject'
     = f.text_field :subject, class: 'form-control'
 
-    = f.label 'Mail Content'
-    = f.text_area :body, class: 'form-control', rows: 5
+    %br
+    %b Paste your html mail content.
+    %a{ href: 'https://htmlg.com/html-editor/', target: '_blank' } Example html editor.
+    = f.text_area :body, class: 'form-control', rows: 8
 
     %p.text-muted
       To put each user name in the emails use: [*NAME*] keyword instead of name. Dear [*NAME*], etc...
 
     .actions
-      = f.submit 'Save Email Template', class: 'btn btn-primary'
+      = f.submit 'Submit', class: 'btn btn-primary'

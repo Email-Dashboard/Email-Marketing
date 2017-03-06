@@ -22,5 +22,5 @@
           - template.campaigns.each do |campaign|
             %label.label-info
               = campaign.name
-          %td= link_to 'Edit', edit_email_template_path(template)
-          %td= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Edit', edit_email_template_path(template), class: 'btn btn-sm btn-warning'
+          %td= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'

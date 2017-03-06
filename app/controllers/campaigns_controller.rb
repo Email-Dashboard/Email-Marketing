@@ -46,11 +46,18 @@ class CampaignsController < ApplicationController
       return
     end
 
+    unless @campaign.email_template.present?
+      template = current_account.email_templates.create(subject: params[:subject],
+                                                        body: params[:content])
+      @campaign.update(email_template_id: template.id)
+    end
+
+
     @campaign.users.each do |_user|
       begin
         campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
         if campaign_user.draft?
-          UserMailer.campaign_email(campaign_user, params[:subject], params[:content]).deliver_now
+          UserMailer.campaign_email(campaign_user).deliver_now
           campaign_user.processed!
         end
       rescue => e

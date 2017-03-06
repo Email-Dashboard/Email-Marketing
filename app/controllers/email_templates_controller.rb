@@ -40,6 +40,7 @@ class EmailTemplatesController < ApplicationController
 
   # DELETE /email_templates/1
   def destroy
+    @email_template.campaigns.update_all(email_template_id: nil)
     @email_template.destroy
     respond_to do |format|
       format.html { redirect_to email_templates_url, notice: 'Email template was successfully destroyed.' }
