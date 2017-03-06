@@ -6,7 +6,11 @@ class UsersController < ApplicationController
     # Filter with ransack
     @q = current_account.users.ransack(params[:q])
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
-    @users = @q.result(distinct: true).page(params[:page])
+    if params[:limit_count].present?
+      @users = @q.result(distinct: true).limit(params[:limit_count])
+    else
+      @users = @q.result(distinct: true).page(params[:page])
+    end
   end
 
   def new; end
