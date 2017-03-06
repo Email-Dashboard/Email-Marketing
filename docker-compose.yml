@@ -14,18 +14,28 @@ services:
     environment:
       - VIRTUAL_HOST=whoami.local
 
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server
+    ports:
+      - 6379:6379
+
   web:
-    image: mojilala/smart-emailing:latest
-    pull: true
+    image: mojilala/smart-emailing:1.0.2.beta2
     volumes:
       - /your/db/store/path:/var/db
     environment:
       VIRTUAL_HOST: yourhost.com
       SECRET_KEY_BASE: yourSercretKeyBase
+    links:
+      - redis:redis
+      - sidekiq:sidekiq
 
   sidekiq:
-    build: .
+    image: mojilala/smart-emailing:1.0.2.beta2
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
       - .:/smart-emailing
+    links:
+      - redis:redis
