@@ -24,6 +24,8 @@ services:
       SECRET_KEY_BASE: yourSercretKeyBase
 
   sidekiq:
-    build: /home/ubuntu/apps/rankings/current
+    build: .
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
+    volumes:
+      - .:/smart-emailing

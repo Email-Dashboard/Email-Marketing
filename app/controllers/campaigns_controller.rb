@@ -19,10 +19,8 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    # @campaign = current_account.campaigns.new(campaign_params)
-    # @campaign.users = @campaign_users
-    # @campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
-
+    # Assign users campaign in a sidekiq worker
+    # It can take awhile in large users count
     CreateCampaignJob.perform_later(params[:q],
                                     campaign_params.to_hash,
                                     current_account.id)
