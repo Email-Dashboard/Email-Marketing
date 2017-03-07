@@ -22,6 +22,7 @@ class CampaignsController < ApplicationController
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
     CreateCampaignJob.perform_later(params[:q],
+                                    params[:limit_count],
                                     campaign_params.to_hash,
                                     current_account.id)
 
@@ -55,7 +56,7 @@ class CampaignsController < ApplicationController
         campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
         if campaign_user.draft?
           UserMailer.campaign_email(campaign_user).deliver_now
-          campaign_user.processed!
+          campaign_user.update(sent_at: Time.now, status: :processed)
         end
       rescue => e
         Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")

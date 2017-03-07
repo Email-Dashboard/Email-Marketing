@@ -58,3 +58,4 @@ gem 'devise', '~> 4.2'
 gem 'haml-rails', '~> 0.9'
 gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack'
+gem "select2-rails"
