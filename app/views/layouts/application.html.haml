@@ -61,6 +61,10 @@
                       %i.glyphicon.glyphicon-heart
                       Templates
                   %li.current
+                    %a{:href => tags_path, :style => 'font-size: 12px;'}
+                      %i.glyphicon.glyphicon-tags
+                      Tag Managment
+                  %li.current
                     %a{:href => settings_path}
                       %i.glyphicon.glyphicon-cog
                       Settings
@@ -69,5 +73,5 @@
             - if notice
               .alert.alert-warning
                 %p#notice= notice
-                
+
             = yield
