@@ -24,6 +24,11 @@
                 %td= f.label 'Campaigns Tags Name contains'
                 %td= f.search_field :campaigns_tags_name_cont, class: 'form-control'
               %tr
+                %td
+                  %b Filter Limit
+                  %small (Maximum users count)
+                %td= number_field_tag 'limit_count', params[:limit_count], class: 'form-control'
+              %tr
                 %td= f.label :created_at_greater_than
                 %td= f.date_field :created_at_gt, class: 'form-control'
           %table.table.table-condensed.table-hover.table-bordered
