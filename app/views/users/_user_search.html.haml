@@ -33,6 +33,9 @@
               %tr
                 %td= f.label :created_at_greater_than
                 %td= f.date_field :created_at_gt, class: 'form-control'
+              %tr
+                %td= f.label :email_sent_at_greater_than
+                %td= f.date_field :campaign_users_sent_at_gt, class: 'form-control'
           Grouping Combinator:
           .btn= f.select :m, options_for_select(%w(and or).map{ |ps| [ps, ps] }, @q.m), include_blank: false
 
