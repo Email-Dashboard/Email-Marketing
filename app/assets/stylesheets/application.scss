@@ -13,6 +13,8 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "select2";
+ @import "select2-bootstrap";
 
  body {
    font-family: 'Open Sans', sans-serif;
@@ -27,44 +29,6 @@
    margin-left: 0px !important;
    margin-right: 0px !important;
    margin-top: 30px;
- }
-
- /* Footer */
-
- footer{
-    background-color:#2c3742;
-    box-shadow:inset 0px 0px 3px #111;
-    color:#fff;
-    font-size:14px;
-    line-height:25px;
-    padding:10px 0px 10px 0px;
-    bottom: 0px;
-    position: fixed;
-    width: 100%;
- }
-
- footer a{
-    color:#eee;
-    text-decoration:none;
-    border-bottom:1px dotted #888;
- }
-
- footer a:hover{
-    color:#aaa;
-    text-decoration:none;
-    border:0px;
- }
-
- footer hr{
- 	margin-top: 10px;
- 	margin-bottom: 10px;
- 	border-top: #000 1px solid;
- 	border-bottom: #212121 1px solid;
- }
-
- footer .copy{
-    font-size:13px;
-    margin: 5px 0px;
  }
 
  /* Logo & Navigation */
@@ -697,10 +661,4 @@
   padding: 2px 7px;
   background-color: #5bc0de;
   border-radius: 5px;
-}
-
-.tag-select {
-  display: inline-table;
-  background-color: #eeeeee;
-  margin: 1px;
 }
