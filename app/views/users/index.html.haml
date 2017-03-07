@@ -17,7 +17,7 @@
         - else
           %span.badge= @q.result(distinct: true).count
     .col-md-6.text-right
-      = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].present? ? params[:q] : 'all')), class: 'btn btn-success'
+      = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].present? ? params[:q] : 'all'), limit: params[:limit_count]), class: 'btn btn-success'
     %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr

@@ -5,7 +5,7 @@ class CreateCampaignJob < ApplicationJob
     retry_job queue: :high_priority
   end
 
-  def perform(query, campaign_params, account_id)
+  def perform(query, limit, campaign_params, account_id)
 
     current_account = Account.find account_id
 
@@ -17,7 +17,7 @@ class CreateCampaignJob < ApplicationJob
                        q = current_account.users.ransack(query)
                        q.result(distinct: true)
                      end
-
+    campaign_users = campaign_users.limit(limit) if limit.present?
 
     campaign = current_account.campaigns.new(campaign_params)
     campaign.users = campaign_users

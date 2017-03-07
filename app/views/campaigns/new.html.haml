@@ -22,6 +22,7 @@
       = f.select 'email_template_id', content_tag(:option, 'New Template', value: 'new_template') + options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
 
     = hidden_field_tag 'q', params[:q]
+    = hidden_field_tag 'limit_count', params[:limit]
 
     .actions
       = f.submit 'Save', class: 'btn btn-primary'
