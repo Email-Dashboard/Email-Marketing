@@ -25,14 +25,14 @@ services:
   web:
     depends_on:
       - 'redis'
-    image: mojilala/smart-emailing:1.0.2.beta1
+    image: mojilala/smart-emailing
     volumes:
-      - /var/db:/var/db
+      - /your/db/store/path:/var/db
     environment:
       VIRTUAL_HOST: yourhost.com
       SECRET_KEY_BASE: yourSercretKeyBase
-      SIDEKIQ_USERNAME: adminMojilala
-      SIDEKIQ_PASSWORD: 12341234
+      SIDEKIQ_USERNAME: yourSidekiqUsername
+      SIDEKIQ_PASSWORD: yourSidekiqPassword
     links:
       - redis:redis
       - sidekiq:sidekiq
@@ -40,11 +40,11 @@ services:
   sidekiq:
     depends_on:
       - 'redis'
-    image: mojilala/smart-emailing:1.0.2.beta1
+    image: mojilala/smart-emailing
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
-      - /var/db:/var/db
+      - /your/db/store/path:/var/db
     environment:
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword
