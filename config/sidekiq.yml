@@ -1,0 +1,30 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -e production -C /var/www/vhosts/movielala.com/workers_app/current/config/sidekiq.yml
+---
+:verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:concurrency:  25
+:timeout: 10
+
+production:
+  :concurrency: 40
+
+:limits:
+  low_priority: 10
+
+
+process_limits:
+  test: 1
+
+:queues:
+  - [high_priority, 1]
+  - [low_priority, 3]
+  - [default, 2]
+
+
+:ignore_queues:
+  - [no_ignore, 10]
+
+:retry:
+  - [test, 2]

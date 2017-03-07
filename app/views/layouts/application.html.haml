@@ -66,4 +66,8 @@
                       Settings
 
           .col-md-10
+            - if notice
+              .alert.alert-warning
+                %p#notice= notice
+                
             = yield

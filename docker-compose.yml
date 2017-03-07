@@ -14,10 +14,40 @@ services:
     environment:
       - VIRTUAL_HOST=whoami.local
 
-  web:
-    image: mojilala/smart-emailing:latest
+  redis:
+    image: redis:3.2-alpine
+    command: redis-server --requirepass yourpassword
+    ports:
+      - '6379:6379'
     volumes:
-      - /your/db/store/path:/var/db
+      - 'redis:/var/lib/redis/data'
+
+  web:
+    depends_on:
+      - 'redis'
+    image: mojilala/smart-emailing:1.0.2.beta1
+    volumes:
+      - /var/db:/var/db
     environment:
       VIRTUAL_HOST: yourhost.com
       SECRET_KEY_BASE: yourSercretKeyBase
+      SIDEKIQ_USERNAME: adminMojilala
+      SIDEKIQ_PASSWORD: 12341234
+    links:
+      - redis:redis
+      - sidekiq:sidekiq
+
+  sidekiq:
+    depends_on:
+      - 'redis'
+    image: mojilala/smart-emailing:1.0.2.beta1
+    restart: always
+    command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
+    volumes:
+      - /var/db:/var/db
+    environment:
+      REDIS_HOST_URL: redis
+      REDIS_PASSWORD: yourpassword
+
+volumes:
+  redis:

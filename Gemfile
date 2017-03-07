@@ -48,6 +48,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+
+
+gem 'sidekiq', '< 5'
+gem 'redis-namespace'
+
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'devise', '~> 4.2'
 gem 'haml-rails', '~> 0.9'
