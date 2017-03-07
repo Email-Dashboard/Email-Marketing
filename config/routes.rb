@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
+  resources :tags
+
   get 'settings', to: 'home#settings'
   post 'update_settings', to: 'home#update_settings'
 

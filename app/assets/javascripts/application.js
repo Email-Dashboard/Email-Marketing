@@ -13,8 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-
+//= require bootstrap
+//= require editable/bootstrap-editable
+//= require editable/rails
 //= require select2-full
+
 $( document ).ready(function() {
   $('.select2').select2({
       theme: "bootstrap",
