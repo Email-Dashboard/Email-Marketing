@@ -1,18 +1,17 @@
 ## Smart Email Marketing
 
-A simple dockerized app to manage your email, campaigns and subscribers with taggings.
+A simple dockerized app to manage your emails and campaigns with taggings.
 
 ## Features
 
 **Email Campaign Management:**
 
 * Import users from csv
-* Tag imported user list 
-* Filter users with advanced search
-* Start a campaign with filtered users and campaign tags
-* Select an email template or create new one
-* Set your SMPT credentials 
-* Send your campaign email to users
+* Add custom data to users
+* User's tagging and camaign's tagging
+* Filter users with advanced search and create a camaign from filtered result
+* Email templates
+* Email stats from sendgrid
   
 ## Installation
 Install the most recent version of the Docker Engine for your platform using the [official Docker releases](http://docs.docker.com/engine/installation/), which can also be installed using:
