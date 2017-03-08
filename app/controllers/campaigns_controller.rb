@@ -21,7 +21,8 @@ class CampaignsController < ApplicationController
   def create
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
-    CreateCampaignJob.perform_later(params[:q],
+
+    CreateCampaignJob.perform_now(params[:q],
                                     params[:limit_count],
                                     campaign_params.to_hash,
                                     current_account.id)
@@ -44,13 +45,7 @@ class CampaignsController < ApplicationController
       return
     end
 
-    unless @campaign.email_template.present?
-      template = current_account.email_templates.create(subject: params[:subject],
-                                                        body: params[:content])
-      @campaign.update(email_template_id: template.id)
-    end
-
-
+    # TODO move to job
     @campaign.users.each do |_user|
       begin
         campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)

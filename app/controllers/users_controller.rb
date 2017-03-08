@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @all_tags = ActsAsTaggableOn::Tag.order('taggings_count desc')
     # Filter with ransack
-    @q = current_account.users.ransack(params[:q])
+    @q = current_account.users.includes(:user_attributes).ransack(params[:q])
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
     if params[:limit_count].present?
       @users = @q.result(distinct: true).limit(params[:limit_count])

@@ -14,10 +14,10 @@
     %br
     %b Paste your html mail content.
     %a{ href: 'https://htmlg.com/html-editor/', target: '_blank' } Example html editor.
-    = f.text_area :body, class: 'form-control', rows: 8
+    = f.text_area :body, class: 'form-control', rows: 28
 
     %p.text-muted
-      To put each user name in the emails use: [*NAME*] keyword instead of name. Dear [*NAME*], etc...
+      To put each user name in the emails use: <%= self.name %> keyword instead of name etc... You can use ruby codes here.
 
     .actions
       = f.submit 'Submit', class: 'btn btn-primary'

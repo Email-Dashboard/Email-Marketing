@@ -1,7 +1,1 @@
-%table.main
-  %tr
-    %td.wrapper
-      %table{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-        %tr
-          %td
-            = simple_format @content.gsub('[*NAME*]', @user.name)
+= @content.html_safe

@@ -42,19 +42,28 @@ class Account < ApplicationRecord
     imported_user_count = 0
     import_errors = []
 
-    CSV.foreach(csv_file.path) do |row|
-      new_user = users.new(name: row[0], email: row[1])
+    headers = CSV.open(csv_file.path, 'r') { |csv| csv.first }
+
+    CSV.foreach(csv_file.path, headers: true) do |row|
+      new_user = users.new(name: row[headers.find_index('name')], email: row[headers.find_index('email')])
 
       new_user.tag_list.add(_tags.downcase.split(',')) if _tags.present?
+
       if new_user.save
         imported_user_count += 1
+        # Save key val attributes
+        (headers - %w(email name)).each { |header| new_user.send("#{header}=", row[headers.find_index(header)]) }
+
       else
         import_errors << new_user.errors.details.try(:values).try(:first).try(:first).try(:values)
       end
     end
+
     { imported_users: imported_user_count, import_errors: import_errors }
+
   rescue => e
     Rails.logger.info("ERROR WHILE IMPORTING CSV: #{e}")
+
     { imported_users: 0, import_errors: e }
   end
 end
