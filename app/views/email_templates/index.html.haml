@@ -6,18 +6,17 @@
   %thead
     %tr
       %th Subject
-      %th Body
       %th Campaigns
-      %th.text-center #
-      %th.text-center #
+      %th.text-center{width: '200px'} #
   %tbody
     - @email_templates.each do |template|
       %tr
         %td= template.subject
-        %td= simple_format(template.body)
         %td
           - template.campaigns.each do |campaign|
             %label.label-info
               = campaign.name
-          %td= link_to 'Edit', edit_email_template_path(template), class: 'btn btn-sm btn-warning'
-          %td= link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+          %td
+            = link_to 'Edit', edit_email_template_path(template), class: 'btn btn-sm btn-warning'
+            = link_to 'Show', template, class: 'btn btn-sm btn-default'
+            = link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
