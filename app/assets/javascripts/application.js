@@ -10,10 +10,10 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require bootstrap
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require bootstrap
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require select2-full
