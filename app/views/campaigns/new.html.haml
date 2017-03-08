@@ -19,7 +19,9 @@
 
     .form-control{style: 'margin-top: 2%;'}
       = f.label :email_template
-      = f.select 'email_template_id', content_tag(:option, 'New Template', value: 'new_template') + options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
+      = f.select 'email_template_id', options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
+      or
+      = link_to 'create new template.', new_email_template_path, target: '_blank'
 
     = hidden_field_tag 'q', params[:q]
     = hidden_field_tag 'limit_count', params[:limit]

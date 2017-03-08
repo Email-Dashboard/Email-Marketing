@@ -1,6 +1,7 @@
 class CampaignsController < ApplicationController
   before_action      :authenticate_account!, except: :event_receiver
   before_action      :set_campaign, only: [:show, :destroy, :send_emails]
+  before_action      :check_new_campaign_avaibility, only: :new
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
@@ -12,9 +13,6 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    unless params[:q]
-      redirect_to users_path, notice: 'You can\'t create campaign without filter.'
-    end
     @campaign = Campaign.new
   end
 
@@ -63,6 +61,8 @@ class CampaignsController < ApplicationController
   # This method handling requests from Sendgrid Event Notification
   # It updates sent emails statuses
   # Info: https://sendgrid.com/docs/API_Reference/Webhooks/event.html
+  # Go to: https://app.sendgrid.com/settings/mail_settings
+  # Event Notification -> <yourhost.com>/campaigns/event_receiver
   def event_receiver
     data_parsed = JSON.parse(request.raw_post)
 
@@ -74,6 +74,18 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def check_new_campaign_avaibility
+    # Check if any filter exist
+    unless params[:q]
+      redirect_to users_path, notice: 'You can\'t create campaign without filter.'
+    end
+
+    # redirect_to templates path if account not have any template
+    unless current_account.email_templates.present?
+      redirect_to new_email_template_path, notice: 'You don\'t have any email template to create campaign. Create one first!'
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
