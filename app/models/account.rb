@@ -44,7 +44,7 @@ class Account < ApplicationRecord
 
     headers = CSV.open(csv_file.path, 'r') { |csv| csv.first }
 
-    CSV.foreach(csv_file.path) do |row|
+    CSV.foreach(csv_file.path, headers: true) do |row|
       new_user = users.new(name: row[headers.find_index('name')], email: row[headers.find_index('email')])
 
       new_user.tag_list.add(_tags.downcase.split(',')) if _tags.present?
