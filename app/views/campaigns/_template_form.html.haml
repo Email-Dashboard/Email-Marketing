@@ -1,10 +1,10 @@
-= form_tag send_emails_campaign_path(@campaign), method: :post do
-  .col-md-12
-    %b= @campaign.email_template.subject
-  .col-md-12
-    %hr
-    = @campaign.email_template.body.try(:html_safe)
-    %hr
+- body = Tilt::ERBTemplate.new { "#{@campaign.email_template.body}" }
+- subject = Tilt::ERBTemplate.new { "#{@campaign.email_template.subject}" }
 
+.yui3-cssreset
+  = subject.render(User.first).html_safe
+  = body.render(User.first).html_safe
+
+= form_tag send_emails_campaign_path(@campaign), method: :post do
   .actions
     = submit_tag 'Send Campaign Emails', class: 'btn btn-primary'
