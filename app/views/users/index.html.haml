@@ -4,25 +4,28 @@
       .portlet-title{'data-toggle': 'collapse', 'data-target': '#search-body'}
         %h4
           User Search
-          %span.glyphicon.glyphicon-chevron-down.pull-right
-      .portlet-body.collapse{id: 'search-body', class: "#{ 'in' if params[:q].present? }" }
-        = render partial: 'users/user_search'
+      .portlet-body
+        -# = render partial: 'users/basic_search'
+        = render partial: 'users/advanced_search'
 
   .panel-body
-    .col-md-6
+    .col-md-3
       %h4
         Listing User
         - if params[:limit_count].present?
           %span.badge= @users.count
         - else
           %span.badge= @q.result(distinct: true).count
-    .col-md-6.text-right
-      = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].present? ? params[:q] : 'all'), limit: params[:limit_count]), class: 'btn btn-success'
-      or
-      = form_tag add_users_campaigns_path, method: :post do
-        = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
-        = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
-        = submit_tag 'Add to selected campaign', class: 'btn btn-primary'
+    .col-md-9
+      .col-md-4
+        = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].present? ? params[:q] : 'all'), limit: params[:limit_count]), class: 'btn btn-success'
+      - if current_account.campaigns.present?
+        .col-md-8.text-right
+          or add listed user to an existing campaign.
+          = form_tag add_users_campaigns_path, method: :post do
+            = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
+            = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
+            = submit_tag 'Add to selected campaign', class: 'btn btn-primary'
     %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr
