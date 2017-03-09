@@ -1,4 +1,4 @@
-## Smart Email Marketing
+## 📬 Smart Email Marketing
 
 A simple dockerized app to manage your emails and campaigns with taggings.
 
@@ -46,8 +46,7 @@ cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smar
 cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
 ```
 
-### Run
-
+### 🚀 Run and ♥️
 ```
 sudo docker-compose build
 sudo docker-compose run web rake db:migrate
