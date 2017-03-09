@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
 
     collection do
+      post :add_users
       post 'event_receiver'
     end
   end

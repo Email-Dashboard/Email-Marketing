@@ -12,6 +12,20 @@ class CampaignsController < ApplicationController
     @campaign_users = @campaign.campaign_users.page(params[:page])
   end
 
+  # TODO @sadik move to job.
+  def add_users
+    campaign = current_account.campaigns.find(params[:campaign_id])
+    filter = JSON.parse(params[:filter])
+    current_account.users.ransack(filter).result(distinct: true).each do |user|
+      begin
+        campaign.campaign_users.create(user_id: user.id)
+      rescue => ex
+        Rails.logger.info ex
+      end
+    end
+    redirect_to campaign
+  end
+
   def new
     @campaign = Campaign.new
   end
