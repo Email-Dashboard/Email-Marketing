@@ -2,6 +2,9 @@
   = form_tag update_settings_path, method: :post do
     = label_tag 'Send emails from email:'
     = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
+
+    = label_tag 'Reply to:'
+    = text_field_tag 'smtp[reply_to]', @settings.reply_to, class: 'form-control', placeholder: 'example@yourdomain.com'
     %hr
     %h4.text-muted SMTP Settings
 

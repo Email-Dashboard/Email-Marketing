@@ -17,6 +17,6 @@ class HomeController < ApplicationController
   private
 
   def smtp_params
-    params.require(:smtp).permit(:from_email, :address, :port, :domain, :user_name, :password, :provider)
+    params.require(:smtp).permit(:from_email, :reply_to, :address, :port, :domain, :user_name, :password, :provider)
   end
 end

@@ -21,6 +21,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: campaign_user.user.email,
+      reply_to: settings.reply_to.presence || settings.try(:from_email),
       subject: subject,
       from: settings.try(:from_email),
       delivery_method_options: delivery_options
