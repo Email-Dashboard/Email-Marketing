@@ -5,8 +5,10 @@
         %h4
           User Search
           %span.glyphicon.glyphicon-chevron-down.pull-right
-      .portlet-body.collapse{id: 'search-body', class: "#{ 'in' if params[:q].present? }" }
-        = render partial: 'users/user_search'
+      .portlet-body
+        -# .collapse{id: 'search-body', class: "#{ 'in' if params[:q].present? }" }
+        -# = render partial: 'users/user_search'
+        = render partial: 'users/advanced_search'
 
   .panel-body
     .col-md-6
@@ -53,3 +55,4 @@
       = paginate @users
     .col-sm-12.text-right
       = link_to 'Import New Users From CSV', new_user_path, class: 'btn btn-primary'
+      

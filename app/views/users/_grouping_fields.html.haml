@@ -1,0 +1,7 @@
+%tr
+  %td= f.object_name
+
+%tr
+  %td= "Match #{f.combinator_select} conditions"
+= f.condition_fields do |c|
+  = render 'condition_fields', f: c
