@@ -8,41 +8,48 @@ A simple dockerized app to manage your emails and campaigns with taggings.
 
 * Import users from csv
 * Add custom data to users
-* User's tagging and camaign's tagging
+* User's tagging and campaign's tagging
 * Filter users with advanced search and create a camaign from filtered result
 * Email templates
 * Email stats from sendgrid
   
 ## Installation
+
+### Install Docker
 Install the most recent version of the Docker Engine for your platform using the [official Docker releases](http://docs.docker.com/engine/installation/), which can also be installed using:
 
 ```bash
 wget -qO- https://get.docker.com/ | sh
 ```
-    
+
+### Install Docker Compose
 Install docker compose from the [official page](https://docs.docker.com/compose/install/).    
 
-Copy the `docker-compose.yml` from this project to under new directory in your system.
-   
-Change `/your/db/store/path`, `yourhost.com` and `yourSercretKeyBase` with your own.
-   
-```yml
-
-  web:
-    image: mojilala/smart-emailing:latest
-    volumes:
-      - /your/db/store/path:/var/db
-    environment:
-      VIRTUAL_HOST: yourhost.com
-      SECRET_KEY_BASE: yourSercretKeyBase
-```   
-then run:
-   
-```bash
-
-docker-compose run web rake db:migrate
-
-docker-compose up -d
+```
+curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 ```
 
 
+### Create data folders
+```
+mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
+```
+
+### Download nginx settings
+```
+cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/nginx/my_proxy.conf
+```
+
+### Download docker-compose.yml
+```
+cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
+```
+
+### Run
+
+```
+sudo docker-compose build
+sudo docker-compose run web rake db:migrate
+sudo docker-compose up -d
+```

@@ -7,12 +7,7 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
-    container_name: whoami
-    environment:
-      - VIRTUAL_HOST=whoami.local
+      - /datadrive/data/nginx/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
 
   redis:
     image: redis:3.2-alpine
@@ -20,19 +15,21 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - 'redis:/var/lib/redis/data'
+      - /datadrive/data/redis:/var/lib/redis/data
 
   web:
     depends_on:
       - 'redis'
     image: mojilala/smart-emailing
     volumes:
-      - /your/db/store/path:/var/db
+      - /datadrive/data/db:/var/db
     environment:
-      VIRTUAL_HOST: yourhost.com
-      SECRET_KEY_BASE: yourSercretKeyBase
-      SIDEKIQ_USERNAME: yourSidekiqUsername
-      SIDEKIQ_PASSWORD: yourSidekiqPassword
+      VIRTUAL_HOST: yourdomain.com
+      SECRET_KEY_BASE: yourGeneratedSercretKeyBase828291234
+      SIDEKIQ_USERNAME: adminSidekiq
+      SIDEKIQ_PASSWORD: passwordSidekiq
+      REDIS_HOST_URL: redis
+      REDIS_PASSWORD: yourpassword
     links:
       - redis:redis
       - sidekiq:sidekiq
@@ -44,7 +41,7 @@ services:
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
-      - /your/db/store/path:/var/db
+      - /datadrive/data/db:/var/db
     environment:
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword
