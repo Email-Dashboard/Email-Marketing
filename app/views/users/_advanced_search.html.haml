@@ -1,0 +1,15 @@
+= search_form_for @q do |f|
+  = f.condition_fields do |c|
+    = render "condition_fields", f: c
+  %p
+    = link_to_add_fields "Add Conditions", f, :condition
+  .field.actions
+    Limit:
+    = number_field_tag 'limit_count', params[:limit_count]
+  .field.actions
+    Sort:
+    = f.sort_fields do |s|
+      = s.sort_select
+
+  .actions
+    = f.submit "Search", class: 'btn btn-primary'
