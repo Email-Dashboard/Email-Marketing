@@ -1,18 +1,15 @@
 = search_form_for @q do |f|
-  %table.table.table-condensed.table-bordered
-    %tbody
-      %tr
-        %td
-          %table.table.table-condensed.table-hover.table-bordered
-            %tbody
-              %tr
-                -# %td= f.label :name_cont
-                -# %td= f.search_field :name_cont, class: 'form-control'
-                = f.grouping_fields do |g|
-                  = render 'grouping_fields', f: g
-                  
-          Grouping Combinator:
-          .btn= f.select :m, options_for_select(%w(and or).map{ |ps| [ps, ps] }, @q.m), include_blank: false
+  = f.condition_fields do |c|
+    = render "condition_fields", f: c
+  %p
+    = link_to_add_fields "Add Conditions", f, :condition
+  .field.actions
+    Limit:
+    = number_field_tag 'limit_count', params[:limit_count]
+  .field.actions
+    Sort:
+    = f.sort_fields do |s|
+      = s.sort_select
 
-  = f.submit "Search", class: 'btn btn-info'
-  = link_to 'Clear', users_path, class: 'btn btn-warning actions'
+  .actions
+    = f.submit "Search", class: 'btn btn-primary'
