@@ -25,30 +25,30 @@ wget -qO- https://get.docker.com/ | sh
 ### Install Docker Compose
 Install docker compose from the [official page](https://docs.docker.com/compose/install/).    
 
-```
+```bash
 curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
 
 
 ### Create data folders
-```
+```bash
 mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
 
 ### Download nginx settings
-```
+```bash
 cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/nginx/my_proxy.conf
 ```
 
 ### Download docker-compose.yml
-```
+```bash
 cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
 ```
 
 ### Run
 
-```
+```bash
 sudo docker-compose build
 sudo docker-compose run web rake db:migrate
 sudo docker-compose up -d
