@@ -60,10 +60,6 @@ GEM
     autoprefixer-rails (6.6.1)
       execjs
     bcrypt (3.1.11)
-    better_errors (2.1.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
@@ -78,7 +74,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.2.x)
@@ -240,6 +235,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -284,7 +282,6 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (~> 4.0)
   annotate
-  better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.6)
   byebug
@@ -308,6 +305,7 @@ DEPENDENCIES
   select2-rails
   shoulda-matchers
   sidekiq (< 5)
+  sidekiq-unique-jobs
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
