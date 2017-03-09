@@ -54,6 +54,9 @@ sudo docker-compose run web rake db:migrate
 sudo docker-compose up -d
 ```
 
+## Tests
+There are no tests. PR's are welcome.
+
 ## Contributing
 
 1. Fork it
