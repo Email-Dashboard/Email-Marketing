@@ -1,6 +1,5 @@
 .group-fields{ 'data-object-name' => f.object_name }
   %p
-    - key = (f.object_name =~ /[0]/) ? :advanced_search_group_first : :advanced_search_group_rest
     = f.combinator_select
 
   .filters
