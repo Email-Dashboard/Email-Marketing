@@ -12,6 +12,7 @@ class UsersController < ApplicationController
              else
                @q.result(distinct: true).page(params[:page])
              end
+    @tatal_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
 
   def new; end
