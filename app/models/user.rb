@@ -24,20 +24,19 @@ class User < ApplicationRecord
   validates :email, :account, presence: true
 
   def method_missing(name, *args, &block)
-    return data[$1] if name.to_s =~ /^(\w*)$/
-    return data_setter($1, *args)  if name.to_s =~ /^(\w*)=$/
+    return data[Regexp.last_match(1)] if name.to_s =~ /^(\w*)$/
+    return data_setter(Regexp.last_match(1), *args) if name.to_s =~ /^(\w*)=$/
     super
   end
 
   def data
-    user_attributes.inject({}) do |result, element|
+    user_attributes.each_with_object({}) do |element, result|
       result[element.key] = element.value
-      result
     end
   end
 
   def data_setter(method, val)
-    attr = self.user_attributes.find_or_initialize_by(key: method)
+    attr = user_attributes.find_or_initialize_by(key: method)
     attr.value = val
     attr.save
   end

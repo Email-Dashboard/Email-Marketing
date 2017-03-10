@@ -3,6 +3,6 @@ class MailSetting < ApplicationRecord
 
   def all_present?
     from_email.present? && address.present? && port.present? &&
-    domain.present? && address.present? && user_name.present?
+      domain.present? && address.present? && user_name.present?
   end
 end

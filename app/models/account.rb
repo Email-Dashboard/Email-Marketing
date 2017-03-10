@@ -38,16 +38,16 @@ class Account < ApplicationRecord
 
   # Parse CSV file and create new users with tags
   # Returns how many users created and which values not created with details
-  def import_users_from_csv(csv_file, _tags)
+  def import_users_from_csv(csv_file, tags)
     imported_user_count = 0
     import_errors = []
 
-    headers = CSV.open(csv_file.path, 'r') { |csv| csv.first }
+    headers = CSV.open(csv_file.path, 'r', &:first)
 
     CSV.foreach(csv_file.path, headers: true) do |row|
       new_user = users.new(name: row[headers.find_index('name')], email: row[headers.find_index('email')])
 
-      new_user.tag_list.add(_tags.downcase.split(',')) if _tags.present?
+      new_user.tag_list.add(tags.downcase.split(',')) if tags.present?
 
       if new_user.save
         imported_user_count += 1
