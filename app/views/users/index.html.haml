@@ -25,7 +25,7 @@
               = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
               = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
               = hidden_field_tag 'limit', params[:limit_count]
-              = submit_tag 'Add to selected campaign', class: 'btn btn-primary'
+              = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
     %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr
