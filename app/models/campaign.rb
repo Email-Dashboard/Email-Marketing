@@ -11,12 +11,12 @@
 
 class Campaign < ApplicationRecord
   belongs_to :account
-  belongs_to :email_template, optional: true
+  belongs_to :email_template
 
   has_many :campaign_users
   has_many :users, through: :campaign_users
 
   acts_as_taggable # Alias for campaign tags
 
-  validates :name, :account, presence: true
+  validates :name, :email_template, :account, presence: true
 end
