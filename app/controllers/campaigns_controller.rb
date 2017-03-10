@@ -15,7 +15,10 @@ class CampaignsController < ApplicationController
   def add_users
     filter = JSON.parse(params[:filter])
 
-    AddUsersToCampaignJob.perform_now(params[:campaign_id], filter)
+    AddUsersToCampaignJob.perform_now(current_account.id,
+                                      params[:campaign_id],
+                                      filter,
+                                      params[:limit])
 
     redirect_to campaigns_path, notice: 'Your users importing to existing campaign. It can take a few seconds.'
   end
