@@ -12,9 +12,9 @@
     .col-md-3
       %h4
         Listing User
-        %span.badge= @tatal_user_count
+        %span.badge= @total_user_count
     .col-md-9
-      - if @tatal_user_count > 0
+      - if @total_user_count > 0
         .col-md-4
           = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].presence || 'all'),
             limit: params[:limit_count]), class: 'btn btn-success'
