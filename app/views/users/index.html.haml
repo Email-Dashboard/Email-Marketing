@@ -16,8 +16,8 @@
     .col-md-9
       - if @total_user_count > 0
         .col-md-4
-          = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].presence || 'all'),
-            limit: params[:limit_count]), class: 'btn btn-success'
+          = link_to 'New Campaign For Listed Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+            limit: params[:limit_count] }), class: 'btn btn-success'
         - if current_account.campaigns.present?
           .col-md-8.text-right
             or add listed user to an existing campaign.

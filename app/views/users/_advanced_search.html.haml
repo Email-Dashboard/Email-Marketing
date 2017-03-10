@@ -1,8 +1,11 @@
-= search_form_for @q do |f|
-  = f.condition_fields do |c|
-    = render "condition_fields", f: c
+= search_form_for @q, html: { method: :get }  do |f|
+
+  = f.grouping_fields do |g|
+    = render 'grouping_fields', :f => g
+
   %p
-    = link_to_add_fields "Add Conditions", f, :condition
+    = link_to_add_fields "Add Search Grouping", f, :grouping
+
   .field.actions
     Limit:
     = number_field_tag 'limit_count', params[:limit_count]
