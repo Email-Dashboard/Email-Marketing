@@ -253,6 +253,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
     spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -322,6 +325,7 @@ DEPENDENCIES
   select2-rails
   shoulda-matchers
   sidekiq (< 5)
+  sidekiq-unique-jobs
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

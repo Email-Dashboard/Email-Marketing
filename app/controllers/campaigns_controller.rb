@@ -12,18 +12,12 @@ class CampaignsController < ApplicationController
     @campaign_users = @campaign.campaign_users.page(params[:page])
   end
 
-  # TODO @sadik move to job.
   def add_users
-    campaign = current_account.campaigns.find(params[:campaign_id])
     filter = JSON.parse(params[:filter])
-    current_account.users.ransack(filter).result(distinct: true).each do |user|
-      begin
-        campaign.campaign_users.create(user_id: user.id)
-      rescue => ex
-        Rails.logger.info ex
-      end
-    end
-    redirect_to campaign
+
+    AddUsersToCampaignJob.perform_now(params[:campaign_id], filter)
+
+    redirect_to campaigns_path, notice: 'Your users importing to existing campaign. It can take a few seconds.'
   end
 
   def new
@@ -33,14 +27,12 @@ class CampaignsController < ApplicationController
   def create
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
-
     CreateCampaignJob.perform_now(params[:q],
-                                    params[:limit_count],
-                                    campaign_params.to_hash,
-                                    current_account.id)
+                                  params[:limit_count],
+                                  campaign_params.to_hash,
+                                  current_account.id)
 
     redirect_to campaigns_path, notice: 'Your campaign is creating... It will take a few seconds, refresh the page to see changes.'
-
   end
 
   def destroy
@@ -57,19 +49,10 @@ class CampaignsController < ApplicationController
       return
     end
 
-    # TODO move to job
-    @campaign.users.each do |_user|
-      begin
-        campaign_user = @campaign.campaign_users.find_by(user_id: _user.id)
-        if campaign_user.draft?
-          UserMailer.campaign_email(campaign_user).deliver_now
-          campaign_user.update(sent_at: Time.now, status: :processed)
-        end
-      rescue => e
-        Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")
-      end
-    end
-    redirect_to @campaign, notice: 'Emails were successfully sent!'
+    # Send campaign emails in bg job
+    SendCampaignEmailsJob.perform_now(@campaign.id)
+
+    redirect_to @campaign, notice: 'Emails sending in background!'
   end
 
   # This method handling requests from Sendgrid Event Notification
