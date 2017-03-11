@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :campaigns, except: [:edit, :update] do
     member do
       post 'send_emails'
+      post 'remove_tag'
+      post 'add_tag'
     end
 
     collection do

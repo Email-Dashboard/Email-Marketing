@@ -1,6 +1,6 @@
 class CampaignsController < ApplicationController
   before_action      :authenticate_account!, except: :event_receiver
-  before_action      :set_campaign, only: [:show, :destroy, :send_emails]
+  before_action      :set_campaign, only: [:show, :destroy, :send_emails, :add_tag, :remove_tag]
   before_action      :check_new_campaign_avaibility, only: :new
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
@@ -43,6 +43,18 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to campaigns_url, notice: 'Campaign was successfully destroyed.' }
     end
+  end
+
+  def add_tag
+    @campaign.tag_list.add(params[:name])
+    @campaign.save
+    render 'update_tags'
+  end
+
+  def remove_tag
+    @campaign.tag_list.remove(params[:name])
+    @campaign.save
+    render 'update_tags'
   end
 
   def send_emails
