@@ -19,6 +19,8 @@ class CampaignsController < ApplicationController
 
   def show
     @campaign_users = @campaign.campaign_users.page(params[:page])
+    @stats = @campaign.campaign_users.group(:status).count
+    @total_users_count = @campaign.campaign_users.count
   end
 
   def add_users

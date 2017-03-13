@@ -8,7 +8,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.dark-blue
             .circle-tile-description.text-faded Draft
-            .circle-tile-number.text-faded= "% #{@campaign.draft_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['draft'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.gray
@@ -16,7 +16,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.gray
             .circle-tile-description.text-faded Processed
-            .circle-tile-number.text-faded= "% #{@campaign.processed_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['processed'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.red
@@ -24,7 +24,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.red
             .circle-tile-description.text-faded Dropped
-            .circle-tile-number.text-faded= "% #{@campaign.processed_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['dropped'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.green
@@ -32,7 +32,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.green
             .circle-tile-description.text-faded Delivered
-            .circle-tile-number.text-faded= "% #{@campaign.delivered_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['delivered'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.orange
@@ -40,7 +40,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.orange
             .circle-tile-description.text-faded Deferred
-            .circle-tile-number.text-faded= "% #{@campaign.deferred_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['deferred'] , @total_users_count)}"
 
     .row
       .col-lg-2.col-sm-6
@@ -50,7 +50,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.dark-gray
             .circle-tile-description.text-faded Bounce
-            .circle-tile-number.text-faded= "% #{@campaign.bounce_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['bounce'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.blue
@@ -58,7 +58,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.blue
             .circle-tile-description.text-faded Open
-            .circle-tile-number.text-faded= "% #{@campaign.open_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['open'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.yellow
@@ -66,7 +66,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.yellow
             .circle-tile-description.text-faded Click
-            .circle-tile-number.text-faded= "% #{@campaign.click_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['click'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.purple
@@ -74,7 +74,7 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.purple
             .circle-tile-description.text-faded Spam
-            .circle-tile-number.text-faded= "% #{@campaign.spamreport_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['spamreport'] , @total_users_count)}"
       .col-lg-2.col-sm-6
         .circle-tile
           .circle-tile-heading.light-gray
@@ -82,4 +82,4 @@
               %i.glyphicon.glyphicon-envelope
           .circle-tile-content.light-gray
             .circle-tile-description.text-faded Unsubscribe
-            .circle-tile-number.text-faded= "% #{@campaign.unsubscribe_precent}"
+            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['unsubscribe'] , @total_users_count)}"
