@@ -23,6 +23,7 @@ services:
     image: mojilala/smart-emailing
     volumes:
       - /datadrive/data/db:/var/db
+      - /your_path/database.yml:/smart-email-marketing/config/database.yml
     environment:
       VIRTUAL_HOST: yourdomain.com
       SECRET_KEY_BASE: yourGeneratedSercretKeyBase828291234
@@ -42,6 +43,7 @@ services:
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
       - /datadrive/data/db:/var/db
+      - /your_path/database.yml:/smart-email-marketing/config/database.yml
     environment:
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword

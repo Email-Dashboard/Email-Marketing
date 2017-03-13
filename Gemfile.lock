@@ -44,6 +44,9 @@ GEM
       activemodel (= 5.0.1)
       activesupport (= 5.0.1)
       arel (~> 7.0)
+    activerecord-sqlserver-adapter (5.0.5)
+      activerecord (~> 5.0.0)
+      tiny_tds
     activesupport (5.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
@@ -154,11 +157,13 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    mysql2 (0.4.5)
     nested_form (0.3.2)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
+    pg (0.20.0)
     polyamorous (1.3.1)
       activerecord (>= 3.0)
     public_suffix (2.0.5)
@@ -272,6 +277,8 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.6)
+    tiny_tds (1.2.0)
+      mini_portile2 (~> 2.0)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -298,6 +305,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-sqlserver-adapter
   acts-as-taggable-on (~> 4.0)
   annotate
   better_errors
@@ -315,6 +323,8 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.0.5)
+  mysql2
+  pg
   puma (~> 3.0)
   rails (~> 5.0.1)
   rails_admin (~> 1.1.1)
@@ -330,6 +340,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   tilt
+  tiny_tds
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
