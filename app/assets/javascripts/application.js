@@ -16,6 +16,8 @@
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require select2-full
+//= require Chart.bundle
+//= require chartkick
 
 $( document ).ready(function() {
   $('.select2').select2({
@@ -23,7 +25,7 @@ $( document ).ready(function() {
       width: '100%'
   });
 
-  // ransack advenced filter scripts 
+  // ransack advenced filter scripts
   $('form').on('click', '.remove_fields', function(event) {
     $(this).closest('.field').remove();
     return event.preventDefault();

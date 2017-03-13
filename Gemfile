@@ -29,6 +29,7 @@ gem 'select2-rails'
 gem 'binding_of_caller'
 gem 'tilt'
 
+gem 'chartkick'
 gem 'rails_admin', '~> 1.1.1'
 
 # Support all dbs
