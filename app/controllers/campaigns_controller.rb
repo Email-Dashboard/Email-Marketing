@@ -5,7 +5,16 @@ class CampaignsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
-    @campaigns = current_account.campaigns.all
+    @associations = [:users, :tags, :email_template, :campaign_users]
+    @q = current_account.campaigns.ransack(params[:q])
+    @q.build_grouping unless @q.groupings.any?
+    @q.sorts = 'created_at DESC' if @q.sorts.empty?
+
+    @campaigns = if params[:limit_count].present?
+                   @q.result(distinct: true).limit(params[:limit_count])
+                 else
+                   @q.result(distinct: true).page(params[:page])
+                 end
   end
 
   def show

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
              else
                @q.result(distinct: true).page(params[:page])
              end
+    @associations = [:campaigns, :tags, :campaign_users, :user_attributes]
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
 
