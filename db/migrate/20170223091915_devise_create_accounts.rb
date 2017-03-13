@@ -1,5 +1,5 @@
 class DeviseCreateAccounts < ActiveRecord::Migration[5.0]
-  def change
+  def up
     create_table :accounts do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ''
@@ -33,13 +33,19 @@ class DeviseCreateAccounts < ActiveRecord::Migration[5.0]
       t.timestamps null: false
     end
 
-    add_index :accounts, :email,                unique: true
-    add_index :accounts, :reset_password_token, unique: true
-    add_index :accounts, :confirmation_token,   unique: true
+    add_index :accounts, :email, unique: true
+    # add_index :accounts, :reset_password_token, unique: true
+    # add_index :accounts, :confirmation_token,   unique: true
 
     if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
       execute 'CREATE UNIQUE NONCLUSTERED INDEX index_accounts_on_reset_password_token ON dbo.accounts (reset_password_token) WHERE reset_password_token IS NOT NULL;'
     end
     # add_index :accounts, :unlock_token,         unique: true
+  end
+
+  def down
+    execute 'DROP INDEX index_accounts_on_reset_password_token ON dbo.users;'
+    remove_index :accounts, :email
+    drop_table 'accounts'
   end
 end
