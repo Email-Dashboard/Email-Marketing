@@ -1,16 +1,3 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- */
-
  @import "bootstrap-sprockets";
  @import "bootstrap";
  @import "editable/bootstrap-editable";
@@ -153,7 +140,6 @@
   border-bottom: solid 1px blue;
 }
 
-
 .circle-tile {
     margin-bottom: 15px;
     text-align: center;
@@ -183,30 +169,9 @@
 .circle-tile-description {
     text-transform: uppercase;
 }
-.circle-tile-heading.dark-blue:hover {
-    background-color: #2E4154;
-}
-.circle-tile-heading.green:hover {
-    background-color: #138F77;
-}
-.circle-tile-heading.orange:hover {
-    background-color: #DA8C10;
-}
-.circle-tile-heading.blue:hover {
-    background-color: #2473A6;
-}
-.circle-tile-heading.red:hover {
-    background-color: #CF4435;
-}
-.circle-tile-heading.purple:hover {
-    background-color: #7F3D9B;
-}
-.tile-img {
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9);
-}
 
 .dark-blue {
-    background-color: #34495E;
+    background-color: #4b6580;
 }
 .green {
     background-color: #16A085;
@@ -234,25 +199,4 @@
 }
 .yellow {
     background-color: #F1C40F;
-}
-.text-dark-blue {
-    color: #34495E;
-}
-.text-green {
-    color: #16A085;
-}
-.text-blue {
-    color: #2980B9;
-}
-.text-orange {
-    color: #F39C12;
-}
-.text-red {
-    color: #E74C3C;
-}
-.text-purple {
-    color: #8E44AD;
-}
-.text-faded {
-    color: rgba(255, 255, 255, 0.7);
 }
