@@ -2,6 +2,10 @@
   = f.attribute_fields do |a|
     = a.attribute_select associations: [:campaigns, :tags, :campaign_users, :user_attributes]
   = f.predicate_select
+
   = f.value_fields do |v|
-    = v.text_field :value
-  = link_to "remove", '#', class: "remove_fields"
+    = render 'value_fields', f: v
+
+  = link_to_add_fields('Add Field', f, :value)
+  = " - "
+  = link_to "Remove Fields", '#', class: "remove_fields"

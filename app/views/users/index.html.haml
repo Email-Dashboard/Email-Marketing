@@ -16,8 +16,8 @@
     .col-md-9
       - if @total_user_count > 0
         .col-md-4
-          = link_to 'New Campaign For Listed Users', new_campaign_path(q: (params[:q].presence || 'all'),
-            limit: params[:limit_count]), class: 'btn btn-success'
+          = link_to 'New Campaign For Listed Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+            limit: params[:limit_count] }), class: 'btn btn-success'
         - if current_account.campaigns.present?
           .col-md-8.text-right
             or add listed user to an existing campaign.
@@ -25,7 +25,7 @@
               = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
               = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
               = hidden_field_tag 'limit', params[:limit_count]
-              = submit_tag 'Add to selected campaign', class: 'btn btn-primary'
+              = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
     %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr

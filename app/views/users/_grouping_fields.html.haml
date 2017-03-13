@@ -1,0 +1,11 @@
+.group-fields{ 'data-object-name' => f.object_name }
+  %p
+    = f.combinator_select
+
+  .filters
+
+    = f.condition_fields do |c|
+      = render 'condition_fields', f: c
+
+    %p
+      = link_to_add_fields "Add Search Condition", f, :condition
