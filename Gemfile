@@ -31,12 +31,15 @@ gem 'tilt'
 
 gem 'rails_admin', '~> 1.1.1'
 
-# Supoort all db adapters
+# Suport all db adapters
 gem 'activerecord-sqlserver-adapter'
-gem 'mysql2'
-gem 'pg'
-gem 'sqlite3'
 gem 'tiny_tds'
+
+gem 'mysql2'
+
+gem 'pg'
+
+gem 'sqlite3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
