@@ -1,7 +1,7 @@
 = search_form_for @q, html: { method: :get }  do |f|
 
   = f.grouping_fields do |g|
-    = render 'grouping_fields', :f => g
+    = render 'shared/grouping_fields', :f => g
 
   %p
     = link_to_add_fields "Add Search Grouping", f, :grouping
