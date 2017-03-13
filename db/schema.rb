@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309052509) do
+ActiveRecord::Schema.define(version: 20170313170459) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -37,9 +37,9 @@ ActiveRecord::Schema.define(version: 20170309052509) do
   create_table "campaign_users", force: :cascade do |t|
     t.integer  "campaign_id"
     t.integer  "user_id"
-    t.integer  "status",      default: 0
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "status",      default: "draft"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.datetime "sent_at"
     t.index ["campaign_id", "user_id"], name: "index_campaign_users_on_campaign_id_and_user_id", unique: true
     t.index ["campaign_id"], name: "index_campaign_users_on_campaign_id"
