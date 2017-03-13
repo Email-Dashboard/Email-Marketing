@@ -31,7 +31,7 @@ gem 'tilt'
 
 gem 'rails_admin', '~> 1.1.1'
 
-# Suport all db adapters
+# Support all db adapters
 gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 
