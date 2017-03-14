@@ -12,6 +12,7 @@ production:
 
 :limits:
   low_priority: 10
+  user_create_or_update: 5
 
 
 process_limits:
@@ -19,8 +20,9 @@ process_limits:
 
 :queues:
   - [high_priority, 1]
-  - [low_priority, 3]
-  - [default, 2]
+  - [user_create_or_update, 20]
+  - [low_priority, 30]
+  - [default, 100]
 
 
 :ignore_queues:

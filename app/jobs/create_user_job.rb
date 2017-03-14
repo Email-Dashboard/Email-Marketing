@@ -1,25 +1,23 @@
 class CreateUserJob < ApplicationJob
-  queue_as :high_priority
+  queue_as :user_create_or_update
 
   rescue_from do
-    retry_job queue: :high_priority
+    retry_job queue: :user_create_or_update
   end
 
-  def perform(account_id, row, tags, headers)
-    account = Account.find account_id
-    # If user email exists update other infos
-    account_user = if account.users.exists?(email: row[headers.find_index('email')])
-                     account.users.find_by(email: row[headers.find_index('email')])
-                   else
-                     account.users.new(email: row[headers.find_index('email')])
-                   end
+  def perform(account_id, row, tags)
 
-    account_user.name = row[headers.find_index('name')]
+    account = Account.find account_id
+
+    account_user = account.users.find_or_initialize_by(email: row['email'])
+
+    account_user.name = row['name']
+
     account_user.tag_list.add(tags.downcase.split(',')) if tags.present?
 
-    account_user.save
+    account_user.save!
 
     # Save key val attributes
-    (headers - %w(email name)).each { |header| account_user.send("#{header}=", row[headers.find_index(header)]) }
+    (row.keys - %w(email name)).each { |header| account_user.send("#{header}=", row[header]) }
   end
 end
