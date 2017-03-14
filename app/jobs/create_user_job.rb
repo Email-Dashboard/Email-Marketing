@@ -6,7 +6,6 @@ class CreateUserJob < ApplicationJob
   end
 
   def perform(account_id, row, tag_ids)
-
     account_user = User.where(account_id: account_id).find_or_initialize_by(email: row['email'])
 
     account_user.name = row['name']
@@ -28,10 +27,9 @@ class CreateUserJob < ApplicationJob
     new_attribute_keys = attribute_keys - old_attributes.map(&:key)
 
     UserAttribute.bulk_insert do |worker|
-      row.select{ |k, v| new_attribute_keys.include?(k) }.each do |k, v|
-        worker.add({ key: k, value: v, user_id: account_user.id })
+      row.select { |k, _v| new_attribute_keys.include?(k) }.each do |k, v|
+        worker.add(key: k, value: v, user_id: account_user.id)
       end
     end
-
   end
 end

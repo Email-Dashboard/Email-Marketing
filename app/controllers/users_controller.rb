@@ -22,9 +22,9 @@ class UsersController < ApplicationController
     if params[:file].present? && params[:tags].present?
 
       name = "#{(0...50).map { ('a'..'z').to_a[rand(26)] }.join}-#{params[:file].original_filename}"
-      directory = "public/upload"
+      directory = 'public/upload'
       path = File.join(directory, name)
-      File.open(path, "wb") { |f| f.write(params[:file].read) }
+      File.open(path, 'wb') { |f| f.write(params[:file].read) }
 
       ImportUsersJob.perform_later(current_account.id, name, params[:tags])
 
@@ -37,6 +37,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = current_account.users.find params[:id]
+    @user.user_attributes.destroy_all
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
