@@ -11,12 +11,17 @@ class ImportUsersJob < ApplicationJob
   # Send To CreateUserJob for creating each user.
   def perform(account_id, csv_file_name, tags)
 
+    tags = tags.split(',')
+
     path = File.join('public/upload', csv_file_name)
 
-    headers = CSV.open(path, 'r', &:first)
+    tag_ids = tags.inject([]) do |result, element|
+      result << ActsAsTaggableOn::Tag.find_or_create_by(name: element).id
+      result
+    end
 
     CSV.foreach(path, headers: true) do |row|
-      CreateUserJob.perform_later(account_id, row.to_hash, tags)
+      CreateUserJob.perform_later(account_id, row.to_hash, tag_ids)
     end
   end
 end

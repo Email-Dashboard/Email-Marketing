@@ -73,6 +73,8 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
+    bulk_insert (1.4.0)
+      activerecord (>= 4.1.0)
     byebug (9.0.6)
     capybara (2.12.1)
       addressable
@@ -314,6 +316,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.6)
+  bulk_insert
   byebug
   capybara
   chartkick
