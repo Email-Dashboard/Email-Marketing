@@ -18,7 +18,7 @@ class CreateUserJob < ApplicationJob
 
     attribute_keys = (row.keys - %w(email name))
 
-    old_attributes = account_user.user_attributes.where('key IN (?)', attribute_keys)
+    old_attributes = account_user.user_attributes.where(key: attribute_keys)
 
     old_attributes.each do |attr|
       attr.update(value: row[attr.key])
