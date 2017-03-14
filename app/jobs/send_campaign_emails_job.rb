@@ -7,14 +7,10 @@ class SendCampaignEmailsJob < ApplicationJob
     campaign = Campaign.find campaign_id
 
     campaign.users.each do |user|
-      begin
-        campaign_user = campaign.campaign_users.find_by(user_id: user.id)
-        if campaign_user.draft?
-          UserMailer.campaign_email(campaign_user).deliver_now
-          campaign_user.update(sent_at: Time.now, status: :processed)
-        end
-      rescue => e
-        Rails.logger.info("MAILER EXCEPTION: #{e} - ID: #{_user.id}")
+      campaign_user = campaign.campaign_users.find_by(user_id: user.id)
+      if campaign_user.status == 'draft'
+        UserMailer.campaign_email(campaign_user).deliver_now
+        campaign_user.update(sent_at: Time.now, status: 'processed')
       end
     end
   end

@@ -1,12 +1,13 @@
 %h3
   #{@campaign.name}
-  - @campaign.tags.each do |tag|
-    %span.badge{style: 'background-color: #337ab7'}
-      = tag
+#campaignTags
+  = render 'campaign_tags', campaign: @campaign
 
 .col-md-12.content-box-large.panel-heading
 
   = render 'template_form'
+
+= render 'stats'
 
 .col-md-12.content-box-large.panel-heading
   .col-md-12
@@ -23,5 +24,7 @@
             %td= camp_user.user.email
             %td= camp_user.user.name
             %td= camp_user.status
+
+    = pie_chart @stats
 
   = link_to 'Back', campaigns_path

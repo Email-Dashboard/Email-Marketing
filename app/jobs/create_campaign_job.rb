@@ -6,7 +6,6 @@ class CreateCampaignJob < ApplicationJob
   end
 
   def perform(query, limit, campaign_params, account_id)
-
     current_account = Account.find account_id
 
     # Set Campaign Users from the query

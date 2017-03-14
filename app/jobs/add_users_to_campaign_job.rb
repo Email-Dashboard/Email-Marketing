@@ -6,13 +6,10 @@ class AddUsersToCampaignJob < ApplicationJob
   def perform(account_id, campaign_id, filter, limit)
     account = Account.find account_id
     campaign = account.campaigns.find campaign_id
+    filter_limit = limit.present? ? limit.to_i : nil
 
-    account.users.ransack(filter).result(distinct: true).limit(limit).each do |user|
-      begin
-        campaign.campaign_users.create(user_id: user.id)
-      rescue => ex
-        Rails.logger.info ex
-      end
+    account.users.ransack(filter).result(distinct: true).limit(filter_limit).each do |user|
+      campaign.campaign_users.create(user_id: user.id, status: 'draft')
     end
   end
 end

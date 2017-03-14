@@ -5,7 +5,7 @@
   .filters
 
     = f.condition_fields do |c|
-      = render 'condition_fields', f: c
+      = render 'shared/condition_fields', f: c
 
     %p
       = link_to_add_fields "Add Search Condition", f, :condition

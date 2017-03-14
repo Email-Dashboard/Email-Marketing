@@ -3,7 +3,7 @@ class CreateCampaignUsers < ActiveRecord::Migration[5.0]
     create_table :campaign_users do |t|
       t.references :campaign, foreign_key: true
       t.references :user, foreign_key: true
-      t.integer    :status, default: 0
+      t.string :status, default: 'draft'
 
       t.timestamps
     end

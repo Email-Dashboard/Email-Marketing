@@ -23,3 +23,5 @@
 .byebug_history
 .idea
 .idea/*
+
+public/upload/*

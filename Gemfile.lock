@@ -73,6 +73,8 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
+    bulk_insert (1.4.0)
+      activerecord (>= 4.1.0)
     byebug (9.0.6)
     capybara (2.12.1)
       addressable
@@ -81,6 +83,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    chartkick (2.0.0)
     coderay (1.1.1)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -258,6 +261,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    sidekiq-limit_fetch (3.4.0)
+      sidekiq (>= 4)
     sidekiq-unique-jobs (4.0.18)
       sidekiq (>= 2.6)
       thor
@@ -311,8 +316,10 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.6)
+  bulk_insert
   byebug
   capybara
+  chartkick
   coffee-rails (~> 4.2)
   devise (~> 4.2)
   factory_girl_rails
@@ -335,6 +342,7 @@ DEPENDENCIES
   select2-rails
   shoulda-matchers
   sidekiq (< 5)
+  sidekiq-limit_fetch
   sidekiq-unique-jobs
   spring
   spring-watcher-listen (~> 2.0.0)

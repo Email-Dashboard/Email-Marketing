@@ -7,7 +7,13 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /datadrive/data/nginx/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - /path/your/conf/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+
+  whoami:
+    image: jwilder/whoami
+    container_name: whoami
+    environment:
+      - VIRTUAL_HOST=whoami.local
 
   redis:
     image: redis:3.2-alpine
@@ -15,20 +21,21 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - /datadrive/data/redis:/var/lib/redis/data
+      - '/datadrive/redis:/var/lib/redis/data'
 
   web:
     depends_on:
       - 'redis'
     image: mojilala/smart-emailing
     volumes:
-      - /datadrive/data/db:/var/db
-      - /your_path/database.yml:/smart-email-marketing/config/database.yml
+      - /home/your/path/data/db:/var/db
+      - /home/your/path/database.yml:/smart-email-marketing/config/database.yml
+      - /your/upload/folder:/smart-email-marketing/public/upload
     environment:
       VIRTUAL_HOST: yourdomain.com
-      SECRET_KEY_BASE: yourGeneratedSercretKeyBase828291234
-      SIDEKIQ_USERNAME: adminSidekiq
-      SIDEKIQ_PASSWORD: passwordSidekiq
+      SECRET_KEY_BASE: yourSercretKeyBase
+      SIDEKIQ_USERNAME: sidekiqUsername
+      SIDEKIQ_PASSWORD: sidekiqPass
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword
     links:
@@ -42,8 +49,9 @@ services:
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
-      - /datadrive/data/db:/var/db
-      - /your_path/database.yml:/smart-email-marketing/config/database.yml
+      - your/data/db/path:/var/db
+      - /your/path/to/database.yml:/smart-email-marketing/config/database.yml
+      - /your/upload/folder:/smart-email-marketing/public/upload
     environment:
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword

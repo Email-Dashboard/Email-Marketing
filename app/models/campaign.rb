@@ -19,4 +19,9 @@ class Campaign < ApplicationRecord
   acts_as_taggable # Alias for campaign tags
 
   validates :name, :email_template, :account, presence: true
+
+  def self.calculate_percent(status_count, total_users_count)
+    return 0.0 if status_count.nil?
+    '%.2f' % ((status_count.to_f / total_users_count) * 100.0)
+  end
 end

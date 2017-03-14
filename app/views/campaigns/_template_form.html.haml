@@ -5,6 +5,7 @@
   = subject.render(User.first).html_safe
   = body.render(User.first).html_safe
 
+%hr
 = form_tag send_emails_campaign_path(@campaign), method: :post do
-  .actions
+  .actions.text-center
     = submit_tag 'Send Campaign Emails', class: 'btn btn-primary'

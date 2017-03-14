@@ -1,10 +1,10 @@
 .field
   = f.attribute_fields do |a|
-    = a.attribute_select associations: [:campaigns, :tags, :campaign_users, :user_attributes]
+    = a.attribute_select associations: @associations
   = f.predicate_select
 
   = f.value_fields do |v|
-    = render 'value_fields', f: v
+    = render 'shared/value_fields', f: v
 
   = link_to_add_fields('Add Field', f, :value)
   = " - "

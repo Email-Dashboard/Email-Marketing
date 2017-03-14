@@ -29,8 +29,7 @@
                 %td= f.select :campaigns_tags_name_in, options_for_select(@all_tags.pluck(:name).map{ |t| [t.humanize, t] }, @q.campaigns_tags_name_in), {}, { class: 'select2', multiple: true, include_blank: true }
               %tr
                 %td= f.label :campaign_email_status_eq
-                -# %td= f.select :campaign_users_status_in, options_for_select(CampaignUser.statuses, @q.campaign_users_status_eq), { include_blank: true }, { class: 'form-control' }
-                %td= f.select :campaign_users_status_in, options_for_select(CampaignUser.statuses.map{ |s| [s.first.humanize, s.last] }, @q.campaign_users_status_in), {}, { class: 'select2', multiple: true, include_blank: true }
+                %td= f.select :campaign_users_status_in, options_for_select(CampaignUser::STATUSES, {}, { class: 'select2', multiple: true, include_blank: true }
               %tr
                 %td
                   %b Filter Limit
