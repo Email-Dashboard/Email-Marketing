@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def create
     if params[:file].present? && params[:tags].present?
-      ImportUsersJob.perform_now(current_account.id, params[:file], params[:tags])
+      ImportUsersJob.perform_later(current_account.id, params[:file], params[:tags])
 
       @result = 'Your user list importing in background. It will take awhile.'
     else
