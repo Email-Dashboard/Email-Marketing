@@ -16,7 +16,7 @@ class ImportUsersJob < ApplicationJob
     headers = CSV.open(path, 'r', &:first)
 
     CSV.foreach(path, headers: true) do |row|
-      CreateUserJob.perform_later(account_id, row.to_hash, tags, headers)
+      CreateUserJob.perform_later(account_id, row.to_hash, tags)
     end
   end
 end
