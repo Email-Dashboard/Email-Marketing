@@ -18,6 +18,7 @@ gem 'x-editable-rails'
 gem 'redis-namespace'
 gem 'sidekiq', '< 5'
 gem 'sidekiq-unique-jobs'
+gem 'sidekiq-limit_fetch'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'devise', '~> 4.2'
