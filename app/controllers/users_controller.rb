@@ -20,7 +20,13 @@ class UsersController < ApplicationController
 
   def create
     if params[:file].present? && params[:tags].present?
-      ImportUsersJob.perform_now(current_account.id, params[:file], params[:tags])
+
+      name = "#{(0...50).map { ('a'..'z').to_a[rand(26)] }.join}-#{params[:file].original_filename}"
+      directory = "public/upload"
+      path = File.join(directory, name)
+      File.open(path, "wb") { |f| f.write(params[:file].read) }
+
+      ImportUsersJob.perform_later(current_account.id, name, params[:tags])
 
       @result = 'Your user list importing in background. It will take awhile.'
     else

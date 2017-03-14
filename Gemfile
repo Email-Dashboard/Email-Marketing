@@ -18,6 +18,7 @@ gem 'x-editable-rails'
 gem 'redis-namespace'
 gem 'sidekiq', '< 5'
 gem 'sidekiq-unique-jobs'
+gem 'sidekiq-limit_fetch'
 
 gem 'acts-as-taggable-on', '~> 4.0'
 gem 'devise', '~> 4.2'
@@ -41,6 +42,8 @@ gem 'mysql2'
 gem 'pg'
 
 gem 'sqlite3'
+
+gem 'bulk_insert'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

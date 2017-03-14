@@ -9,14 +9,19 @@ class ImportUsersJob < ApplicationJob
 
   # Parse CSV file and create new users with tags
   # Send To CreateUserJob for creating each user.
-  def perform(account_id, csv_file, tags)
-    headers = CSV.open(csv_file.path, 'r', &:first)
+  def perform(account_id, csv_file_name, tags)
 
-    CSV.foreach(csv_file.path, headers: true) do |row|
-      CreateUserJob.perform_now(account_id, row, tags, headers)
+    tags = tags.split(',')
+
+    path = File.join('public/upload', csv_file_name)
+
+    tag_ids = tags.inject([]) do |result, element|
+      result << ActsAsTaggableOn::Tag.find_or_create_by(name: element).id
+      result
     end
 
-  rescue => e
-    Rails.logger.info("ERROR WHILE IMPORTING CSV: #{e}")
+    CSV.foreach(path, headers: true) do |row|
+      CreateUserJob.perform_later(account_id, row.to_hash, tag_ids)
+    end
   end
 end
