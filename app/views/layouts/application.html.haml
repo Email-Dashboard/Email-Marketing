@@ -68,6 +68,10 @@
                     %a{:href => settings_path}
                       %i.glyphicon.glyphicon-cog
                       Settings
+                  %li.current
+                    %a{:href => '/sidekiq', :target => '_blank'}
+                      %i.glyphicon.glyphicon-random
+                      Sidekiq
 
           .col-md-10
             - if notice
