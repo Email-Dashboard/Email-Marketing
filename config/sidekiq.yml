@@ -12,8 +12,7 @@ production:
 
 :limits:
   low_priority: 10
-  user_create_or_update: 5
-
+  user_create_or_update: 15
 
 process_limits:
   test: 1
