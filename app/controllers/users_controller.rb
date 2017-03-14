@@ -20,7 +20,9 @@ class UsersController < ApplicationController
 
   def create
     if params[:file].present? && params[:tags].present?
-      @result = current_account.import_users_from_csv(params[:file], params[:tags])
+      ImportUsersJob.perform_now(current_account.id, params[:file], params[:tags])
+
+      @result = 'Your user list importing in background. It will take awhile.'
     else
       @result = { imported_users: 0, import_errors: 'Tags and Csv file required.' }
     end
