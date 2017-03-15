@@ -26,7 +26,7 @@ class CampaignsController < ApplicationController
   def add_users
     filter = JSON.parse(params[:filter])
 
-    AddUsersToCampaignJob.perform_now(current_account.id,
+    AddUsersToCampaignJob.perform_later(current_account.id,
                                       params[:campaign_id],
                                       filter,
                                       params[:limit])
