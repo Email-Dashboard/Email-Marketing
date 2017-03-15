@@ -16,13 +16,13 @@ class CreateCampaignJob < ApplicationJob
                        q = current_account.users.ransack(query)
                        q.result(distinct: true)
                      end
+
     campaign_users = campaign_users.limit(limit) if limit.present?
 
     campaign = current_account.campaigns.new(campaign_params)
     campaign.users = campaign_users
     campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
-    unless campaign.save
-      Rails.logger.info("CAMPAIGN NOT SAVE: #{campaign.errors.messages}")
-    end
+
+    campaign.save!
   end
 end
