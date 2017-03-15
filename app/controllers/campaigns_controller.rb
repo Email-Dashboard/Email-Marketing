@@ -76,7 +76,7 @@ class CampaignsController < ApplicationController
     end
 
     # Send campaign emails in bg job
-    SendCampaignEmailsJob.perform_now(@campaign.id)
+    SendCampaignEmailsJob.perform_later(@campaign.id)
 
     redirect_to @campaign, notice: 'Emails sending in background!'
   end
