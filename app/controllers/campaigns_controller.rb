@@ -41,7 +41,7 @@ class CampaignsController < ApplicationController
   def create
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
-    CreateCampaignJob.perform_now(params[:q],
+    CreateCampaignJob.perform_later(params[:q],
                                   params[:limit_count],
                                   campaign_params.to_hash,
                                   current_account.id)
