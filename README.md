@@ -65,7 +65,9 @@ There are no tests. PR's are welcome.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## Contributors
+## Created by 
+* Sahin https://github.com/sahin
 
+## Developed by
 * Sadik Ay https://github.com/sadikay
 * Muhammet Dilek https://github.com/muhammet

@@ -26,7 +26,7 @@ class CampaignsController < ApplicationController
   def add_users
     filter = JSON.parse(params[:filter])
 
-    AddUsersToCampaignJob.perform_now(current_account.id,
+    AddUsersToCampaignJob.perform_later(current_account.id,
                                       params[:campaign_id],
                                       filter,
                                       params[:limit])
@@ -41,7 +41,7 @@ class CampaignsController < ApplicationController
   def create
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
-    CreateCampaignJob.perform_now(params[:q],
+    CreateCampaignJob.perform_later(params[:q],
                                   params[:limit_count],
                                   campaign_params.to_hash,
                                   current_account.id)
@@ -76,7 +76,7 @@ class CampaignsController < ApplicationController
     end
 
     # Send campaign emails in bg job
-    SendCampaignEmailsJob.perform_now(@campaign.id)
+    SendCampaignEmailsJob.perform_later(@campaign.id)
 
     redirect_to @campaign, notice: 'Emails sending in background!'
   end
