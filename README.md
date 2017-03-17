@@ -30,8 +30,13 @@ curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+### Database
 
-### Create data folders
+You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
+
+Create database.yml and link it in the docker-compose.yma l
+
+### Create data folders for sqlite (if you are using sqlite)
 ```bash
 mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
