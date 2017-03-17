@@ -1,6 +1,6 @@
 ## Smart Email Marketing
 
-A simple dockerized app to manage your emails and campaigns with taggings.
+A simple dockerized rails app to manage your emails and campaigns with taggings.
 
 ## Features
 
