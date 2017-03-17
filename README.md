@@ -36,12 +36,12 @@ You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
 
 Create a database.yml and link it in the docker-compose.yml
 
-### Create data folders for sqlite (if you are using sqlite)
+### Create data folders
 ```bash
-mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
+mkdir -p /datadrive/csv-files && mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
 
-### Create database.yml
+### Create a database.yml
 * Sqlite 
 ```bash
 cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database.yml
@@ -64,15 +64,18 @@ cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/
 ```
 
 
-### Download nginx settings
+### Create nginx settings
 ```bash
 cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/nginx/my_proxy.conf
 ```
 
-### Download docker-compose.yml
+### Get docker-compose.yml
+* Download
 ```bash
 cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
 ```
+
+* Update environment variables with your settings https://github.com/mojilala/smart-emailing/blob/master/docker-compose.yml#L34
 
 ### Run
 
