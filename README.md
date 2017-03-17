@@ -30,16 +30,39 @@ curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
-### Database
+### Database Settings
 
 You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
 
-Create database.yml and link it in the docker-compose.yma l
+Create a database.yml and link it in the docker-compose.yml
 
 ### Create data folders for sqlite (if you are using sqlite)
 ```bash
 mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
+
+### Create database.yml
+* Sqlite 
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database.yml
+```
+
+* MySQL
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_mysql.yml
+```
+* PostgreSQL
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_postgresql.yml
+```
+* Sql SERVER
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_sql_server.yml
+```
+
 
 ### Download nginx settings
 ```bash
