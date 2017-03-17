@@ -7,7 +7,7 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /path/your/conf/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
+      - /datadrive/data/nginx/my_proxy.conf:/etc/nginx/conf.d/my_proxy.conf:ro
 
   whoami:
     image: jwilder/whoami
@@ -28,9 +28,9 @@ services:
       - 'redis'
     image: mojilala/smart-emailing
     volumes:
-      - /home/your/path/data/db:/var/db
-      - /home/your/path/database.yml:/smart-email-marketing/config/database.yml
-      - /your/upload/folder:/smart-email-marketing/public/upload
+      - /datadrive/data/db:/var/db
+      - /datadrive/database.yml:/smart-email-marketing/config/database.yml
+      - /datadrive/csv-files:/smart-email-marketing/public/upload
     environment:
       VIRTUAL_HOST: yourdomain.com
       SECRET_KEY_BASE: yourSercretKeyBase
@@ -49,9 +49,9 @@ services:
     restart: always
     command: 'bundle exec sidekiq -C config/sidekiq.yml -e production'
     volumes:
-      - your/data/db/path:/var/db
-      - /your/path/to/database.yml:/smart-email-marketing/config/database.yml
-      - /your/upload/folder:/smart-email-marketing/public/upload
+      - /datadrive/data/db:/var/db
+      - /datadrive/database.yml:/smart-email-marketing/config/database.yml
+      - /datadrive/csv-files:/smart-email-marketing/public/upload
     environment:
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword
