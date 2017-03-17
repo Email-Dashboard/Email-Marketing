@@ -1,0 +1,23 @@
+default: &default
+  adapter: sqlserver
+  host: localhost
+  pool: 5
+  timeout: 60
+
+development:
+  <<: *default
+  database: marketing_development
+
+test:
+  <<: *default
+  database: marketing_test
+
+production:
+  <<: *default
+  database: marketing_production
+  username: <%= ENV['DB_PRODUCTION_USERNAME'] %>
+  password: <%= ENV['DB_PRODUCTION_PASSWORD'] %>
+  host: <%= ENV['DB_PRODUCTION_HOST'] %>
+  # if using azure comment out
+  #  azure: true
+  #  azure_timeout: 60
