@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @q.build_grouping unless @q.groupings.any?
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
-    @users = ransack_query_with_limit
+    @users = ransack_results_with_limit
     @associations = [:tags, :campaign_users, :user_attributes, :campaigns, :campaigns_tags]
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
