@@ -35,6 +35,7 @@ class CampaignsController < ApplicationController
   end
 
   def new
+    set_all_tags
     @campaign = Campaign.new
   end
 
@@ -42,9 +43,10 @@ class CampaignsController < ApplicationController
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
     CreateCampaignJob.perform_later(params[:q],
-                                  params[:limit_count],
-                                  campaign_params.to_hash,
-                                  current_account.id)
+                                    params[:tags],
+                                    params[:limit_count],
+                                    campaign_params.to_hash,
+                                    current_account.id)
 
     redirect_to campaigns_path, notice: 'Your campaign is creating... It will take a few seconds, refresh the page to see changes.'
   end
@@ -117,6 +119,6 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.require(:campaign).permit(:name, :tag_list, :email_template_id)
+    params.require(:campaign).permit(:name, :email_template_id)
   end
 end

@@ -5,7 +5,7 @@
     = file_field_tag :file, class: 'form-control'
 
     = label_tag 'Tags'
-    = text_field_tag :tags, nil, placeholder: 'Separate with comma (new users, paid users, etc...)', class: 'form-control'
+    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t.humanize, t] }), { include_blank: false, class: 'select2', multiple: true }
     .actions
       .col-md-6
         = submit_tag 'Import User List', class: 'btn btn-primary'

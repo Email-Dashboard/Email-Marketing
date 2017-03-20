@@ -16,7 +16,9 @@ class UsersController < ApplicationController
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
 
-  def new; end
+  def new
+    set_all_tags
+  end
 
   def create
     if params[:file].present? && params[:tags].present?
