@@ -18,6 +18,5 @@ production:
   username: <%= ENV['DB_PRODUCTION_USERNAME'] %>
   password: <%= ENV['DB_PRODUCTION_PASSWORD'] %>
   host: <%= ENV['DB_PRODUCTION_HOST'] %>
-  # if using azure comment out
-  #  azure: true
-  #  azure_timeout: 60
+  azure: true
+  azure_timeout: 60

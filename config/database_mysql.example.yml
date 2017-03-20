@@ -2,7 +2,7 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  socket: /tmp/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock # for ubuntu
   host: localhost
 
 development:
