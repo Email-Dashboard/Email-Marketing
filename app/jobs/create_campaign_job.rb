@@ -17,7 +17,7 @@ class CreateCampaignJob < ApplicationJob
                        q.result(distinct: true)
                      end
 
-    campaign_users = campaign_users.limit(limit) if limit.present?
+    campaign_users = campaign_users.first(limit) if limit.present?
 
     campaign = current_account.campaigns.new(campaign_params)
     campaign.users = campaign_users

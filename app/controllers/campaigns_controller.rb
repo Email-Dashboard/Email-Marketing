@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   before_action      :authenticate_account!, except: :event_receiver
   before_action      :set_campaign, only: [:show, :destroy, :send_emails, :add_tag, :remove_tag]
-  before_action      :check_new_campaign_avaibility, only: :new
+  before_action      :check_new_campaign_avaibility, :set_all_tags, only: :new
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
@@ -35,7 +35,6 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    set_all_tags
     @campaign = Campaign.new
   end
 

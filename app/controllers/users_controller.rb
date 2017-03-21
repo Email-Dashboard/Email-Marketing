@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
+  before_action :set_all_tags, only: :new
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
@@ -16,9 +17,7 @@ class UsersController < ApplicationController
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
 
-  def new
-    set_all_tags
-  end
+  def new; end
 
   def create
     if params[:file].present? && params[:tags].present?

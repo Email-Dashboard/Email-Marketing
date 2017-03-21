@@ -13,7 +13,7 @@
 
     %label
       Tag List
-    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t.humanize, t] }), { include_blank: false, class: 'select2 form-control', multiple: true }
+    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2 form-control', multiple: true }
 
     .form-control{style: 'margin-top: 2%;'}
       = f.label :email_template
