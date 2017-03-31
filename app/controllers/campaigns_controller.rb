@@ -10,11 +10,7 @@ class CampaignsController < ApplicationController
     @q.build_grouping unless @q.groupings.any?
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
-    @campaigns = if params[:limit_count].present?
-                   @q.result(distinct: true).limit(params[:limit_count])
-                 else
-                   @q.result(distinct: true).page(params[:page])
-                 end
+    @campaigns = ransack_results_with_limit
   end
 
   def show
@@ -78,7 +74,7 @@ class CampaignsController < ApplicationController
     # Send campaign emails in bg job
     SendCampaignEmailsJob.perform_later(@campaign.id)
 
-    redirect_to @campaign, notice: 'Emails sending in background!'
+    redirect_to campaign_path(@campaign), notice: 'Emails sending in background!'
   end
 
   # This method handling requests from Sendgrid Event Notification
