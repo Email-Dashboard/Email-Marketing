@@ -1,6 +1,6 @@
 ## Smart Email Marketing
 
-A simple dockerized app to manage your emails and campaigns with taggings.
+A simple dockerized rails app to manage your emails and campaigns with taggings.
 
 [![Code Climate](https://codeclimate.com/github/mojilala/smart-emailing/badges/gpa.svg)](https://codeclimate.com/github/mojilala/smart-emailing)
 
@@ -33,21 +33,52 @@ curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+### Database Settings
+
+You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
+
+Create a database.yml and link it in the docker-compose.yml
 
 ### Create data folders
 ```bash
-mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir
+mkdir -p /datadrive/csv-files && mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
 
-### Download nginx settings
+### Create a database.yml
+* Sqlite 
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database.yml
+```
+
+* MySQL
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_mysql.example.yml
+```
+* PostgreSQL
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_postgresql.example.yml
+```
+* Sql SERVER
+
+```bash
+cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_azure_sql.example.yml
+```
+
+
+### Create nginx settings
 ```bash
 cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/nginx/my_proxy.conf
 ```
 
-### Download docker-compose.yml
+### Get docker-compose.yml
+* Download
 ```bash
 cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
 ```
+
+* Update environment variables with your settings https://github.com/mojilala/smart-emailing/blob/master/docker-compose.yml#L34
 
 ### Run
 
