@@ -20,8 +20,12 @@ RSpec.describe Campaign, type: :model do
   let!(:user_a) { FactoryGirl.create(:user, account: account_a) }
   let!(:user_b) { FactoryGirl.create(:user, account: account_b) }
 
-  let!(:campaign_a) { FactoryGirl.create(:campaign, account: account_a) }
-  let!(:campaign_b) { FactoryGirl.create(:campaign, account: account_b) }
+  let!(:template) { FactoryGirl.create(:email_template, account: account_b) }
+
+  let!(:campaign_a) { FactoryGirl.create(:campaign, account: account_a,
+                                          email_template: template) }
+  let!(:campaign_b) { FactoryGirl.create(:campaign, account: account_b,
+                                          email_template: template) }
 
   context 'Check Campaigns Users' do
     it 'should valid campaign users' do

@@ -52,7 +52,6 @@
             %td
               = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
                 method: :delete, data: { confirm: 'Are you sure?' }
-    - unless params[:limit_count].present?
-      = paginate @users
+    = paginate @users
     .col-sm-12.text-right
       = link_to 'Import New Users From CSV', new_user_path, class: 'btn btn-primary'

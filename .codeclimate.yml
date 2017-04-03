@@ -1,0 +1,21 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+  rubocop:
+    enabled: true
+  brakeman:
+    enabled: true  
+ratings:
+  paths:
+  - "**.rb"
+exclude_paths:
+- config/
+- db/
+- test/
+- vendor/
+- public/
+- vendor/**/*
