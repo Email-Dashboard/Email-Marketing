@@ -13,9 +13,7 @@
 
     %label
       Tag List
-      %small.text-muted
-        (separate with comma)
-    = f.text_field :tag_list, class: 'form-control', placeholder: 'marketing, newest, popular, etc...'
+    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2 form-control', multiple: true }
 
     .form-control{style: 'margin-top: 2%;'}
       = f.label :email_template

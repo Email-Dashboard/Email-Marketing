@@ -40,7 +40,7 @@ class TagsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def tags_params
-    params.fetch(:tag, {}).permit!
+    params.require(:tag).permit(:name)
   end
 
   def xeditable?(_a = nil)

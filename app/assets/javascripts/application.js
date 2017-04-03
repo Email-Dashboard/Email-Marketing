@@ -22,6 +22,9 @@
 $( document ).ready(function() {
   $('.select2').select2({
       theme: "bootstrap",
+      allowClear: true,
+      selectOnBlur: true,
+      tags: true,
       width: '100%'
   });
 

@@ -14,6 +14,6 @@ FactoryGirl.define do
   factory :campaign_user do
     campaign nil
     user nil
-    status 0
+    status 'draft'
   end
 end

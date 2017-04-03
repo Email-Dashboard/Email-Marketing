@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
+  before_action :set_all_tags, only: :new
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
@@ -7,11 +8,7 @@ class UsersController < ApplicationController
     @q.build_grouping unless @q.groupings.any?
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
-    @users = if params[:limit_count].present?
-               @q.result(distinct: true).limit(params[:limit_count])
-             else
-               @q.result(distinct: true).page(params[:page])
-             end
+    @users = ransack_results_with_limit
     @associations = [:tags, :campaign_users, :user_attributes, :campaigns, :campaigns_tags]
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end

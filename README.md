@@ -2,6 +2,9 @@
 
 A simple dockerized app to manage your emails and campaigns with taggings.
 
+[![Code Climate](https://codeclimate.com/github/mojilala/smart-emailing/badges/gpa.svg)](https://codeclimate.com/github/mojilala/smart-emailing)
+
+
 ## Features
 
 **Email Campaign Management:**
@@ -12,7 +15,7 @@ A simple dockerized app to manage your emails and campaigns with taggings.
 * Filter users with advanced search and create a camaign from filtered result
 * Email templates
 * Email stats from sendgrid
-  
+
 ## Installation
 
 ### Install Docker
@@ -33,7 +36,7 @@ chmod +x /usr/local/bin/docker-compose
 
 ### Create data folders
 ```bash
-mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
+mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir
 ```
 
 ### Download nginx settings
@@ -65,7 +68,7 @@ There are no tests. PR's are welcome.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## Created by 
+## Created by
 * Sahin https://github.com/sahin
 
 ## Developed by
