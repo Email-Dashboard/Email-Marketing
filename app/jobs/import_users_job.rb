@@ -10,8 +10,6 @@ class ImportUsersJob < ApplicationJob
   # Parse CSV file and create new users with tags
   # Send To CreateUserJob for creating each user.
   def perform(account_id, csv_file_name, tags)
-    tags = tags.split(',')
-
     path = File.join('public/upload', csv_file_name)
 
     tag_ids = tags.each_with_object([]) do |element, result|

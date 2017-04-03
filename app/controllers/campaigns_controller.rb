@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   before_action      :authenticate_account!, except: :event_receiver
   before_action      :set_campaign, only: [:show, :destroy, :send_emails, :add_tag, :remove_tag]
-  before_action      :check_new_campaign_avaibility, only: :new
+  before_action      :check_new_campaign_avaibility, :set_all_tags, only: :new
   skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
@@ -38,9 +38,10 @@ class CampaignsController < ApplicationController
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
     CreateCampaignJob.perform_later(params[:q],
-                                  params[:limit_count],
-                                  campaign_params.to_hash,
-                                  current_account.id)
+                                    params[:tags],
+                                    params[:limit_count],
+                                    campaign_params.to_hash,
+                                    current_account.id)
 
     redirect_to campaigns_path, notice: 'Your campaign is creating... It will take a few seconds, refresh the page to see changes.'
   end
@@ -113,6 +114,6 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.require(:campaign).permit(:name, :tag_list, :email_template_id)
+    params.require(:campaign).permit(:name, :email_template_id)
   end
 end

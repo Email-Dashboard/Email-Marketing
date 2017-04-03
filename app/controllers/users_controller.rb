@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
+  before_action :set_all_tags, only: :new
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)

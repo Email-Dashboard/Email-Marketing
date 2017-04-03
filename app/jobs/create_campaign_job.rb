@@ -5,7 +5,7 @@ class CreateCampaignJob < ApplicationJob
     retry_job queue: :high_priority
   end
 
-  def perform(query, limit, campaign_params, account_id)
+  def perform(query, tags, limit, campaign_params, account_id)
     current_account = Account.find account_id
 
     # Set Campaign Users from the query
@@ -17,11 +17,12 @@ class CreateCampaignJob < ApplicationJob
                        q.result(distinct: true)
                      end
 
-    campaign_users = campaign_users.limit(limit) if limit.present?
+    campaign_users = campaign_users.first(limit) if limit.present?
 
     campaign = current_account.campaigns.new(campaign_params)
     campaign.users = campaign_users
     campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
+    campaign.tag_list = tags
 
     campaign.save!
   end
