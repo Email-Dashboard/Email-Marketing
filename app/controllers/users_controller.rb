@@ -32,6 +32,16 @@ class UsersController < ApplicationController
     redirect_to new_user_path, notice: @result
   end
 
+  def create_single
+    user = current_account.users.new(name: params[:name], email: params[:email])
+    user.tag_list << params[:tags]
+    if user.save
+      @message = 'User was successfully created!'
+    else
+      @errors = user.errors.full_messages.to_sentence
+    end
+  end
+
   def destroy
     @user = current_account.users.find params[:id]
     @user.user_attributes.destroy_all

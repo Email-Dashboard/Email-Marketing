@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :users, only: [:index, :destroy, :new, :create]
+  resources :users, only: [:index, :destroy, :new, :create] do
+    collection do
+      post 'create_single'
+    end
+  end
 
   resources :campaigns, except: [:edit, :update] do
     member do
