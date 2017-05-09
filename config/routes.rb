@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   resources :campaigns, except: [:edit, :update] do
     member do
       post 'send_emails'
-      post 'remove_tag'
-      post 'add_tag'
     end
 
     collection do
@@ -25,7 +23,12 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
-  resources :tags
+  resources :tags do
+    collection do
+      post 'remove_tag_from_item'
+      post 'add_tag_to_item'
+    end
+  end
 
   get 'settings', to: 'home#settings'
   post 'update_settings', to: 'home#update_settings'
