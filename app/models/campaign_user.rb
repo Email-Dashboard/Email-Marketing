@@ -14,6 +14,8 @@ class CampaignUser < ApplicationRecord
   belongs_to :campaign
   belongs_to :user
 
+  acts_as_taggable # Alias for CampaignUser tags
+
   after_initialize :set_default_status
 
   # enum status: %w(draft processed dropped delivered deferred bounce open click spamreport unsubscribe group_unsubscribe group_resubscribe)
