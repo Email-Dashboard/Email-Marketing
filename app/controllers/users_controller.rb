@@ -47,8 +47,7 @@ class UsersController < ApplicationController
     @user.user_attributes.destroy_all
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js
     end
   end
 end

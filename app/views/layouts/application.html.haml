@@ -28,7 +28,7 @@
                         %b.caret
                       %ul.dropdown-menu.animated.fadeInUp
                         %li
-                          %a{:href => "/settings"} Settings
+                          = link_to 'Account Settings', edit_account_registration_path
                         %li
                           = link_to('Logout', destroy_account_session_path, :method => :delete)
           - else
