@@ -37,7 +37,7 @@
           %th.text-center #
       %tbody
         - @users.each do |user|
-          %tr
+          %tr{id: "user-#{user.id}"}
             %td= user.email
             %td= user.name
             %td
@@ -51,7 +51,7 @@
                 %br/
             %td
               = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
-                method: :delete, data: { confirm: 'Are you sure?' }
+                method: :delete, remote: true, data: { confirm: 'Are you sure?' }
     = paginate @users
     .col-sm-12.text-right
       = link_to 'Import New Users From CSV', new_user_path, class: 'btn btn-primary'

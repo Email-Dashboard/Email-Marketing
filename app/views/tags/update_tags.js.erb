@@ -1,0 +1,1 @@
+$("#<%= @item.class.name %>Tags-<%= @item.id %>").html("<%= escape_javascript render(partial: 'tags/item_tags', locals: { item: @item }) %>");

@@ -1,0 +1,13 @@
+.col-sm-6
+  = "#{item.class.name} Tags:"
+  - item.tags.each do |tag|
+    %span.badge{style: 'background-color: #337ab7'}
+      = tag
+      = link_to remove_tag_from_item_tags_path(item_id: item.id, item_type: item.class.name, name: tag.name), method: :post, remote: true, data: { confirm: 'Are you sure?' } do
+        %span.glyphicon.glyphicon-remove{style: 'color: #de5858;'}
+.col-sm-6
+  = "Add Tag To  #{item.class.name}"
+  = form_tag(add_tag_to_item_tags_path, remote: true) do
+    = text_field_tag :name, nil, placeholder: "Type and press `Enter`", class: 'form-control'
+    = hidden_field_tag :item_type, item.class.name
+    = hidden_field_tag :item_id, item.id

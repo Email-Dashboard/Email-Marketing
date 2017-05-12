@@ -1,7 +1,7 @@
 %h3
   #{@campaign.name}
-#campaignTags
-  = render 'campaign_tags', campaign: @campaign
+%div{id: "CampaignTags-#{@campaign.id}"}
+  = render partial: 'tags/item_tags', locals: { item: @campaign }
 
 .col-md-12.content-box-large.panel-heading
 
@@ -18,12 +18,17 @@
           %th Email
           %th Name
           %th Email Status
+          %th Tags
       %tbody
         - @campaign_users.each do |camp_user|
-          %tr
-            %td= camp_user.user.email
-            %td= camp_user.user.name
-            %td= camp_user.status
+          - if camp_user.user.present?
+            %tr
+              %td= camp_user.user.email
+              %td= camp_user.user.name
+              %td= camp_user.status
+              %td
+                %div{id: "CampaignUserTags-#{camp_user.id}"}
+                  = render partial: 'tags/item_tags', locals: { item: camp_user }
 
     = pie_chart @stats
 

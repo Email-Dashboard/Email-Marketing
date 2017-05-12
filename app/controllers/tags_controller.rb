@@ -31,6 +31,20 @@ class TagsController < ApplicationController
     end
   end
 
+  def add_tag_to_item
+    @item = params[:item_type].constantize.find(params[:item_id])
+    @item.tag_list.add(params[:name])
+    @item.save
+    render 'update_tags'
+  end
+
+  def remove_tag_from_item
+    @item = params[:item_type].constantize.find(params[:item_id])
+    @item.tag_list.remove(params[:name])
+    @item.save
+    render 'update_tags'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -1,7 +1,7 @@
 .col-md-12.content-box-large.panel-heading
   = form_tag users_path, method: :post, multipart: true do
 
-    = label_tag 'Impor Users From CSV File'
+    = label_tag 'Import Users From CSV File'
     = file_field_tag :file, class: 'form-control'
 
     = label_tag 'Tags'
@@ -15,3 +15,21 @@
 .col-sm-12
   Example users csv
   %a{href: '/UserList1.csv'} list,
+
+.col-md-12.content-box-large.panel-heading
+  %h4 Add a user
+  %p.text-success{id: 'create-success-message'}
+  %p.text-danger{id: 'create-error-message'}
+  = form_tag create_single_users_path, id: 'single-user', method: :post, remote: true do
+
+    = label_tag 'Name (optional)'
+    = text_field_tag :name, nil, { class: 'form-control' }
+
+    = label_tag 'Email'
+    = email_field_tag :email, nil, { class: 'form-control', required: true }
+
+    = label_tag 'Tags'
+    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2', multiple: true }
+    .actions
+      .col-md-6
+        = submit_tag 'Add User', class: 'btn btn-primary'
