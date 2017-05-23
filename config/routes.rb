@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :destroy, :new, :create] do
     collection do
       post 'create_single'
+      get  'import'
     end
   end
 

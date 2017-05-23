@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_all_tags, only: :new
+  before_action :set_all_tags, only: [:new, :import]
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   end
 
   def new; end
+
+  def import; end
 
   def create
     if params[:file].present? && params[:tags].present?
@@ -29,17 +31,18 @@ class UsersController < ApplicationController
     else
       @result = { imported_users: 0, import_errors: 'Tags and Csv file required.' }
     end
-    redirect_to new_user_path, notice: @result
+    redirect_to import_users_path, notice: @result
   end
 
   def create_single
     user = current_account.users.new(name: params[:name], email: params[:email])
     user.tag_list << params[:tags]
     if user.save
-      @message = 'User was successfully created!'
+      @result = 'User was successfully created!'
     else
-      @errors = user.errors.full_messages.to_sentence
+      @result = user.errors.full_messages.to_sentence
     end
+    redirect_to new_user_path, notice: @result
   end
 
   def destroy

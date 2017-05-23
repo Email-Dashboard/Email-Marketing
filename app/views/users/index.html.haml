@@ -1,5 +1,7 @@
 .content-box-large
   .panel-heading
+    = link_to 'Import Users From a File', import_users_path, class: 'btn btn-success pull-right'
+    = link_to 'Add a User', new_user_path, class: 'btn btn-info pull-right', style: 'margin-right: 1%'
     .panel-body.search-panel
       .portlet-title{'data-toggle': 'collapse', 'data-target': '#search-body'}
         %h4
@@ -53,5 +55,3 @@
               = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
                 method: :delete, remote: true, data: { confirm: 'Are you sure?' }
     = paginate @users
-    .col-sm-12.text-right
-      = link_to 'Import New Users From CSV', new_user_path, class: 'btn btn-primary'

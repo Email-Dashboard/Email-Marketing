@@ -20,10 +20,14 @@
         %h4
           Campaign User Search
       .portlet-body
-        -# = render partial: 'users/basic_search'
         = render partial: 'shared/advanced_search', locals: { form_url: "/campaigns/#{@campaign.id}" }
+    .col-sm-6
+      = paginate @campaign_users
+    .col-sm-6.text-right
+      = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+      limit: params[:limit_count], query_from: 'campaign', campaign_id: @campaign.id }),
+      class: 'btn btn-success', style: 'margin-top: 1%'
 
-    = paginate @campaign_users
     %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
       %thead
         %tr
