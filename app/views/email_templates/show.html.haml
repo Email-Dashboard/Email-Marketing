@@ -1,10 +1,10 @@
-- body = Tilt::ERBTemplate.new { "#{@email_template.body}" }
-- subject = Tilt::ERBTemplate.new { "#{@email_template.subject}" }
+- body = Tilt::HamlTemplate.new { "#{@email_template.body}" }
+- subject = Tilt::HamlTemplate.new { "#{@email_template.subject}" }
 
-- # TODO css reset not working
-.yui3-cssreset
-  = subject.render(User.first).html_safe
-  = body.render(User.first).html_safe
+.content-box-large
+  .panel-body
+    %h2.text-center= subject.render(User.first).html_safe
+    = body.render(User.first).html_safe
 
 %hr/
 

@@ -1,9 +1,9 @@
 - body = Tilt::ERBTemplate.new { "#{@campaign.email_template.body}" }
 - subject = Tilt::ERBTemplate.new { "#{@campaign.email_template.subject}" }
 
-.yui3-cssreset
+%h2.text-center
   = subject.render(User.first).html_safe
-  = body.render(User.first).html_safe
+= body.render(User.first).html_safe
 
 %hr
 = form_tag send_emails_campaign_path(@campaign), method: :post do

@@ -14,9 +14,15 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @campaign_users = @campaign.campaign_users.page(params[:page])
     @stats = @campaign.campaign_users.group(:status).count
     @total_users_count = @campaign.campaign_users.count
+
+    @q = @campaign.campaign_users.ransack(params[:q])
+    @q.build_grouping unless @q.groupings.any?
+    @q.sorts = 'created_at DESC' if @q.sorts.empty?
+
+    @campaign_users = ransack_results_with_limit
+    @associations = [:tags, :user, :user_tags, :campaign, :campaign_tags]
   end
 
   def add_users
@@ -37,11 +43,7 @@ class CampaignsController < ApplicationController
   def create
     # Assign users campaign in a sidekiq worker
     # It can take awhile in large users count
-    CreateCampaignJob.perform_later(params[:q],
-                                    params[:tags],
-                                    params[:limit_count],
-                                    campaign_params.to_hash,
-                                    current_account.id)
+    CreateCampaignJob.perform_later(new_campaign_args)
 
     redirect_to campaigns_path, notice: 'Your campaign is creating... It will take a few seconds, refresh the page to see changes.'
   end
@@ -93,6 +95,21 @@ class CampaignsController < ApplicationController
     unless current_account.email_templates.present?
       redirect_to new_email_template_path, notice: 'You don\'t have any email template to create campaign. Create one first!'
     end
+  end
+
+  def new_campaign_args
+    {
+      query: params[:q],
+      query_from: params[:query_from],
+      account_id: current_account.id,
+      campaign_id: params[:campaign_id],
+      tags: params[:tags],
+      limit: params[:limit],
+      campaign_params: {
+          name: campaign_params[:name],
+          email_template_id: campaign_params[:email_template_id]
+      }
+    }
   end
 
   # Use callbacks to share common setup or constraints between actions.
