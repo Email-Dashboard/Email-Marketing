@@ -14,9 +14,15 @@ class CampaignsController < ApplicationController
   end
 
   def show
-    @campaign_users = @campaign.campaign_users.page(params[:page])
     @stats = @campaign.campaign_users.group(:status).count
     @total_users_count = @campaign.campaign_users.count
+
+    @q = @campaign.campaign_users.ransack(params[:q])
+    @q.build_grouping unless @q.groupings.any?
+    @q.sorts = 'created_at DESC' if @q.sorts.empty?
+
+    @campaign_users = ransack_results_with_limit
+    @associations = [:tags, :user, :user_tags, :campaign, :campaign_tags]
   end
 
   def add_users
