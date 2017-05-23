@@ -43,9 +43,9 @@
             %td= user.email
             %td= user.name
             %td
-              - user.tags.each do |tag|
-                %span.badge{style: 'background-color: #337ab7'}
-                  = tag
+              %div{id: "UserTags-#{user.id}"}
+                = render partial: 'tags/item_tags', locals: { item: user }
+
             %td= user.campaigns.pluck(:name).join(', ')
             %td
               - user.user_attributes.each do |attr|
