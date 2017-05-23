@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_all_tags, only: :new
+  before_action :set_all_tags, only: [:new, :import]
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
@@ -9,11 +9,13 @@ class UsersController < ApplicationController
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
     @users = ransack_results_with_limit
-    @associations = [:tags, :campaign_users, :user_attributes, :campaigns, :campaigns_tags]
+    @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
     @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
   end
 
   def new; end
+
+  def import; end
 
   def create
     if params[:file].present? && params[:tags].present?
@@ -29,17 +31,18 @@ class UsersController < ApplicationController
     else
       @result = { imported_users: 0, import_errors: 'Tags and Csv file required.' }
     end
-    redirect_to new_user_path, notice: @result
+    redirect_to import_users_path, notice: @result
   end
 
   def create_single
     user = current_account.users.new(name: params[:name], email: params[:email])
     user.tag_list << params[:tags]
     if user.save
-      @message = 'User was successfully created!'
+      @result = 'User was successfully created!'
     else
-      @errors = user.errors.full_messages.to_sentence
+      @result = user.errors.full_messages.to_sentence
     end
+    redirect_to new_user_path, notice: @result
   end
 
   def destroy

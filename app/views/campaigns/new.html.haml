@@ -22,7 +22,9 @@
       = link_to 'create new template.', new_email_template_path, target: '_blank'
 
     = hidden_field_tag 'q', params[:q]
-    = hidden_field_tag 'limit_count', params[:limit]
+    = hidden_field_tag 'limit', params[:limit]
+    = hidden_field_tag 'query_from', (params[:query_from] || 'users')
+    = hidden_field_tag 'campaign_id', params[:campaign_id]
 
     .actions
       = f.submit 'Save', class: 'btn btn-primary'

@@ -1,4 +1,4 @@
-= search_form_for @q, html: { method: :get }  do |f|
+= search_form_for @q, url: form_url, html: { method: :get }  do |f|
 
   = f.grouping_fields do |g|
     = render 'shared/grouping_fields', :f => g

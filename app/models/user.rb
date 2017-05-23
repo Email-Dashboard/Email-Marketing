@@ -13,7 +13,7 @@
 class User < ApplicationRecord
   belongs_to :account
 
-  has_many :campaign_users
+  has_many :campaign_users, dependent: :destroy
   has_many :campaigns, through: :campaign_users
   has_many :user_attributes
 

@@ -5,25 +5,40 @@ class CreateCampaignJob < ApplicationJob
     retry_job queue: :high_priority
   end
 
-  def perform(query, tags, limit, campaign_params, account_id)
-    current_account = Account.find account_id
+  def perform(args)
+    current_account = Account.find args[:account_id]
 
     # Set Campaign Users from the query
-    campaign_users = if query == 'all'
-                       current_account.users.all
-                     else
-                       query = Rack::Utils.parse_nested_query(query) # convert string params to hash
-                       q = current_account.users.ransack(query)
-                       q.result(distinct: true)
-                     end
+    campaign_users = collect_query_users(args[:query], args[:query_from], current_account, args[:campaign_id])
 
-    campaign_users = campaign_users.first(limit) if limit.present?
+    campaign_users = campaign_users.first(args[:limit]) if args[:limit].present?
 
-    campaign = current_account.campaigns.new(campaign_params)
+    campaign = current_account.campaigns.new(args[:campaign_params])
     campaign.users = campaign_users
-    campaign.email_template_id = nil if campaign_params[:email_template_id] == 'new_template'
-    campaign.tag_list = tags
+    campaign.tag_list = args[:tags]
 
     campaign.save!
+  end
+
+  def collect_query_users(query, query_from, account, campaign_id)
+    query_hash = Rack::Utils.parse_nested_query(query) # convert string params to hash
+
+    if query_from == 'campaign'
+      campaign = account.campaigns.find campaign_id
+      if query == 'all'
+        campaign.users
+      else
+        q = campaign.campaign_users.ransack(query_hash)
+        cu = q.result(distinct: true).to_a
+        campaign.users.where(id: cu.pluck(:user_id))
+      end
+    else
+      if query == 'all'
+        account.users
+      else
+        q = account.users.ransack(query_hash)
+        q.result(distinct: true)
+      end
+    end
   end
 end
