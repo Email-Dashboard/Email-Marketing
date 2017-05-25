@@ -1,31 +1,43 @@
 .col-md-12.content-box-large.panel-heading
-  = form_tag update_settings_path, method: :post do
-    = label_tag 'Send emails from email:'
-    = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
+  / Nav tabs
+  .card
+    %ul.nav.nav-tabs{:role => "tablist"}
+      %li.active{:role => "presentation"}
+        %a{"aria-controls" => "home", "data-toggle" => "tab", :href => "#smtp", :role => "tab"} SMTP Settings
+      %li{:role => "presentation"}
+        %a{"aria-controls" => "profile", "data-toggle" => "tab", :href => "#reply", :role => "tab"} Reply Settings
+    / Tab panes
+    .tab-content
+      #smtp.tab-pane.active{:role => "tabpanel"}
+        = form_tag update_settings_path, method: :post do
+          = label_tag 'Send emails from email:'
+          = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
 
-    = label_tag 'Reply to:'
-    = text_field_tag 'smtp[reply_to]', @settings.reply_to, class: 'form-control', placeholder: 'example@yourdomain.com'
-    %hr
-    %h4.text-muted SMTP Settings
+          = label_tag 'Reply to:'
+          = text_field_tag 'smtp[reply_to]', @settings.reply_to, class: 'form-control', placeholder: 'example@yourdomain.com'
+          %hr
+          %h4.text-muted SMTP Settings
 
-    = label_tag 'Set smtp provider:'
-    = text_field_tag 'smtp[provider]', @settings.provider, class: 'form-control', placeholder: 'sendgrid'
-    %hr
+          = label_tag 'Set smtp provider:'
+          = text_field_tag 'smtp[provider]', @settings.provider, class: 'form-control', placeholder: 'sendgrid'
+          %hr
 
-    = label_tag 'smtp address'
-    = text_field_tag 'smtp[address]', @settings.address, class: 'form-control', placeholder: 'smtp.examplemailserver.com'
+          = label_tag 'smtp address'
+          = text_field_tag 'smtp[address]', @settings.address, class: 'form-control', placeholder: 'smtp.examplemailserver.com'
 
-    = label_tag 'smtp port'
-    = text_field_tag 'smtp[port]', @settings.port, class: 'form-control', placeholder: '587'
+          = label_tag 'smtp port'
+          = text_field_tag 'smtp[port]', @settings.port, class: 'form-control', placeholder: '587'
 
-    = label_tag 'Your verified domain'
-    = text_field_tag 'smtp[domain]', @settings.domain, class: 'form-control', placeholder: 'example.com'
+          = label_tag 'Your verified domain'
+          = text_field_tag 'smtp[domain]', @settings.domain, class: 'form-control', placeholder: 'example.com'
 
-    = label_tag 'username'
-    = text_field_tag 'smtp[user_name]', @settings.user_name, class: 'form-control', placeholder: 'username'
+          = label_tag 'username'
+          = text_field_tag 'smtp[user_name]', @settings.user_name, class: 'form-control', placeholder: 'username'
 
-    = label_tag 'password'
-    = text_field_tag 'smtp[password]', @settings.password, class: 'form-control', placeholder: 'password'
+          = label_tag 'password'
+          = text_field_tag 'smtp[password]', @settings.password, class: 'form-control', placeholder: 'password'
 
-    .actions
-      = submit_tag 'Update Settings', class: 'btn btn-primary'
+          .actions
+            = submit_tag 'Update Settings', class: 'btn btn-primary'
+
+      #reply.tab-pane{:role => "tabpanel"} skladnas dkalsdn.

@@ -28,6 +28,13 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
+  # accept (.) in params
+  resources :inbox, :id => /.*/ do
+    collection do
+      post :reply_email
+    end
+  end
+
   resources :tags do
     collection do
       post 'remove_tag_from_item'

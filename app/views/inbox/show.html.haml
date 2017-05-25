@@ -1,0 +1,42 @@
+.col-md-7.content-box-large.panel-heading
+  .col-md-12
+    %span.pull-right
+      %i.glyphicon.glyphicon-time
+      = @email.date.strftime("%d-%m-%y %H:%M")
+    .row
+      %h3= @email.subject
+
+    .row{style: 'word-wrap: break-word;'}
+      -#%p= raw @email.text_part.body.decoded
+      %p= raw (@email.text_part || @email.html_part || @email).body.decoded
+
+    = form_tag reply_email_inbox_index_path, method: :post do
+      .row
+        -#%textarea.form-control{:placeholder => "Write a reply...", :rows => "3"}
+        = text_area_tag 'body', nil, rows: 3, placeholder: 'Write a reply...', class: 'form-control'
+        = hidden_field_tag 'mail_to', @email.from.first
+        = hidden_field_tag 'subject', @email.subject
+
+      .row
+        .col-md-3
+          = @email.from.first
+        .col-md-9.text-right
+          = submit_tag 'Send Message', class: 'btn btn-success'
+
+.col-md-5.content-box-large.panel-heading
+  - if @user.present?
+    %h4.text-center
+      = @user.name || @user.email
+
+    .col-md-12
+      Campaigns:
+      - @user.campaigns.each do |campaign|
+        = link_to campaign.name, campaign_path(campaign)
+        ,
+      %hr
+
+    .col-md-12
+      %div{id: "UserTags-#{@user.id}"}
+        = render partial: 'tags/item_tags', locals: { item: @user }
+  - else
+    %p This email not in your users list.

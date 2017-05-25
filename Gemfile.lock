@@ -330,6 +330,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.0.5)
+  mail
   mysql2
   pg
   puma (~> 3.0)
