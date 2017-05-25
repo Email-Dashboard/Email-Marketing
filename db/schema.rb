@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 20170525165610) do
     t.string   "reply_to"
     t.string   "imap_address"
     t.string   "imap_port"
-    t.string   "imap_user_name"
     t.string   "imap_password"
     t.index ["account_id"], name: "index_mail_settings_on_account_id"
   end

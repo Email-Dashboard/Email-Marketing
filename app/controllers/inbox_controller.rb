@@ -14,27 +14,28 @@ class InboxController < ApplicationController
     subject   = params[:subject].upcase.start_with?('RE:') ? params[:subject] : "Re: #{params[:subject]}"
     mail_to   = params[:mail_to]
     mail_body = params[:body]
+    mail_from = current_account.mail_setting.reply_to
 
     Mail.deliver do
-      from     'sadik@mojilala.com'
+      from     mail_from
       to       mail_to
       subject  subject
       body     mail_body
     end
-
-    redirect_to users_path, notice: 'Message was successfully sent!'
   end
 
   private
 
   # To read emails
   def set_imap_settings
+    settings = current_account.mail_setting
+
     Mail.defaults do
       retriever_method :imap,
-                       :address    => 'outlook.office365.com',
-                       :port       => 993,
-                       :user_name  => 'sadik@mojilala.com',
-                       :password   => 'H3qnkr83SLdt',
+                       :address    => settings.imap_address,
+                       :port       => settings.imap_port,
+                       :user_name  => settings.reply_to,
+                       :password   => settings.imap_password,
                        :enable_ssl => true
     end
 
@@ -44,6 +45,7 @@ class InboxController < ApplicationController
   # To send email
   def set_smtp_settings
     settings = current_account.mail_setting
+
     Mail.defaults do
       delivery_method :smtp,
                       user_name: settings.user_name,

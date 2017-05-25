@@ -13,8 +13,6 @@
           = label_tag 'Send emails from email:'
           = text_field_tag 'smtp[from_email]', @settings.from_email, class: 'form-control', placeholder: 'example@yourdomain.com'
 
-          = label_tag 'Reply to:'
-          = text_field_tag 'smtp[reply_to]', @settings.reply_to, class: 'form-control', placeholder: 'example@yourdomain.com'
           %hr
           %h4.text-muted SMTP Settings
 
@@ -40,4 +38,23 @@
           .actions
             = submit_tag 'Update Settings', class: 'btn btn-primary'
 
-      #reply.tab-pane{:role => "tabpanel"} skladnas dkalsdn.
+      #reply.tab-pane{:role => "tabpanel"}
+        %p Add IMAP settings to read replied emails.
+        = form_tag update_settings_path, method: :post do
+          = label_tag 'Reply to and reply from:'
+          = text_field_tag 'smtp[reply_to]', @settings.reply_to, class: 'form-control', placeholder: 'example@yourdomain.com'
+
+          %hr
+          %h4.text-muted SMTP Settings
+
+          = label_tag 'imap address'
+          = text_field_tag 'smtp[imap_address]', @settings.imap_address, class: 'form-control', placeholder: 'outlook.office365.com'
+
+          = label_tag 'imap port'
+          = text_field_tag 'smtp[imap_port]', @settings.imap_port, class: 'form-control', placeholder: '993'
+
+          = label_tag 'Reply to email password'
+          = password_field_tag 'smtp[imap_password]', @settings.imap_password, class: 'form-control', placeholder: '********'
+
+          .actions
+            = submit_tag 'Update Settings', class: 'btn btn-primary'
