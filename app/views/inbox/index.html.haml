@@ -3,15 +3,10 @@
     %tr
       %th From
       %th Subject
-      %th Campaigns
-      %th Tags
       %th Date
   %tbody
     - @emails.each do |message|
-      - user = find_imap_user(message.from.try(:first))
       %tr
         %td= message.from.try(:first)
         %td= link_to message.subject, inbox_path(message.message_id)
-        %td= user.campaigns.pluck(:name).join(', ') if user.present?
-        %td= user.tag_list.to_s if user.present?
         %td= message.date.strftime("%d-%m-%y %H:%M")

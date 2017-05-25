@@ -7,8 +7,4 @@ module ApplicationHelper
     end
     link_to(name, '#', class: 'add_fields', data: { id: id, fields: fields.delete("\n") })
   end
-
-  def find_imap_user(email)
-    current_account.users.find_by(email: email)
-  end
 end

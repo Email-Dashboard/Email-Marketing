@@ -30,6 +30,11 @@ class InboxController < ApplicationController
   def set_imap_settings
     settings = current_account.mail_setting
 
+    if !settings.imap_address.present? || !settings.imap_port.present? || !settings.imap_password.present?
+      redirect_to settings_path, notice: 'Please! Add your Reply Settings to read the messages.'
+      return
+    end
+
     Mail.defaults do
       retriever_method :imap,
                        :address    => settings.imap_address,
@@ -39,7 +44,8 @@ class InboxController < ApplicationController
                        :enable_ssl => true
     end
 
-    @emails = Mail.find(what: :last, count: 6, order: :desc)
+  # @emails = Mail.find(what: :last, count: 100, order: :desc)
+    @emails = Mail.all
   end
 
   # To send email
