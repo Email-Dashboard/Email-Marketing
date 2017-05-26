@@ -10,6 +10,23 @@ class InboxController < ApplicationController
     @user = current_account.users.find_by(email: @email.from.first)
   end
 
+  def detail
+    @message = params[:message]
+    @subject = params[:subject]
+    @email = params[:email]
+    @user = current_account.users.find_by(email: @email)
+
+    if @user.present?
+      if params[:cu_id].present?
+        @campaign_users = @user.campaign_users.where(id: params[:cu_id])
+      else
+        templates = current_account.email_templates.where(subject: @subject.remove('Re: '))
+        campaigns = @user.campaigns.where(email_template_id: templates.try(:ids))
+        @campaign_users = @user.campaign_users.where(campaign_id: campaigns.try(:ids))
+      end
+    end
+  end
+
   def reply_email
     subject   = params[:subject].upcase.start_with?('RE:') ? params[:subject] : "Re: #{params[:subject]}"
     mail_to   = params[:mail_to]
@@ -44,7 +61,7 @@ class InboxController < ApplicationController
                        :enable_ssl => true
     end
 
-  # @emails = Mail.find(what: :last, count: 100, order: :desc)
+    # @emails = Mail.find(what: :last, count: 6, order: :desc)
     @emails = Mail.all
   end
 

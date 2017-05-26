@@ -28,10 +28,10 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
-  # accept (.) in params
-  resources :inbox, :id => /.*/ do
+  resources :inbox do
     collection do
       post :reply_email
+      post :detail
     end
   end
 

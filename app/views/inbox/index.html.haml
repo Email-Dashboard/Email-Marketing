@@ -1,12 +1,39 @@
-%table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-  %thead
-    %tr
-      %th From
-      %th Subject
-      %th Date
-  %tbody
-    - @emails.each do |message|
+:javascript
+  $(document).click(function(event) {
+    if(!$(event.target).closest('#inbox-secondary').length) {
+      if($('#inbox-secondary').is(":visible")) {
+        $('#inbox-secondary').hide('slide');
+        $('#inbox-main').removeClass('inbox-main')
+      }
+    }
+  });
+
+  $(document).ready(function() {
+    $('#inbox-secondary').hide();
+    $('#inbox-main').removeClass('inbox-main')
+  });
+
+#inbox-main.inbox-main
+  %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+    %thead
       %tr
-        %td= message.from.try(:first)
-        %td= link_to message.subject, inbox_path(message.message_id)
-        %td= message.date.strftime("%d-%m-%y %H:%M")
+        %th From
+        %th Subject
+        %th Date
+        %th #
+    %tbody
+      - @emails.each do |message|
+        - display_part = (message.text_part || message.html_part || message).body.decoded
+        - campaign_user_id = /(?<=\bcampaign_user_id_)(\w+)/.match(message.to_s).to_s
+        %tr
+          %td= message.from.try(:first)
+          %td= message.subject
+          %td= message.date.strftime("%d-%m-%y %H:%M")
+          %td
+            = link_to detail_inbox_index_path(message: display_part, email: message.from.try(:first),
+            subject: message.subject, cu_id: campaign_user_id), remote: true, method: :post do
+              %span.glyphicon.glyphicon-play
+
+
+#inbox-secondary.inbox-secondary
+  #email-detail

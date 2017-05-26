@@ -1,5 +1,6 @@
 class UserMailer < ApplicationMailer
   def campaign_email(campaign_user)
+    @campaign_user = campaign_user
     @user    = campaign_user.user
 
     template = campaign_user.campaign.email_template
