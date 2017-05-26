@@ -31,7 +31,7 @@ class InboxController < ApplicationController
     subject   = params[:subject].upcase.start_with?('RE:') ? params[:subject] : "Re: #{params[:subject]}"
     mail_to   = params[:mail_to]
     mail_body = params[:body]
-    mail_from = current_account.mail_setting.reply_to
+    mail_from = current_account.mail_setting.imap_username
 
     Mail.deliver do
       from     mail_from
@@ -47,8 +47,8 @@ class InboxController < ApplicationController
   def set_imap_settings
     settings = current_account.mail_setting
 
-    if !settings.imap_address.present? || !settings.imap_port.present? || !settings.imap_password.present?
-      redirect_to settings_path, notice: 'Please! Add your Reply Settings to read the messages.'
+    if !settings.imap_address.present? || !settings.imap_port.present? || !settings.imap_password.present? || !settings.imap_username.present?
+      redirect_to settings_path, notice: 'Please! Add your IMAP Settings to read the messages.'
       return
     end
 
@@ -56,7 +56,7 @@ class InboxController < ApplicationController
       retriever_method :imap,
                        :address    => settings.imap_address,
                        :port       => settings.imap_port,
-                       :user_name  => settings.reply_to,
+                       :user_name  => settings.imap_username,
                        :password   => settings.imap_password,
                        :enable_ssl => true
     end

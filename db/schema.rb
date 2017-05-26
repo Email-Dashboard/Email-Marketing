@@ -71,13 +71,14 @@ ActiveRecord::Schema.define(version: 20170525191634) do
     t.string   "domain"
     t.string   "user_name"
     t.string   "password"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "provider"
     t.string   "reply_to"
     t.string   "imap_address"
     t.string   "imap_port"
     t.string   "imap_password"
+    t.string   "imap_username"
     t.index ["account_id"], name: "index_mail_settings_on_account_id"
   end
 

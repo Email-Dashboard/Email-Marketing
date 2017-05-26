@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def update_settings
-    if current_account.mail_setting.update(smtp_params)
+    if current_account.mail_setting.update(settings_params)
       redirect_to settings_path, notice: 'Settings updated successfully!'
     else
       redirect_to settings_path, notice: 'Error! Settings not updated!'
@@ -16,8 +16,8 @@ class HomeController < ApplicationController
 
   private
 
-  def smtp_params
-    params.require(:smtp).permit(:from_email, :reply_to, :address, :port, :domain, :user_name, :password, :provider,
-                                 :imap_password, :imap_port, :imap_address)
+  def settings_params
+    params.require(:settings).permit(:from_email, :reply_to, :address, :port, :domain, :user_name, :password, :provider,
+                                 :imap_password, :imap_port, :imap_address, :imap_username)
   end
 end
