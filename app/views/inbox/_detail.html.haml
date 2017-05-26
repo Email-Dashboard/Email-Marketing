@@ -2,7 +2,7 @@
   %h3= @subject
 
   .div{style: 'word-wrap: break-word;'}
-    %p= raw @message
+    %p= simple_format @message
 
   = form_tag reply_email_inbox_index_path, method: :post, remote: true do
     .row
@@ -24,6 +24,10 @@
   - if user.present?
     %h4.text-center
       = user.name || user.email
+    %p
+      User Tags:
+      %b
+        = user.tag_list
 
     .col-md-12
       - campaign_users.each do |campaign_user|

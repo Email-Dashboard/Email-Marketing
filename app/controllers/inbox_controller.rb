@@ -61,8 +61,8 @@ class InboxController < ApplicationController
                        :enable_ssl => true
     end
 
-    # @emails = Mail.find(what: :last, count: 6, order: :desc)
-    @emails = Mail.all
+    @emails = Mail.find(what: :last, count: 6, order: :desc)
+    # @emails = Mail.all
   end
 
   # To send email

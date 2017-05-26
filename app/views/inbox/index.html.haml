@@ -30,10 +30,13 @@
           %td= message.subject
           %td= message.date.strftime("%d-%m-%y %H:%M")
           %td
-            = link_to detail_inbox_index_path(message: display_part, email: message.from.try(:first),
-            subject: message.subject, cu_id: campaign_user_id), remote: true, method: :post do
-              %span.glyphicon.glyphicon-play
-
+            = form_tag(detail_inbox_index_path, method: 'post', remote: true) do
+              = hidden_field_tag 'message', display_part
+              = hidden_field_tag 'email', message.from.try(:first)
+              = hidden_field_tag 'subject', message.subject
+              = hidden_field_tag 'cu_id', campaign_user_id
+              = button_tag :submit, class: 'btn btn-primary' do
+                %span.glyphicon.glyphicon.glyphicon-chevron-right
 
 #inbox-secondary.inbox-secondary
   #email-detail

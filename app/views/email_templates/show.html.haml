@@ -1,5 +1,5 @@
-- body = Tilt::HamlTemplate.new { "#{@email_template.body}" }
-- subject = Tilt::HamlTemplate.new { "#{@email_template.subject}" }
+- body = Tilt::ERBTemplate.new { "#{@email_template.body}" }
+- subject = Tilt::ERBTemplate.new { "#{@email_template.subject}" }
 
 .content-box-large
   .panel-body
