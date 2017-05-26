@@ -69,6 +69,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -315,6 +317,7 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
   bulk_insert
   byebug

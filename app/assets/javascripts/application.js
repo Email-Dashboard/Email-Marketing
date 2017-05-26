@@ -18,6 +18,7 @@
 //= require select2-full
 //= require Chart.bundle
 //= require chartkick
+//= require bootstrap-datepicker
 
 $( document ).ready(function() {
   $('.select2').select2({
@@ -41,4 +42,5 @@ $( document ).ready(function() {
     $(this).before($(this).data('fields').replace(regexp, time));
     return event.preventDefault();
   });
+
 });

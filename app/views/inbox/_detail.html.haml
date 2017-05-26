@@ -2,7 +2,7 @@
   %h3= @subject
 
   .div{style: 'word-wrap: break-word;'}
-    %p= simple_format @message
+    %p= simple_format @message.html_safe
 
   = form_tag reply_email_inbox_index_path, method: :post, remote: true do
     .row

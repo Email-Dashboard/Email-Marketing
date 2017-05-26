@@ -1,13 +1,16 @@
 class InboxController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_imap_settings, only: [:index, :show]
+  before_action :set_imap_settings, only: :index
   before_action :set_smtp_settings, only: :reply_email
 
-  def index; end
-
-  def show
-    @email = @emails.select{ |email| email.message_id == params[:id] }.first
-    @user = current_account.users.find_by(email: @email.from.first)
+  def index
+    if params[:from].present? && params[:to].present?
+      date_from = Date.parse(params[:from]).strftime('%d-%b-%Y')
+      date_to   = Date.parse(params[:to]).strftime('%d-%b-%Y')
+      @emails = Mail.find(count: :all, order: :desc, keys: ['SINCE', date_from, 'BEFORE', date_to])
+    else
+      @emails = Mail.find(what: :last, count: 5, order: :desc)
+    end
   end
 
   def detail
@@ -60,9 +63,6 @@ class InboxController < ApplicationController
                        :password   => settings.imap_password,
                        :enable_ssl => true
     end
-
-    @emails = Mail.find(what: :last, count: 6, order: :desc)
-    # @emails = Mail.all
   end
 
   # To send email
