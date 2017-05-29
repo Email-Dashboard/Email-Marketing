@@ -33,14 +33,18 @@ class InboxController < ApplicationController
   def reply_email
     subject   = params[:subject].upcase.start_with?('RE:') ? params[:subject] : "Re: #{params[:subject]}"
     mail_to   = params[:mail_to]
-    mail_body = params[:body]
+    mail_body = Tilt::ERBTemplate.new { params[:body] }
+    content   = mail_body.render(current_account.users.find_by(email: params[:mail_to]))
     mail_from = current_account.mail_setting.imap_username
 
     Mail.deliver do
       from     mail_from
       to       mail_to
       subject  subject
-      body     mail_body
+      html_part do
+        content_type 'text/html; charset=UTF-8'
+        body content
+      end
     end
   end
 
