@@ -1,0 +1,3 @@
+$("#inbox-main").addClass('inbox-main');
+$('#inbox-secondary').show('slide');
+$("#email-detail").html("<%= escape_javascript render(partial: 'inbox/detail', locals: { user: @user, campaign_users: @campaign_users, message: @message, subject: @subject, email: @email }) %>");

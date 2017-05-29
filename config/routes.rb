@@ -28,6 +28,13 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
+  resources :inbox do
+    collection do
+      post :reply_email
+      post :detail
+    end
+  end
+
   resources :tags do
     collection do
       post 'remove_tag_from_item'

@@ -1,0 +1,41 @@
+.col-md-12
+  %h3= @subject
+
+  .div{style: 'word-wrap: break-word;'}
+    %p= simple_format @message.html_safe
+
+  = form_tag reply_email_inbox_index_path, method: :post, remote: true do
+    .row
+      = text_area_tag 'body', nil, rows: 3, placeholder: 'Write a reply...', class: 'form-control'
+      = hidden_field_tag 'mail_to', @email
+      = hidden_field_tag 'subject', @subject
+
+    .row
+      .col-md-3
+        = @email
+      .col-md-9.text-right
+        = submit_tag 'Send Message', class: 'btn btn-success'
+
+  #message-status.text-center.text-success
+
+  %hr
+
+.col-md-12.content-box-large.panel-heading
+  - if user.present?
+    %h4.text-center
+      = user.name || user.email
+    %p
+      User Tags:
+      %b
+        = user.tag_list
+
+    .col-md-12
+      - campaign_users.each do |campaign_user|
+        %h4= campaign_user.campaign.name
+        .col-md-12
+          %div{id: "CampaignUserTags-#{campaign_user.id}"}
+            = render partial: 'tags/item_tags', locals: { item: campaign_user }
+        %hr
+        %br
+  - else
+    %p This email not in your users list.

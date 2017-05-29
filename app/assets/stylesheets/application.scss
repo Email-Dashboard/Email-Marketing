@@ -4,6 +4,7 @@
  @import "select2";
  @import "select2-bootstrap";
  @import "css_reset";
+ @import "bootstrap-datepicker3";
 
  body {
    font-family: 'Open Sans', sans-serif;
@@ -200,3 +201,18 @@
 .yellow {
     background-color: #F1C40F;
 }
+
+.inbox-main{
+  margin-right: 500px
+}
+
+.inbox-secondary{
+   right: 0;
+   top: 0;
+   position: fixed;
+   width: 500px;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   height: 100%;
+   background: #c8d2d6;
+ }
