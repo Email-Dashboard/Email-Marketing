@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     @users = ransack_results_with_limit
     @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
-    @total_user_count = params[:limit_count].present? ? @users.count : @q.result(distinct: true).count
+    @total_user_count = @users.total_count
   end
 
   def new; end
