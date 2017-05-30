@@ -67,7 +67,7 @@
           = label_tag 'IMAP email'
           = text_field_tag 'settings[imap_username]', @settings.imap_username, class: 'form-control', placeholder: 'example@yourdomain.com'
 
-          = label_tag 'Reply to email password'
+          = label_tag 'password'
           = password_field_tag 'settings[imap_password]', @settings.imap_password, class: 'form-control', placeholder: '********'
 
           .actions

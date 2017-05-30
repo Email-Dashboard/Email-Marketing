@@ -10,13 +10,13 @@
 
   $(document).ready(function() {
     $('#inbox-secondary').hide();
-    $('#inbox-main').removeClass('inbox-main')
+    $('#inbox-main').removeClass('inbox-main');
 
-  $("#dt1, #dt2").datepicker({
-    format: 'dd/mm/yyyy'
-  }).on('changeDate', function(ev){
-    $('#dt1, #dt2').datepicker('hide');
-  });
+    $("#dt1, #dt2").datepicker({
+      format: 'dd/mm/yyyy'
+    }).on('changeDate', function(ev){
+      $('#dt1, #dt2').datepicker('hide');
+    });
 
   });
 
