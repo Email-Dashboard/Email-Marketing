@@ -19,6 +19,8 @@
 //= require Chart.bundle
 //= require chartkick
 //= require bootstrap-datepicker
+//= require custom.min.js
+//= require turbolinks
 
 $( document ).ready(function() {
   $('.select2').select2({

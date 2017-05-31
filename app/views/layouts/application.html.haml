@@ -1,85 +1,85 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title EmailMarketing
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %title Email Marketing
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': false
-    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
-  %body
-    .header
-      .container
-        .row
-          .col-md-5
-            / Logo
-            .logo
-              %h1= link_to 'Smart Email Marketing', root_path
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
 
-          - if current_account
-            .col-md-5
-            .col-md-2
-              .navbar.navbar-inverse{:role => "banner"}
-                %nav.collapse.navbar-collapse.bs-navbar-collapse.navbar-right{:role => "navigation"}
-                  %ul.nav.navbar-nav
-                    %li.dropdown
-                      %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                        My Account
-                        %b.caret
-                      %ul.dropdown-menu.animated.fadeInUp
-                        %li
-                          = link_to 'Account Settings', edit_account_registration_path
-                        %li
-                          = link_to('Logout', destroy_account_session_path, :method => :delete)
-          - else
-            .col-md-3
-            .col-md-4.text-right{style: 'margin-top: 5px;'}
-              = link_to('Login', new_account_session_path, class: 'btn col-md-6 text-right')
-              = link_to 'Register', new_account_registration_path, class: 'btn btn-primary col-md-6 text-right'
+    %link{href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel: "stylesheet", integrity: "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin: "anonymous"}
 
-      .page-content
-        .row
-          .col-md-2
-            - if current_account
-              .sidebar.content-box{:style => "display: block;"}
-                %ul.nav
-                  / Main menu
-                  %li.current
+    / Custom Theme Style
+  %body.nav-md
+    .container.body
+      .main_container
+        .col-md-3.left_col.menu_fixed
+          .left_col.scroll-view
+            .navbar.nav_title{:style => "border: 0;"}
+              %a.site_title{:href => root_path}
+                %i.fa.fa-paw
+                %span Smart Email Marketing
+            .clearfix
+            / sidebar menu
+            #sidebar-menu.main_menu_side.hidden-print.main_menu
+              .menu_section
+                %h3 General
+                %ul.nav.side-menu
+                  %li
                     %a{:href => users_path}
-                      %i.glyphicon.glyphicon-user
+                      %i.fa.fa-users
                       Users
-                  %li.current
-                    %a{:href => import_users_path}
-                      %i.glyphicon.glyphicon-th-list
-                      Import Users
-                  %li.current
+                  %li
                     %a{:href => inbox_index_path}
-                      %i.glyphicon.glyphicon-envelope
+                      %i.fa.fa-inbox
                       Inbox
-                  %li.current
+                  %li
                     %a{:href => campaigns_path}
-                      %i.glyphicon.glyphicon-star-empty
+                      %i.fa.fa-paper-plane-o
                       Campaigns
-                  %li.current
+                  %li
                     %a{:href => email_templates_path}
-                      %i.glyphicon.glyphicon-heart
+                      %i.fa.fa-star-half-o
                       Templates
-                  %li.current
+                  %li
                     %a{:href => tags_path, :style => 'font-size: 12px;'}
-                      %i.glyphicon.glyphicon-tags
+                      %i.fa.fa-tags
                       Tag Managment
-                  %li.current
+                  %li
                     %a{:href => settings_path}
-                      %i.glyphicon.glyphicon-cog
+                      %i.fa.fa-cog
                       Settings
-                  %li.current
+                  %li
                     %a{:href => '/sidekiq', :target => '_blank'}
-                      %i.glyphicon.glyphicon-random
+                      %i.fa.fa-bar-chart
                       Sidekiq
 
-          .col-md-10
+        - if current_account
+          / top navigation
+          .top_nav
+            .nav_menu
+              %nav
+                %ul.nav.navbar-nav.navbar-right
+                  %li
+                    %a.user-profile.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
+                      = current_account.email
+                      %span.fa.fa-angle-down
+                    %ul.dropdown-menu.dropdown-usermenu.pull-right
+                      %li
+                        = link_to 'Account Settings', edit_account_registration_path
+                      %li
+                        = link_to('Logout', destroy_account_session_path, :method => :delete)
+
+
+      /Page Content
+      .right_col{:role => "main"}
+        %div
+          .col-md-12
             - if notice
               .alert.alert-warning
                 %p#notice= notice
 
-            = yield
+          = yield
