@@ -1,24 +1,46 @@
-%h3 Listing Campaigns
-.col-md-12.content-box-large.panel-heading
-  = render partial: 'shared/advanced_search', locals: { form_url: nil }
-  %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-    %thead
-      %tr
-        %th Name
-        %th Tags
-        %th Users Count
-        %th #
-        %th #
-    %tbody
-      - @campaigns.each do |campaign|
-        %tr
-          %td= campaign.name
-          %td
-            - campaign.tags.each do |tag|
-              %span.badge{style: 'background-color: #337ab7'}
-                = tag
-          %td= campaign.users.count
-          %td= link_to 'Show', campaign, class: 'btn btn-sm btn-default'
-          %td= link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+%div
+  .page-title
+    .title_left
+      %h3 Listing Campaigns
 
-%br
+  .clearfix
+  .row
+    .col-md-12
+      .x_panel
+        .x_title
+          %h2 Filter Campaigns
+          %ul.nav.navbar-right.panel_toolbox
+            %li
+              %a.collapse-link.pull-right
+                %i.fa.fa-chevron-up
+          .clearfix
+        .x_content
+          = render partial: 'shared/advanced_search', locals: { form_url: nil }
+
+  .row
+    .col-md-12
+      .x_panel
+        .x_title
+          %h2 Campaigns List
+          .clearfix
+        .x_content
+          %table.table.table-striped.projects
+            %thead
+              %tr
+                %th Name
+                %th Tags
+                %th Users Count
+                %th #
+                %th #
+            %tbody
+              - @campaigns.each do |campaign|
+                %tr
+                  %td= campaign.name
+                  %td
+                    - campaign.tags.each do |tag|
+                      %span.badge{style: 'background-color: #337ab7'}
+                        = tag
+                  %td= campaign.users.count
+                  %td= link_to 'Show', campaign, class: 'btn btn-sm btn-default'
+                  %td= link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+

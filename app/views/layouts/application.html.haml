@@ -10,6 +10,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': true
 
+    %link{rel: 'stylesheet', type: 'text/css', href: '/template/css/custom.min.css'}
     %link{href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel: "stylesheet", integrity: "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin: "anonymous"}
 
     / Custom Theme Style
@@ -26,12 +27,20 @@
             / sidebar menu
             #sidebar-menu.main_menu_side.hidden-print.main_menu
               .menu_section
-                %h3 General
                 %ul.nav.side-menu
                   %li
-                    %a{:href => users_path}
+                    %a
                       %i.fa.fa-users
                       Users
+                      %span.fa.fa-chevron-down
+                    %ul.nav.child_menu
+                      %li
+                        %a{:href => users_path } List Users
+                      %li
+                        %a{:href => new_user_path } Add a User
+                      %li
+                        %a{:href => import_users_path} Import Users List
+
                   %li
                     %a{:href => inbox_index_path}
                       %i.fa.fa-inbox
@@ -62,6 +71,10 @@
           .top_nav
             .nav_menu
               %nav
+                .nav.toggle
+                  %a#menu_toggle
+                    %i.fa.fa-bars
+
                 %ul.nav.navbar-nav.navbar-right
                   %li
                     %a.user-profile.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "javascript:;"}
@@ -71,15 +84,18 @@
                       %li
                         = link_to 'Account Settings', edit_account_registration_path
                       %li
-                        = link_to('Logout', destroy_account_session_path, :method => :delete)
+                        = link_to(destroy_account_session_path, :method => :delete) do
+                          %i.fa.fa-sign-out.pull-right
+                          Log Out
 
 
       /Page Content
       .right_col{:role => "main"}
         %div
           .col-md-12
-            - if notice
-              .alert.alert-warning
-                %p#notice= notice
-
+            - if flash.now[:notice]
+              .alert.alert-info
+                %p#notice= flash.now[:notice]
           = yield
+
+    %script{src: '/template/js/custom.min.js'}

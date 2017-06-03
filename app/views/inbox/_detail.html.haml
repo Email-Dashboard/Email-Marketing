@@ -1,55 +1,83 @@
-:javascript
-  function reply_template_select(){
-    $('#body').text($('#reply_email_template').val());
-  }
-.col-md-12
-  %h3= @subject
-
-  .div{style: 'word-wrap: break-word;'}
-    %p= simple_format @message.html_safe
-
-  = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
+-#:javascript
+-#  function reply_template_select(){
+-#    $('#body').text($('#reply_email_template').val());
+-#  }
+-#.col-md-12
+-#  %h3= @subject
+-#
+-#  .div{style: 'word-wrap: break-word;'}
+-#    %p= simple_format @message.html_safe
+-#
+-#  = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
+-#    .row
+-#      = text_area_tag 'body', nil, rows: 3, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
+-#      = hidden_field_tag 'mail_to', @email
+-#      = hidden_field_tag 'subject', @subject
+-#
+-#    .row
+-#      .col-md-3
+-#        = @email
+-#      .col-md-9.text-right
+-#        = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success'
+-#  .col-md-12
+-#    Select an email template:
+-#    = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -'
+-#
+-#  #message-status.text-center.text-success
+-#
+-#  %hr
+-#
+-#.col-md-12.content-box-large.panel-heading
+-#  - if user.present?
+-#    %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+-#      %tbody
+-#        %tr
+-#          %td User
+-#          %td= link_to (user.name || user.email), users_path(q: { email_eq: user.email }), target: '_blank'
+-#        %tr
+-#          %td User Tags
+-#          %td
+-#            %div{id: "UserTags-#{user.id}"}
+-#            = render partial: 'tags/item_tags', locals: { item: user }
+-#    - campaign_users.each do |campaign_user|
+-#      %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+-#        %tbody
+-#          %tr
+-#            %td Campaign
+-#            %td= link_to campaign_user.campaign.name, campaigns_path(q: { id_eq: campaign_user.campaign.id }), target: '_blank'
+-#          %tr
+-#            %td CampaignUser Tags
+-#            %td
+-#              %div{id: "CampaignUserTags-#{campaign_user.id}"}
+-#                = render partial: 'tags/item_tags', locals: { item: campaign_user }
+-#
+-#  - else
+-#    %p This email not in your users list.
+.inbox-body
+  .mail_heading.row
+    .col-md-8
+    .col-md-4.text-right
+      %p.date 8:02 PM 12 FEB 2014
+    .col-md-12
+      %h4 Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum.
+  .sender-info
     .row
-      = text_area_tag 'body', nil, rows: 3, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
-      = hidden_field_tag 'mail_to', @email
-      = hidden_field_tag 'subject', @subject
+      .col-md-12
+        %strong Jon Doe
+        %span (jon.doe@gmail.com)
+        to
+        %strong me
+        %a.sender-dropdown
+          %i.fa.fa-chevron-down
+  .view-mail
+    %p
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    %p
+      Riusmod tempor incididunt ut labor erem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+      mollit anim id est laborum.
+    %p
+      Modesed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-    .row
-      .col-md-3
-        = @email
-      .col-md-9.text-right
-        = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success'
-  .col-md-12
-    Select an email template:
-    = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -'
-
-  #message-status.text-center.text-success
-
-  %hr
-
-.col-md-12.content-box-large.panel-heading
-  - if user.present?
-    %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-      %tbody
-        %tr
-          %td User
-          %td= link_to (user.name || user.email), users_path(q: { email_eq: user.email }), target: '_blank'
-        %tr
-          %td User Tags
-          %td
-            %div{id: "UserTags-#{user.id}"}
-            = render partial: 'tags/item_tags', locals: { item: user }
-    - campaign_users.each do |campaign_user|
-      %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-        %tbody
-          %tr
-            %td Campaign
-            %td= link_to campaign_user.campaign.name, campaigns_path(q: { id_eq: campaign_user.campaign.id }), target: '_blank'
-          %tr
-            %td CampaignUser Tags
-            %td
-              %div{id: "CampaignUserTags-#{campaign_user.id}"}
-                = render partial: 'tags/item_tags', locals: { item: campaign_user }
-
-  - else
-    %p This email not in your users list.

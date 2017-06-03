@@ -4,18 +4,6 @@
  @import "select2";
  @import "select2-bootstrap";
  @import "bootstrap-datepicker3";
- @import "custom.min.css";
-
- @media (min-width: 1200px){
-   body {
-     //margin-left: -15px;
-     //margin-right: -15px;
-   }
-
-   .container {
-     width: 100%;
-   }
- }
 
 .search-panel{
   background-color: #eeeeee;
@@ -32,8 +20,34 @@
   border-radius: 5px;
 }
 
+ .actions {
+   margin-top: 1%;
+   margin-bottom: 1%;
+ }
+
 .group-fields {
-  background-color: #cbd5e8;
+  background-color: #ededed;
   padding: 9px;
   border-bottom: solid 1px blue;
+}
+
+ .inbox-main{
+   margin-right: 500px
+ }
+
+ .inbox-secondary{
+   right: 0;
+   top: 0;
+   position: fixed;
+   width: 500px;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   height: 100%;
+   background: #c8d2d6;
+ }
+
+.mail_list_column {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 600px;
 }

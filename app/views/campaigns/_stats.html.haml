@@ -1,85 +1,94 @@
-.panel-heading
-  .container
-    .row
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.dark-blue
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.dark-blue
-            .circle-tile-description.text-faded Draft
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['draft'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.gray
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.gray
-            .circle-tile-description.text-faded Processed
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['processed'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.red
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.red
-            .circle-tile-description.text-faded Dropped
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['dropped'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.green
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.green
-            .circle-tile-description.text-faded Delivered
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['delivered'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.orange
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.orange
-            .circle-tile-description.text-faded Deferred
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['deferred'] , @total_users_count)}"
+.row.tile_count
+  .col-md-1
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Draft Emails
+    .count= @stats['draft'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['draft'], @total_users_count).to_i}  %"
 
-    .row
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.dark-gray
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.dark-gray
-            .circle-tile-description.text-faded Bounce
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['bounce'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.blue
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.blue
-            .circle-tile-description.text-faded Open
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['open'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.yellow
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.yellow
-            .circle-tile-description.text-faded Click
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['click'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.purple
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.purple
-            .circle-tile-description.text-faded Spam
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['spamreport'] , @total_users_count)}"
-      .col-lg-2.col-sm-6
-        .circle-tile
-          .circle-tile-heading.light-gray
-            %h1
-              %i.glyphicon.glyphicon-envelope
-          .circle-tile-content.light-gray
-            .circle-tile-description.text-faded Unsubscribe
-            .circle-tile-number.text-faded= "% #{Campaign.calculate_percent(@stats['unsubscribe'] , @total_users_count)}"
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Processed Emails
+    .count.green= @stats['processed'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['processed'] , @total_users_count).to_i}  %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Dropped Emails
+    .count= @stats['dropped'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['dropped'] , @total_users_count).to_i} %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Delivered Emails
+    .count= @stats['delivered'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['delivered'] , @total_users_count).to_i} %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Deferred Emails
+    .count= @stats['deferred'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['deferred'] , @total_users_count).to_i} %"
+
+.row.tile_count
+  .col-md-1
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Bounced Emails
+    .count= @stats['bounce'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['bounce'], @total_users_count).to_i}  %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Opened Emails
+    .count.green= @stats['open'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['open'] , @total_users_count).to_i}  %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Clicked Emails
+    .count= @stats['click'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['click'] , @total_users_count).to_i} %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Spamreport Emails
+    .count= @stats['spamreport'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['spamreport'] , @total_users_count).to_i} %"
+
+  .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+    %span.count_top
+      %i.fa.fa-user
+      Unsubscribed Emails
+    .count= @stats['unsubscribe'] || 0
+    %span.count_bottom
+      %i.green
+        = "#{Campaign.calculate_percent(@stats['unsubscribe'] , @total_users_count).to_i} %"
+  .col-md-1

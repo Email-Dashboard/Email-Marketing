@@ -1,15 +1,23 @@
-%h3
-  #{@campaign.name}
-%div{id: "CampaignTags-#{@campaign.id}"}
-  = render partial: 'tags/item_tags', locals: { item: @campaign }
+.x_panel
+  .x_title
+    %h3
+      #{@campaign.name}
+    .clearfix
 
-.col-md-12.content-box-large.panel-heading
+  %div{id: "CampaignTags-#{@campaign.id}"}
+    = render partial: 'tags/item_tags', locals: { item: @campaign }
 
+.x_panel
   = render 'template_form'
 
-= render 'stats'
+.x_panel
+  .x_title
+    %h3 Campaign Statistics
+    %small Add Sendgrid settings to get more detaily statistics.
+  = render 'stats'
 
-= pie_chart @stats
+.x_panel
+  = pie_chart @stats
 
 .col-md-12.content-box-large.panel-heading
   .col-md-12
