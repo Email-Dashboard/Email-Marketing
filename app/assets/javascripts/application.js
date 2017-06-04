@@ -31,4 +31,15 @@ $( document ).ready(function() {
     return event.preventDefault();
   });
 
+  // datetime picker date format
+  $("#dt1, #dt2").datepicker({
+    format: 'dd/mm/yyyy'
+  }).on('changeDate', function(ev){
+    $('#dt1, #dt2').datepicker('hide');
+  });
+
 });
+
+function reply_template_select(){
+    $('#body').text($('#reply_email_template').val());
+}

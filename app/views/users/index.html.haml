@@ -40,7 +40,7 @@
           - if current_account.campaigns.present?
             .col-md-8.text-right
               = form_tag add_users_campaigns_path, method: :post do
-                = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
+                = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control', style: 'width: 28%; display: inline'
                 = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
                 = hidden_field_tag 'limit', params[:limit_count]
                 = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
