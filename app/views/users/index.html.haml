@@ -1,57 +1,77 @@
-.content-box-large
-  .panel-heading
-    = link_to 'Import Users From a File', import_users_path, class: 'btn btn-success pull-right'
-    = link_to 'Add a User', new_user_path, class: 'btn btn-info pull-right', style: 'margin-right: 1%'
-    .panel-body.search-panel
-      .portlet-title{'data-toggle': 'collapse', 'data-target': '#search-body'}
-        %h4
-          User Search
-      .portlet-body
-        -# = render partial: 'users/basic_search'
-        = render partial: 'shared/advanced_search', locals: { form_url: nil }
+%div
+  .page-title
+    .title_left
+      %h3 Listing Users
+    .title_right
+      .col-md-12.col-sm-12.col-xs-12.text-right
+        = link_to new_user_path do
+          %button.btn.btn-primary Add a User
+        = link_to import_users_path do
+          %button.btn.btn-success Import Users
 
-  .panel-body
-    .col-md-3
-      %h4
-        Listing User
-        %span.badge= @total_user_count
-    .col-md-9
-      - if @total_user_count > 0
-        .col-md-4
-          = link_to 'New Campaign For Listed Users', new_campaign_path({ q: (params[:q].presence || 'all'),
-            limit: params[:limit_count] }), class: 'btn btn-success'
-        - if current_account.campaigns.present?
-          .col-md-8.text-right
-            or add listed user to an existing campaign.
-            = form_tag add_users_campaigns_path, method: :post do
-              = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil)
-              = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
-              = hidden_field_tag 'limit', params[:limit_count]
-              = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
-    %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-      %thead
-        %tr
-          %th Email
-          %th Name
-          %th Tags
-          %th Campaigns
-          %th Attributes
-          %th.text-center #
-      %tbody
-        - @users.each do |user|
-          %tr{id: "user-#{user.id}"}
-            %td= user.email
-            %td= user.name
-            %td
-              %div{id: "UserTags-#{user.id}"}
-                = render partial: 'tags/item_tags', locals: { item: user }
+  .clearfix
+  .row
+    .col-md-12
+      .x_panel
+        .x_title
+          %h2 Filter Users
+          %ul.nav.navbar-right.panel_toolbox
+            %li
+              %a.collapse-link.pull-right
+                %i.fa.fa-chevron-up
+          .clearfix
+        .x_content
+          %p Filter users to create new campaign or add to existing campaign.
+          / start project list
+          = render partial: 'shared/advanced_search', locals: { form_url: nil }
 
-            %td= user.campaigns.pluck(:name).join(', ')
-            %td
-              - user.user_attributes.each do |attr|
-                = "#{attr.key}: #{attr.value}"
-                %br/
-            %td
-              = link_to 'Delete', user_path(user), class: 'btn btn-danger btn-sm', |
-                method: :delete, remote: true, data: { confirm: 'Are you sure?' }
-    = paginate @users
+  .row
+    .col-md-12
+      .x_panel
+        .x_title
+          %h2 Filtered Users
+          %p.label.label-primary{style: 'margin-left: 1%;'}
+            = @total_user_count
+
+        - if @total_user_count > 0
+          .col-md-4
+            = link_to 'New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+              limit: params[:limit_count] }), class: 'btn btn-success'
+          - if current_account.campaigns.present?
+            .col-md-8.text-right
+              = form_tag add_users_campaigns_path, method: :post do
+                = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control', style: 'width: 28%; display: inline'
+                = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
+                = hidden_field_tag 'limit', params[:limit_count]
+                = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
+          .clearfix
+        .x_content
+          %table.table.table-striped.projects
+            %thead
+              %tr
+                %th Email
+                %th Name
+                %th Tags
+                %th Campaigns
+                %th Attributes
+                %th.text-center #
+            %tbody
+              - @users.each do |user|
+                %tr{id: "user-#{user.id}"}
+                  %td= user.email
+                  %td= user.name
+                  %td
+                    %div{id: "UserTags-#{user.id}"}
+                      = render partial: 'tags/item_tags', locals: { item: user }
+
+                  %td= user.campaigns.pluck(:name).join(', ')
+                  %td
+                    - user.user_attributes.each do |attr|
+                      = "#{attr.key}: #{attr.value}"
+                      %br/
+                  %td
+                    = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
+                      %i.fa.fa-trash-o
+                      Delete
+
+          = paginate @users

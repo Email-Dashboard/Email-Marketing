@@ -1,32 +1,34 @@
-%h1 New campaign
-.col-md-6.content-box-large.panel-heading
-  = form_for @campaign do |f|
-    - if @campaign.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@campaign.errors.count, "error")} prohibited this campaign from being saved:"
-        %ul
-          - @campaign.errors.full_messages.each do |msg|
-            %li= msg
+.page-title
+  .title_left
+    %h3 New campaign
+  .col-md-6.x_panel
+    = form_for @campaign do |f|
+      - if @campaign.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@campaign.errors.count, "error")} prohibited this campaign from being saved:"
+          %ul
+            - @campaign.errors.full_messages.each do |msg|
+              %li= msg
 
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
+      = f.label :name
+      = f.text_field :name, class: 'form-control'
 
-    %label
-      Tag List
-    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2 form-control', multiple: true }
+      %label
+        Tag List
+      = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2 form-control', multiple: true }
 
-    .form-control{style: 'margin-top: 2%;'}
-      = f.label :email_template
-      = f.select 'email_template_id', options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
-      or
-      = link_to 'create new template.', new_email_template_path, target: '_blank'
+      .form-control{style: 'margin-top: 2%;'}
+        = f.label :email_template
+        = f.select 'email_template_id', options_from_collection_for_select(current_account.email_templates, 'id', 'subject')
+        or
+        = link_to 'create new template.', new_email_template_path, target: '_blank'
 
-    = hidden_field_tag 'q', params[:q]
-    = hidden_field_tag 'limit', params[:limit]
-    = hidden_field_tag 'query_from', (params[:query_from] || 'users')
-    = hidden_field_tag 'campaign_id', params[:campaign_id]
+      = hidden_field_tag 'q', params[:q]
+      = hidden_field_tag 'limit', params[:limit]
+      = hidden_field_tag 'query_from', (params[:query_from] || 'users')
+      = hidden_field_tag 'campaign_id', params[:campaign_id]
 
-    .actions
-      = f.submit 'Save', class: 'btn btn-primary'
-.col-md-12
-  = link_to 'All Campaigns', campaigns_path, class: 'btn btn-default'
+      .actions
+        = f.submit 'Save', class: 'btn btn-primary'
+  .col-md-12
+    = link_to 'All Campaigns', campaigns_path, class: 'btn btn-default'

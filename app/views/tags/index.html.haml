@@ -1,26 +1,20 @@
-:javascript
-  $(document).ready(function() {
-    $('.editable').editable();
-  });
+.x_panel
+  %h3 Tags Managment
+  .col-md-12.content-box-large.panel-heading
+    %p.text-muted Click on tag name to edit.
+    %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+      %thead
+        %tr
+      %tbody
+        - @all_tags.each_with_index do |tag, index|
+          - if (index % 6) == 0
+            %tr
+          %td
+            %a
+              = editable tag, :name, url: "tags/#{tag.id}", value: tag.name
+            %span.badge
+              = tag.taggings_count
 
-%h3 Tags Managment
-.col-md-12.content-box-large.panel-heading
-  %p.text-muted Click on tag name to edit.
-  %table#example.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-    %thead
-      %tr
-    %tbody
-      - @all_tags.each_with_index do |tag, index|
-        - if (index % 6) == 0
-          %tr
-        %td
-          %a
-            = editable tag, :name, url: "tags/#{tag.id}", value: tag.name
-          %span.badge
-            = tag.taggings_count
+            = link_to tag_path(tag), method: :delete, data: { confirm: 'Are you sure?' } do
+              %span.glyphicon.glyphicon-remove.text-danger
 
-          = link_to tag_path(tag), method: :delete, data: { confirm: 'Are you sure?' } do
-            %span.glyphicon.glyphicon-remove.text-danger
-
-
-%br

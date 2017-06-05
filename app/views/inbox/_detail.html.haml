@@ -1,55 +1,54 @@
-:javascript
-  function reply_template_select(){
-    $('#body').text($('#reply_email_template').val());
-  }
-.col-md-12
-  %h3= @subject
-
-  .div{style: 'word-wrap: break-word;'}
-    %p= simple_format @message.html_safe
-
-  = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
-    .row
-      = text_area_tag 'body', nil, rows: 3, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
-      = hidden_field_tag 'mail_to', @email
-      = hidden_field_tag 'subject', @subject
-
-    .row
-      .col-md-3
-        = @email
-      .col-md-9.text-right
-        = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success'
-  .col-md-12
-    Select an email template:
-    = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -'
-
-  #message-status.text-center.text-success
-
-  %hr
-
-.col-md-12.content-box-large.panel-heading
-  - if user.present?
-    %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-      %tbody
-        %tr
-          %td User
-          %td= link_to (user.name || user.email), users_path(q: { email_eq: user.email }), target: '_blank'
-        %tr
-          %td User Tags
-          %td
-            %div{id: "UserTags-#{user.id}"}
-            = render partial: 'tags/item_tags', locals: { item: user }
-    - campaign_users.each do |campaign_user|
+.inbox-body
+  .row
+    - if user.present?
+      %h4.text-center User & Campaign User Details
       %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
         %tbody
           %tr
-            %td Campaign
-            %td= link_to campaign_user.campaign.name, campaigns_path(q: { id_eq: campaign_user.campaign.id }), target: '_blank'
+            %td User
+            %td= link_to (user.name || user.email), users_path(q: { email_eq: user.email }), target: '_blank'
           %tr
-            %td CampaignUser Tags
+            %td User Tags
             %td
-              %div{id: "CampaignUserTags-#{campaign_user.id}"}
-                = render partial: 'tags/item_tags', locals: { item: campaign_user }
+              %div{id: "UserTags-#{user.id}"}
+              = render partial: 'tags/item_tags', locals: { item: user }
+      - campaign_users.each do |campaign_user|
+        %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+          %tbody
+            %tr
+              %td Campaign
+              %td= link_to campaign_user.campaign.name, campaign_path(campaign_user.campaign.id), target: '_blank'
+            %tr
+              %td CampaignUser Tags
+              %td
+                %div{id: "CampaignUserTags-#{campaign_user.id}"}
+                  = render partial: 'tags/item_tags', locals: { item: campaign_user }
 
-  - else
-    %p This email not in your users list.
+  %h4.text-center Mail Content
+  .mail_list_column
+    .mail_heading.row
+      .col-md-12
+        %h4= @subject
+    .sender-info
+      .row
+        .col-md-12
+          %strong= @email
+    .view-mail
+      %p
+        = simple_format(@message, {}, :sanitize => false)
+
+  = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
+    .col-md-12
+      = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
+      = hidden_field_tag 'mail_to', @email
+      = hidden_field_tag 'subject', @subject
+
+    .col-md-12
+      .col-md-8
+        Select an email template:
+        = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+      .col-md-4.text-right
+        = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
+  .col-md-12
+
+  #message-status.text-center.text-success
