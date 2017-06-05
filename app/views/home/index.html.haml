@@ -1,22 +1,22 @@
-:css
-  .cover-container {
-    color: #000000;
-  }
-  .site-wrapper {
-    background-color: rgba(245, 222, 179, 0.80);
-    padding: 1%;
-    border-radius: 4%;
-  }
-  body {
-    background: url(/assets/mj.png) no-repeat center center fixed;
-  }
-  
-.site-wrapper
-  .site-wrapper-inner
-    .cover-container
-      .inner.cover
-        %h1.cover-heading Cover your page.
-        %p.lead Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.
-        %p.lead
-          %a.btn.btn-lg.btn-default{:href => "#"} Learn more
-      .mastfoot
+/ Main jumbotron for a primary marketing message or call to action
+.jumbotron
+  .container.text-center
+    %h1 Smart Email Marketing
+    %div
+      %h1
+        %i.fa.fa-envelope-open
+      %p
+        %i.tagline A minimal email marketing tool.
+    %div
+      %a.btn.btn-primary.btn-lg{:href => new_account_session_path} Login
+      %a.btn.btn-success.btn-lg{:href => new_account_registration_path} Sign Up
+
+.section{style: 'background-color: white;margin-top: -2%;'}
+  .container
+    .row.text-center
+      .col-md-6.col-xs-12
+        %h1{:style => "color:#2d3e4f"} Your Map!
+        %br/
+        %h4 Add places where you have been to your personal map from your profile.
+      .col-md-6.col-xs-12
+        %img.show-ss{:src => ""}/

@@ -1,18 +1,29 @@
-.col-md-6.content-box-large.panel-heading
-  %h2 Log in
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-    .field
-      = f.label :email
-      %br/
-      = f.email_field :email, autofocus: true, class: 'form-control'
-    .field
-      = f.label :password
-      %br/
-      = f.password_field :password, autocomplete: "off", class: 'form-control'
-    - if devise_mapping.rememberable?
-      .field
-        = f.check_box :remember_me
-        = f.label :remember_me
-    .actions
-      = f.submit "Log in", class: 'btn btn-primary'
-  = render "devise/shared/links"
+%div
+  .login_wrapper
+    .animate.form.login_form
+      %section.login_content
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          %h1 Login
+          .div
+            = f.label :email
+            = f.email_field :email, autofocus: true, class: 'form-control'
+          .div
+            = f.label :password
+            = f.password_field :password, autocomplete: "off", class: 'form-control'
+          - if devise_mapping.rememberable?
+            .col-lg-6
+              = f.check_box :remember_me
+              = f.label :remember_me
+          .div.col-md-6.text-right
+            = f.submit "Log in", class: 'btn btn-primary'
+          .clearfix
+          .separator
+            %p.change_link
+              = render "devise/shared/links"
+            .clearfix
+            %br/
+            %div
+              %h1
+                %i.fa.fa-envelope-open
+                Smart Email Marketing
+              %p ©2017 All Rights Reserved. Powered by Mojilala.

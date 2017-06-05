@@ -9,6 +9,9 @@
 //= require bootstrap-datepicker
 
 $( document ).ready(function() {
+  //  Enable editable for tags
+  $('.editable').editable();
+
   $('.select2').select2({
       theme: "bootstrap",
       allowClear: true,
@@ -37,7 +40,6 @@ $( document ).ready(function() {
   }).on('changeDate', function(ev){
     $('#dt1, #dt2').datepicker('hide');
   });
-
 });
 
 function reply_template_select(){

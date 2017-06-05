@@ -14,59 +14,59 @@
     %link{href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel: "stylesheet", integrity: "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin: "anonymous"}
 
     / Custom Theme Style
-  %body.nav-md
-    .container.body
-      .main_container
-        .col-md-3.left_col.menu_fixed
-          .left_col.scroll-view
-            .navbar.nav_title{:style => "border: 0;"}
-              %a.site_title{:href => root_path}
-                %i.fa.fa-paw
-                %span Smart Email Marketing
-            .clearfix
-            / sidebar menu
-            #sidebar-menu.main_menu_side.hidden-print.main_menu
-              .menu_section
-                %ul.nav.side-menu
-                  %li
-                    %a
-                      %i.fa.fa-users
-                      Users
-                      %span.fa.fa-chevron-down
-                    %ul.nav.child_menu
-                      %li
-                        %a{:href => users_path } List Users
-                      %li
-                        %a{:href => new_user_path } Add a User
-                      %li
-                        %a{:href => import_users_path} Import Users List
+  - if current_account
+    %body.nav-md
+      .container.body
+        .main_container
+          .col-md-3.left_col.menu_fixed
+            .left_col.scroll-view
+              .navbar.nav_title{:style => "border: 0;"}
+                %a.site_title{:href => root_path}
+                  %i.fa.fa-envelope-open
+                  %span Smart Email Marketing
+              .clearfix
+              / sidebar menu
+              #sidebar-menu.main_menu_side.hidden-print.main_menu
+                .menu_section
+                  %ul.nav.side-menu
+                    %li
+                      %a
+                        %i.fa.fa-users
+                        Users
+                        %span.fa.fa-chevron-down
+                      %ul.nav.child_menu
+                        %li
+                          %a{:href => users_path } List Users
+                        %li
+                          %a{:href => new_user_path } Add a User
+                        %li
+                          %a{:href => import_users_path} Import Users List
 
-                  %li
-                    %a{:href => inbox_index_path}
-                      %i.fa.fa-inbox
-                      Inbox
-                  %li
-                    %a{:href => campaigns_path}
-                      %i.fa.fa-paper-plane-o
-                      Campaigns
-                  %li
-                    %a{:href => email_templates_path}
-                      %i.fa.fa-star-half-o
-                      Templates
-                  %li
-                    %a{:href => tags_path, :style => 'font-size: 12px;'}
-                      %i.fa.fa-tags
-                      Tag Managment
-                  %li
-                    %a{:href => settings_path}
-                      %i.fa.fa-cog
-                      Settings
-                  %li
-                    %a{:href => '/sidekiq', :target => '_blank'}
-                      %i.fa.fa-bar-chart
-                      Sidekiq
+                    %li
+                      %a{:href => inbox_index_path}
+                        %i.fa.fa-inbox
+                        Inbox
+                    %li
+                      %a{:href => campaigns_path}
+                        %i.fa.fa-paper-plane-o
+                        Campaigns
+                    %li
+                      %a{:href => email_templates_path}
+                        %i.fa.fa-star-half-o
+                        Templates
+                    %li
+                      %a{:href => tags_path, :style => 'font-size: 12px;'}
+                        %i.fa.fa-tags
+                        Tag Managment
+                    %li
+                      %a{:href => settings_path}
+                        %i.fa.fa-cog
+                        Settings
+                    %li
+                      %a{:href => '/sidekiq', :target => '_blank'}
+                        %i.fa.fa-bar-chart
+                        Sidekiq
 
-        - if current_account
           / top navigation
           .top_nav
             .nav_menu
@@ -89,13 +89,17 @@
                           Log Out
 
 
-      /Page Content
-      .right_col{:role => "main"}
-        %div
-          .col-md-12
-            - if flash.now[:notice]
-              .alert.alert-info
-                %p#notice= flash.now[:notice]
-          = yield
+        /Page Content
+        .right_col{:role => "main"}
+          %div
+            .col-md-12
+              - if flash.now[:notice]
+                .alert.alert-info
+                  %p#notice= flash.now[:notice]
+            = yield
+
+  - else
+    %body.login
+      = yield
 
     %script{src: '/template/js/custom.min.js'}
