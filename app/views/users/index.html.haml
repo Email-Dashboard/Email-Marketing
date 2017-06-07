@@ -72,8 +72,7 @@
 
                   %td
                     - user.campaigns.each do |cp|
-                      = link_to "##{cp.id}", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
-                      = ',' unless cp == user.campaigns.last
+                      = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
                   %td
                     - user.user_attributes.each do |attr|
                       = "#{attr.key}: #{attr.value}"
