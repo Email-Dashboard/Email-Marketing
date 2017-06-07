@@ -33,6 +33,9 @@ gem 'tilt'
 gem 'chartkick'
 gem 'rails_admin', '~> 1.1.1'
 
+gem 'axlsx', '~> 2.0'
+gem 'axlsx_rails'
+
 # Support all dbs
 gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'

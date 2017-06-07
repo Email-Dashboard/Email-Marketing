@@ -84,3 +84,9 @@
                       Delete
 
           = paginate @users
+          = link_to (request.fullpath + '&format=csv'), class: 'btn btn-dark pull-right' do
+            %i.fa.fa-external-link
+            Export to CSV
+          = link_to (request.fullpath + '&format=xlsx'), class: 'btn btn-dark pull-right' do
+            %i.fa.fa-external-link
+            Export to Excel

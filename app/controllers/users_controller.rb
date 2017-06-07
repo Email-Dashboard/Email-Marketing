@@ -14,7 +14,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data  users_to_export.to_csv_file, filename: "Users-#{Date.today}.csv" }
+      format.xlsx { render xlsx: 'download', filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.xlsx", locals: { users: users_to_export } }
+      format.csv { send_data  users_to_export.to_csv_file, filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.csv" }
     end
   end
 
