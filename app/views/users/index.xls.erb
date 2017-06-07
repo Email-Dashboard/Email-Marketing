@@ -1,0 +1,29 @@
+<% other_attributes = UserAttribute.where(user_id: @users.pluck(:id)).pluck(:key).uniq %>
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Name</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+        <% other_attributes.each do |atr| %>
+          <Cell><Data ss:Type="String"><%= atr %></Data></Cell>
+        <% end %>
+        <Cell><Data ss:Type="String">Price</Data></Cell>
+      </Row>
+      <% @users.each do |user| %>
+          <Row>
+            <Cell><Data ss:Type="String"><%= user.name %></Data></Cell>
+            <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
+            <% other_attributes.each do |atr| %>
+              <Cell><Data ss:Type="String"><%= user.user_attributes.find_by(key: atr).try(:value) %></Data></Cell>
+            <% end %>
+          </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

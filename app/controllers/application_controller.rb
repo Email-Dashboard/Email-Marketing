@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
       @q.result(distinct: true).page(params[:page])
     end
   end
+
+  def users_to_export
+    arr_collection = if params[:limit_count].present?
+                      @q.result(distinct: true).first(params[:limit_count])
+                    else
+                      @q.result(distinct: true)
+                    end
+    User.where(id: arr_collection.map(&:id))
+  end
 end
