@@ -10,8 +10,8 @@
           %tr
             %td User Tags
             %td
-              %div{id: "UserTags-#{user.id}"}
-              = render partial: 'tags/item_tags', locals: { item: user }
+              .col-md-5{id: "UserTags-#{user.id}"}
+                = render partial: 'tags/item_tags', locals: { item: user }
       - campaign_users.each do |campaign_user|
         %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
           %tbody
@@ -21,8 +21,10 @@
             %tr
               %td CampaignUser Tags
               %td
-                %div{id: "CampaignUserTags-#{campaign_user.id}"}
+                .col-md-5{id: "CampaignUserTags-#{campaign_user.id}"}
                   = render partial: 'tags/item_tags', locals: { item: campaign_user }
+      - if campaign_users.count < 1
+        %p.text-center.text-danger Campaign User Not Found!
 
   %h4.text-center Mail Content
   .mail_list_column
@@ -34,8 +36,7 @@
         .col-md-12
           %strong= @email
     .view-mail
-      %p
-        = simple_format(@message, {}, :sanitize => false)
+      %p= simple_format(@message, {}, :sanitize => false)
 
   = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
     .col-md-12

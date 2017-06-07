@@ -31,16 +31,16 @@
                 %th Tags
                 %th Users Count
                 %th #
-                %th #
             %tbody
               - @campaigns.each do |campaign|
                 %tr
                   %td= campaign.name
                   %td
                     - campaign.tags.each do |tag|
-                      %span.badge{style: 'background-color: #337ab7'}
+                      %span.btn.btn-info.btn-xs
                         = tag
                   %td= campaign.users.count
-                  %td= link_to 'Show', campaign, class: 'btn btn-sm btn-default'
-                  %td= link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+                  %td
+                    = link_to 'Show', campaign, class: 'btn btn-sm btn-default'
+                    = link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
 
