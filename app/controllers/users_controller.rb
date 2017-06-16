@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
     @users = ransack_results_with_limit
-    @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
+    @associations = [:taggings_tag, :user_attributes, :campaign_users, :campaign_users_taggings_tag, :campaigns, :campaigns_taggings_tag]
     @total_user_count = @users.total_count
   end
 
