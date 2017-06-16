@@ -3,9 +3,10 @@
     %h3
       #{@campaign.name}
     .clearfix
-
-  %div{id: "CampaignTags-#{@campaign.id}"}
-    = render partial: 'tags/item_tags', locals: { item: @campaign }
+  .col-md-4
+    %p Campaign Tags:
+    %div{id: "CampaignTags-#{@campaign.id}"}
+      = render partial: 'tags/item_tags', locals: { item: @campaign }
 
 .x_panel
   = render 'template_form'
@@ -37,7 +38,7 @@
 .x_panel
   = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
       limit: params[:limit_count], query_from: 'campaign', campaign_id: @campaign.id }),
-      class: 'btn btn-success', style: 'margin-top: 1%'
+      class: 'btn btn-success pull-right', style: 'margin-top: 1%'
   .x_content
     %table.table.table-striped.projects
       %thead

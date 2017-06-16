@@ -8,4 +8,4 @@
 %hr
 = form_tag send_emails_campaign_path(@campaign), method: :post do
   .actions.text-center
-    = submit_tag 'Send Campaign Emails', class: 'btn btn-success'
+    = submit_tag 'Send Campaign Emails', class: 'btn btn-success', data: { confirm: 'This email will send only to email addresses in draft status. Are you sure?' }

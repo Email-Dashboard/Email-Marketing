@@ -35,6 +35,19 @@ class User < ApplicationRecord
     end
   end
 
+  def self.to_csv_file
+    attributes = %w(name email)
+    other_attributes = UserAttribute.where(user_id: all.pluck(:id)).pluck(:key).uniq
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes + other_attributes
+
+      all.each do |user|
+        csv << user.attributes.values_at(*attributes) + other_attributes.map{ |atr| user.user_attributes.find_by(key: atr).try(:value)}
+      end
+    end
+  end
+
   def data_setter(method, val)
     attr = user_attributes.find_or_initialize_by(key: method)
     attr.value = val

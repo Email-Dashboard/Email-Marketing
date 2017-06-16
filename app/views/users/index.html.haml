@@ -34,16 +34,22 @@
             = @total_user_count
 
         - if @total_user_count > 0
-          .col-md-4
-            = link_to 'New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
-              limit: params[:limit_count] }), class: 'btn btn-success'
-          - if current_account.campaigns.present?
-            .col-md-8.text-right
-              = form_tag add_users_campaigns_path, method: :post do
-                = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control', style: 'width: 28%; display: inline'
-                = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
-                = hidden_field_tag 'limit', params[:limit_count]
-                = submit_tag 'Add to selected campaign', class: 'btn btn-primary btn-mid'
+          .title_right
+            .col-md-12.col-sm-12.col-xs-12.text-right
+              .pull-right
+                = link_to new_campaign_path({ q: (params[:q].presence || 'all'), limit: params[:limit_count] }), class: 'btn btn-success' do
+                  %i.fa.fa-plus
+                  Create New Campaign
+              - if current_account.campaigns.present?
+                .pull-right
+                  = form_tag add_users_campaigns_path, method: :post do
+                    = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control', style: 'width: 28%; display: inline'
+                    = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
+                    = hidden_field_tag 'limit', params[:limit_count]
+                    = button_tag class: 'btn btn-primary btn-mid', type: :submit do
+                      %i.fa.fa-arrow-circle-right
+                      Add to selected campaign
+                    %span or &nbsp;
           .clearfix
         .x_content
           %table.table.table-striped.projects
@@ -64,7 +70,9 @@
                     %div{id: "UserTags-#{user.id}"}
                       = render partial: 'tags/item_tags', locals: { item: user }
 
-                  %td= user.campaigns.pluck(:name).join(', ')
+                  %td
+                    - user.campaigns.each do |cp|
+                      = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
                   %td
                     - user.user_attributes.each do |attr|
                       = "#{attr.key}: #{attr.value}"
@@ -75,3 +83,9 @@
                       Delete
 
           = paginate @users
+          = link_to (request.fullpath + '&format=csv'), class: 'btn btn-dark pull-right' do
+            %i.fa.fa-external-link
+            Export to CSV
+          = link_to (request.fullpath + '&format=xlsx'), class: 'btn btn-dark pull-right' do
+            %i.fa.fa-external-link
+            Export to Excel

@@ -1,0 +1,8 @@
+other_attributes = UserAttribute.where(user_id: users.all.pluck(:id)).pluck(:key).uniq
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Users") do |sheet|
+    sheet.add_row (["Name", "Email"] + other_attributes)
+    users.includes(:user_attributes).each do |user|
+        sheet.add_row ([user.name, user.email] + other_attributes.map{ |atr| UserAttribute.find_by(key: atr, user_id: user.id).try(:value) })
+    end
+end

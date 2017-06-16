@@ -11,6 +11,12 @@ class UsersController < ApplicationController
     @users = ransack_results_with_limit
     @associations = [:taggings_tag, :user_attributes, :campaign_users, :campaign_users_taggings_tag, :campaigns, :campaigns_taggings_tag]
     @total_user_count = @users.total_count
+
+    respond_to do |format|
+      format.html
+      format.xlsx { render xlsx: 'download', filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.xlsx", locals: { users: users_to_export } }
+      format.csv { send_data  users_to_export.to_csv_file, filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.csv" }
+    end
   end
 
   def new; end
