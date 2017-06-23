@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       post 'create_single'
       get  'import'
     end
+
+    resources :user_attributes
   end
 
   resources :campaigns, except: [:edit, :update] do

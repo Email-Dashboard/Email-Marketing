@@ -1,0 +1,30 @@
+.page-title
+  .title_left
+    %h3
+      User Attributes For:
+      = @user.name || @user.email
+.row
+  .col-md-12
+    .x_panel
+      = form_for [@user, @user.user_attributes.new], remote: true do |f|
+        .col-sm-5
+          = f.label :key
+          = f.text_field :key, class: 'form-control'
+        .col-sm-5
+          = f.label :value
+          = f.text_field :value, class: 'form-control'
+        .col-sm-2
+          .actions{style: 'margin-top: 23px;'}
+            = f.submit 'Save', class: 'btn btn-primary'
+
+#attrTable
+  = render partial: 'user_attributes/attributes_table', locals: { user: @user }
+
+.page-title
+  .title_left
+    %h3
+      User Tags:
+.x_panel
+  .col-sm-5
+    %div{id: "UserTags-#{@user.id}"}
+      = render partial: 'tags/item_tags', locals: { item: @user }
