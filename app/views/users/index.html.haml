@@ -81,11 +81,14 @@
                     = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
                       %i.fa.fa-trash-o
                       Delete
+                    = link_to user_user_attributes_path(user), class: 'btn btn-warning btn-xs' do
+                      %i.fa.fa-eye
+                      Show
 
           = paginate @users
-          = link_to (request.fullpath + '&format=csv'), class: 'btn btn-dark pull-right' do
+          = link_to (request.fullpath + '?&format=csv'), class: 'btn btn-dark pull-right' do
             %i.fa.fa-external-link
             Export to CSV
-          = link_to (request.fullpath + '&format=xlsx'), class: 'btn btn-dark pull-right' do
+          = link_to (request.fullpath + '?&format=xlsx'), class: 'btn btn-dark pull-right' do
             %i.fa.fa-external-link
             Export to Excel
