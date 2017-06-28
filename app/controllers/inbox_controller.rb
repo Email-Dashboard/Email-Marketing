@@ -1,7 +1,6 @@
 class InboxController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_imap_settings, only: :index
-  before_action :set_smtp_settings, only: :reply_email
+  before_action :set_imap_settings, only: [:index, :reply_email]
 
   def index
     if params[:from].present? && params[:to].present?

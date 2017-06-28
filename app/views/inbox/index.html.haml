@@ -1,25 +1,3 @@
-.x_title
-  .page-title
-    .title_left
-      %h3
-        Inbox
-        %small Check reply emails.
-      .clearfix
-    .title_right
-      .col-md-12.col-sm-12.col-xs-12.form-group.pull-right.top_search
-        .input-group
-          = form_for(inbox_index_path, method: :get) do
-            .col-md-4
-              = label_tag 'Date From'
-              = text_field_tag 'from', params[:from], 'data-provide': 'datepicker', class: 'form-control', id: 'dt1'
-            .col-md-4
-              = label_tag 'Date To'
-              = text_field_tag 'to', params[:to], 'data-provide': 'datepicker', class: 'form-control', id: 'dt2'
-            .col-md-4{style: 'margin-top: 4%;'}
-              = button_tag :submit, class: 'btn btn-success' do
-                %span.glyphicon.glyphicon.glyphicon-filter
-                Filter Emails
-  .clearfix
 .row
   .col-md-12
     .x_panel
@@ -30,23 +8,24 @@
         .clearfix
       .x_content
         .row
-          .col-sm-3.mail_list_column
+          .col-sm-4
+            .row
             - @emails.each do |message|
-              = form_tag(detail_inbox_index_path, method: 'post', remote: true) do
-                = button_tag :submit, style: 'all: unset; cursor: pointer;' do
-                  .mail_list
-                    %h3{style: 'word-wrap: break-word;'}
-                      = message.from.try(:first)
-                      %small= message.date.strftime("%d-%m-%y %H:%M")
-                    %p= message.subject
-                - display_part = (message.text_part || message.html_part || message).body.decoded
-                - campaign_user_id = /(?<=\bcampaign_user_id_)(\w+)/.match(message.to_s).to_s.presence || /(?<=\bcampaign_user_id_)(\w+)/.match(display_part).to_s
-                - email = message.from.first
-                = hidden_field_tag 'message', display_part.force_encoding("UTF-8")
-                = hidden_field_tag 'email', email
-                = hidden_field_tag 'subject', message.subject
-                = hidden_field_tag 'cu_id', campaign_user_id
-            / /MAIL LIST
-          / CONTENT MAIL
-          .col-sm-9.mail_view
-            #email-detail
+              .col-sm-12
+                = form_tag(detail_inbox_index_path, method: 'post', remote: true) do
+                  = button_tag :submit, style: 'all: unset; cursor: pointer; width: 100%;' do
+                    .panel.panel-default
+                      .panel-body{style: "width: 100%"}
+                        %p{style: 'word-wrap: break-word;'}
+                          = message.from.try(:first)
+                        %p
+                          = message.date.strftime("%d-%m-%y %H:%M")
+                        %p= message.subject
+                  - display_part = (message.html_part || message.text_part || message).body.decoded
+                  - campaign_user_id = /(?<=\bcampaign_user_id_)(\w+)/.match(message.to_s).to_s.presence || /(?<=\bcampaign_user_id_)(\w+)/.match(display_part).to_s
+                  - email = message.from.first
+                  = hidden_field_tag 'message', display_part.force_encoding("UTF-8")
+                  = hidden_field_tag 'email', email
+                  = hidden_field_tag 'subject', message.subject
+                  = hidden_field_tag 'cu_id', campaign_user_id
+          .col-sm-8#email-detail
