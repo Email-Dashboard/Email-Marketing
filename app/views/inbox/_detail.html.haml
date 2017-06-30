@@ -1,55 +1,55 @@
-.inbox-body
-  .row
+.row
+  .col-sm-12
     - if user.present?
-      %h4.text-center User & Campaign User Details
-      %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-        %tbody
-          %tr
-            %td User
-            %td= link_to (user.name || user.email), users_path(q: { email_eq: user.email }), target: '_blank'
-          %tr
-            %td User Tags
-            %td
-              .col-md-5{id: "UserTags-#{user.id}"}
-                = render partial: 'tags/item_tags', locals: { item: user }
-      - campaign_users.each do |campaign_user|
-        %table.table.table-striped.table-bordered{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-          %tbody
-            %tr
-              %td Campaign
-              %td= link_to campaign_user.campaign.name, campaign_path(campaign_user.campaign.id), target: '_blank'
-            %tr
-              %td CampaignUser Tags
-              %td
-                .col-md-5{id: "CampaignUserTags-#{campaign_user.id}"}
-                  = render partial: 'tags/item_tags', locals: { item: campaign_user }
-      - if campaign_users.count < 1
-        %p.text-center.text-danger Campaign User Not Found!
+      .panel.panel-default
+        .panel-heading
+          User & Campaign User Details
+        .panel-body
+          .row
+            .col-lg-6
+              .panel.panel-default
+                .panel-heading
+                  = link_to (user.name || user.email), user_user_attributes_path(user), target: '_blank'
+                .panel-body
+                  %div{id: "UserTags-#{user.id}"}
+                    = render partial: 'tags/item_tags', locals: { item: user }
 
-  %h4.text-center Mail Content
-  .mail_list_column
-    .mail_heading.row
-      .col-md-12
-        %h4= @subject
-    .sender-info
-      .row
-        .col-md-12
-          %strong= @email
-    .view-mail
-      %p= simple_format(@message, {}, :sanitize => false)
+            .col-lg-6
+              - campaign_users.each do |campaign_user|
+                .panel.panel-default
+                  .panel-heading
+                    Campaign:
+                    = link_to campaign_user.campaign.name, campaign_path(campaign_user.campaign.id), target: '_blank'
+                  .panel-body
+                    %p Tags for CampaignUser item
+                    %div{id: "CampaignUserTags-#{campaign_user.id}"}
+                      = render partial: 'tags/item_tags', locals: { item: campaign_user }
+              - if campaign_users.count < 1
+                %p.text-center.text-danger Campaign User Not Found!
 
-  = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
-    .col-md-12
-      = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
-      = hidden_field_tag 'mail_to', @email
-      = hidden_field_tag 'subject', @subject
 
-    .col-md-12
-      .col-md-8
-        Select an email template:
-        = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
-      .col-md-4.text-right
-        = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        = @subject
+        %strong= @email
+      .panel-body
+        = simple_format(@message, {}, :sanitize => false)
+
+
+= form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
   .col-md-12
+    = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
+    = hidden_field_tag 'mail_to', @email
+    = hidden_field_tag 'subject', @subject
 
-  #message-status.text-center.text-success
+  .col-md-12
+    .col-md-8
+      Select an email template:
+      = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+    .col-md-4.text-right
+      = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
+.col-md-12
+
+#message-status.text-center.text-success
