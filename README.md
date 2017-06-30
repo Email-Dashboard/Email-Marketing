@@ -6,15 +6,27 @@ A simple dockerized rails app to manage your emails and campaigns with taggings.
 
 
 ## Features
+**CRM:**
+* Filter users with advanced search such as tags, previous campaign,campaign status, email open status
+* Import users from csv (any column name will become custom data)
+* Add tags, custom data to users 
+* Create a campaign from filtered user result
 
-**Email Campaign Management:**
 
-* Import users from csv
-* Add custom data to users
-* User's tagging and campaign's tagging
-* Filter users with advanced search and create a camaign from filtered result
+**Campaign Management:**
+* Create a campaign from filtered user result
+* Campaign's tagging, user-campaign tagging
 * Email templates
+* Send campaign from any service provider sendgrid, AWS (Send Newsletters 100x cheaper)
+
+**Campaign Results:**
 * Email stats from sendgrid
+
+**Inbox Management:**
+* Email inbox parsing and email macthing.
+* Add tags, and campaign-user tags directly from inbox
+* Quick template responses from directly from inbox
+
 
 ## Installation
 
