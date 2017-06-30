@@ -101,7 +101,8 @@ sudo docker-compose up -d
 ```
 
 ## Tests
-There are no tests. PR's are welcome.
+We used the tool very day, so we test on production :)
+There are no tests. any test contrubtions are verywelcome.
 
 ## Contributing
 
