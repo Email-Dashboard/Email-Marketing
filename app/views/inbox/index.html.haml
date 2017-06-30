@@ -2,10 +2,26 @@
   .col-md-12
     .x_panel
       .x_title
-        %h2
-          Inbox
-          %small User Replies
-        .clearfix
+        .page-title
+          .title_left
+            %h2
+              Inbox
+              %small User Replies
+            .clearfix
+          .title_right
+            .input-group
+              = form_for(inbox_index_path, method: :get) do
+                .col-md-4
+                  = label_tag 'Date From'
+                  = text_field_tag 'from', params[:from], 'data-provide': 'datepicker', class: 'form-control', id: 'dt1'
+                .col-md-4
+                  = label_tag 'Date To'
+                  = text_field_tag 'to', params[:to], 'data-provide': 'datepicker', class: 'form-control', id: 'dt2'
+                .col-md-4{style: 'margin-top: 4%;'}
+                  = button_tag :submit, class: 'btn btn-success' do
+                    %span.glyphicon.glyphicon.glyphicon-filter
+                    Filter Emails
+
       .x_content
         .row
           .col-sm-4
