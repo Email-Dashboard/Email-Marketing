@@ -1,10 +1,10 @@
 class SmtpSettingsController < ApplicationController
   before_action :authenticate_account!
-  before_action :set_smtp_setting, only: [:edit, :update, :destroy, :set_default]
+  before_action :set_smtp_setting, only: [:edit, :update, :destroy, :set_default_for_campaigns, :set_default_for_reply]
 
   # GET /smtp_settings
   def index
-    @smtp_settings = current_account.smtp_settings.all
+    @smtp_settings = current_account.smtp_settings.order('created_at DESC')
   end
 
   # GET /smtp_settings/new
@@ -22,7 +22,7 @@ class SmtpSettingsController < ApplicationController
 
     respond_to do |format|
       if @smtp_setting.save
-        @smtp_setting.update(is_default: true) if current_account.smtp_settings.count == 1
+        @smtp_setting.update(is_default_for_campaigns: true, is_default_for_reply: true) if current_account.smtp_settings.count == 1
         format.html { redirect_to smtp_settings_path, notice: 'Smtp setting was successfully created.' }
       else
         format.html { render :new }
@@ -43,24 +43,22 @@ class SmtpSettingsController < ApplicationController
 
   # DELETE /smtp_settings/1
   def destroy
-    message = if @smtp_setting.is_default
-                'You can destroy the default smtp settings. Set another one as default.'
-              else
-                @smtp_setting.destroy
-                'Smtp setting was successfully destroyed.'
-              end
-
+    @smtp_setting.destroy
     respond_to do |format|
-      format.html { redirect_to smtp_settings_url, notice: message }
+      format.html { redirect_to smtp_settings_url, notice: 'Smtp setting was successfully destroyed.' }
     end
   end
 
-  def set_default
-    current_account.smtp_settings.update_all(is_default: false)
-    @smtp_setting.update(is_default: true)
-    respond_to do |format|
-      format.html { redirect_to smtp_settings_url, notice: 'Settings was successfully set as default.' }
-    end
+  def set_default_for_campaigns
+    current_account.smtp_settings.update_all(is_default_for_campaigns: false)
+    @smtp_setting.update(is_default_for_campaigns: true)
+    redirect_to smtp_settings_url
+  end
+
+  def set_default_for_reply
+    current_account.smtp_settings.update_all(is_default_for_reply: false)
+    @smtp_setting.update(is_default_for_reply: true)
+    redirect_to smtp_settings_url
   end
 
   private
@@ -69,6 +67,6 @@ class SmtpSettingsController < ApplicationController
     end
 
     def smtp_setting_params
-      params.require(:smtp_setting).permit(:from_email, :reply_to, :provider, :address, :port, :domain, :username, :password)
+      params.require(:smtp_setting).permit(:from_email, :reply_to, :provider, :address, :port, :domain, :username, :password, :is_default_for_campaigns, :is_default_for_reply)
     end
 end

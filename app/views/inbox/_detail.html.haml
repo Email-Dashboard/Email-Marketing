@@ -4,7 +4,9 @@
       .panel.panel-default
         .panel-heading
           User & Campaign User Details
-        .panel-body
+          %span.pull-right
+            %i.fa.fa-angle-down.fa-2x{'data-toggle': 'collapse', 'data-target': "#UserInfo-#{user.id}"}
+        .panel-body{id: "UserInfo-#{user.id}", class: 'collapse'}
           .row
             .col-lg-6
               .panel.panel-default
@@ -27,6 +29,23 @@
               - if campaign_users.count < 1
                 %p.text-center.text-danger Campaign User Not Found!
 
+          .row
+            .panel.panel-default
+              .panel-heading
+                User Attributes
+              .panel-body
+                %table.table-bordered.table-condensed
+                  %thead
+                    %tr
+                      %td Attribute
+                      %td Value
+                  %tbody
+                    - user.user_attributes.each do |attr|
+                      %tr
+                        %td= attr.key
+                        %td= attr.value
+
+
 
 .row
   .col-sm-12
@@ -46,8 +65,12 @@
 
   .col-md-12
     .col-md-8
-      Select an email template:
-      = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+      .col-md-6
+        Select an email template:
+        = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+      .col-md-6
+        Select SMTP Settings
+        = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_reply.try(:id)), include_blank: false, class: 'form-control'
     .col-md-4.text-right
       = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
 .col-md-12

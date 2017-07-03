@@ -59,9 +59,15 @@
                         %i.fa.fa-tags
                         Tag Managment
                     %li
-                      %a{:href => settings_path}
+                      %a
                         %i.fa.fa-cog
                         Settings
+                        %span.fa.fa-chevron-down
+                      %ul.nav.child_menu
+                        %li
+                          %a{:href => smtp_settings_path } SMTP Settings
+                        %li
+                          %a{:href => imap_settings_path } IMAP Settings
                     %li
                       %a{:href => '/sidekiq', :target => '_blank'}
                         %i.fa.fa-bar-chart

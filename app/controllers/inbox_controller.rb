@@ -1,7 +1,6 @@
 class InboxController < ApplicationController
   before_action :authenticate_account!
   before_action :set_imap_settings, only: :index
-  before_action :set_smtp_settings, only: :reply_email
 
   def index
     if params[:from].present? && params[:to].present?
@@ -35,53 +34,30 @@ class InboxController < ApplicationController
     mail_to   = params[:mail_to]
     mail_body = Tilt::ERBTemplate.new { params[:body] }
     content   = mail_body.render(current_account.users.find_by(email: params[:mail_to]))
-    mail_from = current_account.mail_setting.imap_username
+    smtp_id   = current_account.smtp_settings.find_by(id: params[:smtp_id]).try(:id) ||
+                current_account.smtp_settings.where(is_default_for_campaigns: true).first.try(:id)
 
-    Mail.deliver do
-      from     mail_from
-      to       mail_to
-      subject  subject
-      html_part do
-        content_type 'text/html; charset=UTF-8'
-        body content
-      end
-    end
+    UserMailer.reply_email(mail_to, subject, content, smtp_id).deliver_now
   end
 
   private
 
   # To read emails
   def set_imap_settings
-    settings = current_account.mail_setting
+    settings = current_account.imap_settings.first
 
-    if !settings.imap_address.present? || !settings.imap_port.present? || !settings.imap_password.present? || !settings.imap_username.present?
-      redirect_to settings_path, notice: 'Please! Add your IMAP Settings to read the messages.'
+    if !settings.present? || !settings.address.present? || !settings.port.present? || !settings.password.present? || !settings.email.present?
+      redirect_to imap_settings_path, notice: 'Please! Add your IMAP Settings to read the messages.'
       return
     end
 
     Mail.defaults do
       retriever_method :imap,
-                       :address    => settings.imap_address,
-                       :port       => settings.imap_port,
-                       :user_name  => settings.imap_username,
-                       :password   => settings.imap_password,
+                       :address    => settings.address,
+                       :port       => settings.port,
+                       :user_name  => settings.email,
+                       :password   => settings.password,
                        :enable_ssl => true
-    end
-  end
-
-  # To send email
-  def set_smtp_settings
-    settings = current_account.mail_setting
-
-    Mail.defaults do
-      delivery_method :smtp,
-                      user_name: settings.user_name,
-                      password:  settings.password,
-                      address:   settings.address,
-                      port:      settings.port,
-                      domain:    settings.domain,
-                      authentication: 'plain',
-                      enable_starttls_auto: true
     end
   end
 end

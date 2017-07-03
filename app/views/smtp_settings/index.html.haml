@@ -32,9 +32,15 @@
           %td= smtp_setting.username
           %td
             = link_to 'Edit', edit_smtp_setting_path(smtp_setting), class: 'btn btn-xs btn-warning'
-            - if smtp_setting.is_default
-              %span.label.label-default Default
-            - else
+            - if !smtp_setting.is_default_for_campaigns && !smtp_setting.is_default_for_reply
               = link_to 'Destroy', smtp_setting, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
-              = link_to 'Set Default', set_default_smtp_setting_path(smtp_setting), :method => :post, class: 'btn btn-xs btn-primary'
+            %br
+            - if smtp_setting.is_default_for_campaigns
+              %span.label.label-default Default For Campaign Emails
+            - else
+              = link_to 'Set As Default For Campaign Emails', set_default_for_campaigns_smtp_setting_path(smtp_setting), method: :post, class: 'btn btn-xs btn-default'
+            - if smtp_setting.is_default_for_reply
+              %span.label.label-default Default For Reply Emails
+            - else
+              = link_to 'Set As Default For Reply Emails', set_default_for_reply_smtp_setting_path(smtp_setting), method: :post, class: 'btn btn-xs btn-default'
 

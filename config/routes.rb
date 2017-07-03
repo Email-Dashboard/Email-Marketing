@@ -30,7 +30,8 @@ Rails.application.routes.draw do
 
   resources :smtp_settings do
     member do
-      post :set_default
+      post :set_default_for_campaigns
+      post :set_default_for_reply
     end
   end
   resources :imap_settings

@@ -10,7 +10,8 @@ class CreateSmtpSettings < ActiveRecord::Migration[5.0]
       t.string  :domain
       t.string  :username
       t.string  :password
-      t.boolean :is_default, default: false
+      t.boolean :is_default_for_campaigns, default: false
+      t.boolean :is_default_for_reply, default: false
 
       t.timestamps
     end

@@ -33,7 +33,7 @@
                     .panel.panel-default
                       .panel-body{style: "width: 100%"}
                         %p{style: 'word-wrap: break-word;'}
-                          = message.from.try(:first)
+                          = current_account.users.find_by(email: message.from.try(:first)).try(:name) || message.from.try(:first)
                         %p
                           = message.date.strftime("%d-%m-%y %H:%M")
                         %p= message.subject

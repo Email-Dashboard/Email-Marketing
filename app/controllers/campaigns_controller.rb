@@ -57,13 +57,14 @@ class CampaignsController < ApplicationController
 
   def send_emails
     # Redirect to settings path if account doesn't have settings.
-    unless current_account.mail_setting.try(:all_present?)
-      redirect_to settings_path, notice: 'Your settings information are required!'
+    smtp_settings = current_account.smtp_settings.last
+    if !smtp_settings.present? || !smtp_settings.try(:all_present?)
+      redirect_to smtp_settings_path, notice: 'Your SMTP settings are required!'
       return
     end
 
     # Send campaign emails in bg job
-    SendCampaignEmailsJob.perform_later(@campaign.id)
+    SendCampaignEmailsJob.perform_later(@campaign.id, smtp_settings.id)
 
     redirect_to campaign_path(@campaign), notice: 'Emails sending in background!'
   end
