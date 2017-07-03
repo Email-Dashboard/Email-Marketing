@@ -10,28 +10,28 @@
 
       .field
         = f.label :from_email
-        = f.text_field :from_email, class: 'form-control'
+        = f.text_field :from_email, class: 'form-control', required: true
       .field
         = f.label :reply_to
-        = f.text_field :reply_to, class: 'form-control'
+        = f.text_field :reply_to, class: 'form-control', required: true
       .field
         = f.label :provider
-        = f.text_field :provider, class: 'form-control'
+        = f.text_field :provider, class: 'form-control', required: true
       .field
         = f.label :address
-        = f.text_field :address, class: 'form-control'
+        = f.text_field :address, class: 'form-control', required: true
       .field
         = f.label :port
-        = f.text_field :port, class: 'form-control'
+        = f.text_field :port, class: 'form-control', required: true
       .field
         = f.label :domain
-        = f.text_field :domain, class: 'form-control'
+        = f.text_field :domain, class: 'form-control', required: true
       .field
         = f.label :username
-        = f.text_field :username, class: 'form-control'
+        = f.text_field :username, class: 'form-control', required: true
       .field
         = f.label :password
-        = f.text_field :password, class: 'form-control'
+        = f.password_field :password, class: 'form-control', required: true
       .actions
         = f.submit 'Save', class: 'btn btn-primary'
 .col-sm-6
