@@ -28,6 +28,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :smtp_settings do
+    member do
+      post :set_default
+    end
+  end
+  resources :imap_settings
+
   resources :email_templates
 
   resources :inbox do
