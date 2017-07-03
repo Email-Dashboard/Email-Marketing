@@ -1,0 +1,2 @@
+class ImapSetting < ApplicationRecord
+end
