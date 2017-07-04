@@ -40,7 +40,7 @@ class ApplicationMailer < ActionMailer::Base
         address:   settings.address,
         port:      settings.port,
         domain:    settings.domain,
-        authentication: 'plain',
+        authentication: 'login',
         enable_starttls_auto: true
     }
   end

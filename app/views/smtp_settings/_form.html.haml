@@ -14,22 +14,22 @@
 
               .field
                 = f.label :from_email
-                = f.text_field :from_email, class: 'form-control', required: true
+                = f.text_field :from_email, class: 'form-control', required: true, placeholder: 'email@example.com'
               .field
                 = f.label :reply_to
-                = f.text_field :reply_to, class: 'form-control', required: true
+                = f.text_field :reply_to, class: 'form-control', required: true, placeholder: 'support@example.com'
               .field
                 = f.label :provider
-                = f.text_field :provider, class: 'form-control', required: true
+                = f.text_field :provider, class: 'form-control', required: true, placeholder: 'sendgrid, google, outlook etc...'
               .field
                 = f.label :address
-                = f.text_field :address, class: 'form-control', required: true
+                = f.text_field :address, class: 'form-control', required: true, placeholder: 'smtp.sendgrid.net'
               .field
                 = f.label :port
-                = f.text_field :port, class: 'form-control', required: true
+                = f.text_field :port, class: 'form-control', required: true, placeholder: '587'
               .field
                 = f.label :domain
-                = f.text_field :domain, class: 'form-control', required: true
+                = f.text_field :domain, class: 'form-control', required: true, placeholder: 'email-domain.com'
               .field
                 = f.label :username
                 = f.text_field :username, class: 'form-control', required: true
