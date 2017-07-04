@@ -30,6 +30,6 @@ class Account < ApplicationRecord
   has_many :users
   has_many :campaigns
   has_many :email_templates
-  has_many  :smtp_settings
-  has_many  :imap_settings
+  has_many :smtp_settings
+  has_many :imap_settings
 end

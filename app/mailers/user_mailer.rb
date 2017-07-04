@@ -8,10 +8,9 @@ class UserMailer < ApplicationMailer
     body = Tilt::ERBTemplate.new { "#{template.body}" }
     subject = Tilt::ERBTemplate.new { "#{template.subject}" }
 
-    @subject = subject.render(@user)
     @content = body.render(@user)
 
-    send_email_with_delivery_options(campaign_user, @subject, smtp_id)
+    send_email_with_delivery_options(campaign_user, subject.render(@user), smtp_id)
   end
 
   def reply_email(mail_to, subject, content, smtp_id)
