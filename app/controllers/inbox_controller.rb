@@ -16,6 +16,7 @@ class InboxController < ApplicationController
     @message = params[:message]
     @subject = params[:subject]
     @email = params[:email]
+    @has_attach = params[:has_attachments]
     @user = current_account.users.find_by(email: @email)
 
     if @user.present?
@@ -44,7 +45,7 @@ class InboxController < ApplicationController
 
   # To read emails
   def set_imap_settings
-    settings = current_account.imap_settings.first
+    settings = current_account.imap_settings.find_by(id: params[:imap_id]) || current_account.imap_settings.first
 
     if !settings.present? || !settings.address.present? || !settings.port.present? || !settings.password.present? || !settings.email.present?
       redirect_to imap_settings_path, notice: 'Please! Add your IMAP Settings to read the messages.'

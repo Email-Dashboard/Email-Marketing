@@ -43,5 +43,6 @@
                   = hidden_field_tag 'message', display_part.force_encoding("UTF-8")
                   = hidden_field_tag 'email', email
                   = hidden_field_tag 'subject', message.subject
+                  = hidden_field_tag 'has_attachments', message.attachments.present?
                   = hidden_field_tag 'cu_id', campaign_user_id
           .col-sm-8#email-detail

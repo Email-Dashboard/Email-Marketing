@@ -54,6 +54,11 @@
         = @subject
         %strong= @email
       .panel-body
+        - if @has_attach == 'true'
+          %p.text-warning
+            %i.fa.fa-exclamation-triangle
+            This email has an attachment.
+
         = simple_format(@message, {}, :sanitize => false)
 
 
