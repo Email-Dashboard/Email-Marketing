@@ -57,7 +57,7 @@ class CampaignsController < ApplicationController
 
   def send_emails
     # Redirect to settings path if account doesn't have settings.
-    smtp_settings = current_account.smtp_settings.last
+    smtp_settings = current_account.smtp_settings.find_by(id: params[:smtp_id]) || current_account.smtp_settings.default_for_campaigns
     if !smtp_settings.present? || !smtp_settings.try(:all_present?)
       redirect_to smtp_settings_path, notice: 'Your SMTP settings are required!'
       return
