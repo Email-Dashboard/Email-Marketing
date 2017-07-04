@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525191634) do
+ActiveRecord::Schema.define(version: 20170703122535) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -63,23 +63,32 @@ ActiveRecord::Schema.define(version: 20170525191634) do
     t.index ["account_id"], name: "index_email_templates_on_account_id"
   end
 
-  create_table "mail_settings", force: :cascade do |t|
+  create_table "imap_settings", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "address"
+    t.string   "port"
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_imap_settings_on_account_id"
+  end
+
+  create_table "smtp_settings", force: :cascade do |t|
     t.integer  "account_id"
     t.string   "from_email"
+    t.string   "reply_to"
+    t.string   "provider"
     t.string   "address"
     t.string   "port"
     t.string   "domain"
-    t.string   "user_name"
+    t.string   "username"
     t.string   "password"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "provider"
-    t.string   "reply_to"
-    t.string   "imap_address"
-    t.string   "imap_port"
-    t.string   "imap_password"
-    t.string   "imap_username"
-    t.index ["account_id"], name: "index_mail_settings_on_account_id"
+    t.boolean  "is_default_for_campaigns", default: false
+    t.boolean  "is_default_for_reply",     default: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["account_id"], name: "index_smtp_settings_on_account_id"
   end
 
   create_table "taggings", force: :cascade do |t|

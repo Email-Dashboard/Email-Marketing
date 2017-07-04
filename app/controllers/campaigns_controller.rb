@@ -1,8 +1,9 @@
 class CampaignsController < ApplicationController
-  before_action      :authenticate_account!, except: :event_receiver
+  skip_before_action :authenticate_account!, only: :event_receiver
+  skip_before_action :verify_authenticity_token, only: :event_receiver
+
   before_action      :set_campaign, only: [:show, :destroy, :send_emails]
   before_action      :check_new_campaign_avaibility, :set_all_tags, only: :new
-  skip_before_action :verify_authenticity_token, only: :event_receiver
 
   def index
     @associations = [:users, :tags, :email_template, :campaign_users]
@@ -57,13 +58,14 @@ class CampaignsController < ApplicationController
 
   def send_emails
     # Redirect to settings path if account doesn't have settings.
-    unless current_account.mail_setting.try(:all_present?)
-      redirect_to settings_path, notice: 'Your settings information are required!'
+    smtp_settings = current_account.smtp_settings.find_by(id: params[:smtp_id]) || current_account.smtp_settings.default_for_campaigns
+    if !smtp_settings.present? || !smtp_settings.try(:all_present?)
+      redirect_to smtp_settings_path, notice: 'Your SMTP settings are required!'
       return
     end
 
     # Send campaign emails in bg job
-    SendCampaignEmailsJob.perform_later(@campaign.id)
+    SendCampaignEmailsJob.perform_later(@campaign.id, smtp_settings.id)
 
     redirect_to campaign_path(@campaign), notice: 'Emails sending in background!'
   end

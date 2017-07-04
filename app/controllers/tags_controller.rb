@@ -1,7 +1,5 @@
 class TagsController < ApplicationController
   helper_method :xeditable?
-
-  before_action :authenticate_account!
   before_action :set_tag, only: [:update, :destroy]
 
   def index

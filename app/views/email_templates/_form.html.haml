@@ -17,7 +17,7 @@
     = f.text_area :body, class: 'form-control', rows: 28
 
     %p.text-muted
-      To put each user name in the emails use: <%= self.name %> keyword instead of name etc... You can use ruby codes here.
+      To put each user name in the emails use: <%= self.try(:name) %> keyword instead of name or for any user custom data (<%= self.try(:phone) %>, <%= self.try(:city) %> etc...). You can use ruby codes here.
 
     .actions
       = f.submit 'Submit', class: 'btn btn-primary'

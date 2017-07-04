@@ -1,1 +1,2 @@
-$("#email-detail").html("<%= escape_javascript render(partial: 'inbox/detail', locals: { user: @user, campaign_users: @campaign_users, message: @message, subject: @subject, email: @email }) %>");
+$("#email-detail").html("<%= escape_javascript render(partial: 'inbox/detail', locals: { user: @user, campaign_users: @campaign_users, message: @message, subject: @subject, email: @email, has_attach: @has_attach }) %>");
+$(window).scrollTop(0);

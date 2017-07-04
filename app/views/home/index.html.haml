@@ -1,55 +1,85 @@
-/ Main jumbotron for a primary marketing message or call to action
-.jumbotron
-  .container.text-center
-    %h1 Smart Email Marketing
-    %div
-      %h1
-        %i.fa.fa-envelope-open
-      %p
-        %i.tagline A minimal email marketing tool.
-    %div
-      %a.btn.btn-primary.btn-lg{:href => new_account_session_path} Login
-      %a.btn.btn-success.btn-lg{:href => new_account_registration_path} Sign Up
-
-.section{style: 'background-color: white;margin-top: -2%;'}
+.intro-header
   .container
-    .row.text-center
-      .col-md-5.col-xs-12
-        %h1{:style => "color:#2d3e4f"} Import Users!
-        %br/
-        %h4 You can import your users list from csv file or add them manually with additional attributes.
-        %br/
-        %h4 Also you can add tag to users while importing to whole of the list or you can add/remove tags manually later.
-        %br/
-        %h3 After filtering create a new campaign for filtered user.
-      .col-md-7.col-xs-12
-        = image_tag 'ss-users.png', width: '100%', style: 'padding: 2%'
+    .row
+      .col-lg-12
+        .intro-message
+          %h1 Smart Email Marketing
+          %h4 A simple dockerized rails app to manage your emails and campaigns with taggings.
+          %h4 You can find brief explanation as following or all features below.
+          %hr.intro-divider/
+          %ul.list-inline.intro-social-buttons
+            %li
+              %a.btn.btn-success.btn-lg{:href => new_account_session_path }
+                %span.network-name Login
+            %li
+              %a.btn.btn-info.btn-lg{:href => new_account_registration_path }
+                %span.network-name Sign Up
+            %li
+              %a.btn.btn-default.btn-lg{:href => 'https://github.com/svtek/smart-emailing', target: '_blank'}
+                %i.fa.fa-github.fa-fw
+                %span.network-name Github
 
-.section
+.content-section-a
   .container
-    .row.text-center
-      .col-md-7.col-xs-12
-        = image_tag 'email-template.png', width: '100%', style: 'padding: 2%'
-      .col-md-5.col-xs-12
-        %h1{:style => "color:#2d3e4f"} Email Templates!
-        %br/
-        %h4 Create a new email template as html for your campaign email.
-        %h4 You can select your template and you can add tags to campaign while creating the campaign.
-
-.section{style: 'background-color: white;'}
-  .container
-    .row.text-center
-      .col-md-5.col-xs-12
-        %h1{:style => "color:#2d3e4f"} Sending Campaign Email!
-        %br/
-        %h4 You should set your email provider settings to sending campaign emails.
-        %br/
-        %h4 If your provider is sendgrid, you can also add Sendgrid Event Notification to recieve emails statuses.
-        %p Go to: https://app.sendgrid.com/settings/mail_settings -> Event Notification
-        %p Then set this app domain to with receiver path. Example: smartemailmarketing-domain.com/campaigns/event_receiver
+    .row
+      .col-lg-5.col-sm-6
+        %h3.section-heading About
         %p
-          Click
-          %a{href: 'https://sendgrid.com/docs/API_Reference/Webhooks/event.html'} here
-          for more info.
-      .col-md-7.col-xs-12
-        = image_tag 'campaigns.png', width: '100%', style: 'padding: 2%'
+          Using the app, you can easily add your users, tag and categorize them, set campaigns separately or combined while creating email templates. Then, you will be managing your campaigns with adding tags to every campaign-user records or whole campaign. Finally, you can get replied emails, categorized them or reply with template responses directly from inbox.
+      .col-lg-5.col-lg-offset-2.col-sm-6
+        -#%img.img-responsive{:alt => "", :src => "img/ipad.png"}/
+        = image_tag 'users.png', class: 'img-responsive'
+
+.content-section-b
+  .container
+    .row
+      .col-lg-5.col-lg-offset-1.col-sm-push-6.col-sm-6
+        %h3.section-heading CRM
+        %ul
+          %li Import users manually or from csv (any column name will become custom data)
+          %li Add tags or custom data as key-value pairs to users
+          %li Filter users with simple and advanced search using tags, previous campaign,campaign status, email open status etc.
+          %li Create a campaign from filtered user results or add filtered users to an existing campaign.
+      .col-lg-5.col-sm-pull-6.col-sm-6
+        = image_tag 'filter.png', class: 'img-responsive'
+
+.content-section-a
+  .container
+    .row
+      .col-lg-5.col-sm-6
+        %h3.section-heading Campaign Managment
+        %ul
+          %li Select an created email template
+          %li Add tags to campaigns
+          %li Send emails from any email provider to all campaign users
+          %li Add tags to campaign-user (mutated record from the Campaign and User)
+          %li Create a new campaign with filtering from the existing campaign
+          %li Get email statistics if you choose sendgrid as a provider
+
+      .col-lg-5.col-lg-offset-2.col-sm-6
+        = image_tag 'campaigns.png', class: 'img-responsive'
+
+.content-section-b
+  .container
+    .row
+      .col-lg-5.col-lg-offset-1.col-sm-push-6.col-sm-6
+        %h3.section-heading Inbox
+        %ul
+          %li Email inbox parsing and email matching for replied emails
+          %li Add tags, and campaign-user tags directly from inbox
+          %li Quick template responses directly from inbox
+
+      .col-lg-5.col-sm-pull-6.col-sm-6
+        = image_tag 'inbox.png', class: 'img-responsive'
+
+.content-section-a
+  .container
+    .row
+      .col-lg-5.col-sm-6
+        %h3.section-heading Email Template
+        %p Create email templates with writing any ruby code for using users custom data in the content
+      .col-lg-5.col-lg-offset-2.col-sm-6
+        -#%img.img-responsive{:alt => "", :src => "img/ipad.png"}/
+        = image_tag 'template.png', class: 'img-responsive'
+
+

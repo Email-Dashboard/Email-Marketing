@@ -1,11 +1,20 @@
 - body = Tilt::ERBTemplate.new { "#{@campaign.email_template.body}" }
 - subject = Tilt::ERBTemplate.new { "#{@campaign.email_template.subject}" }
 
-%h2.text-center
-  = subject.render(User.first).html_safe
-= body.render(User.first).html_safe
+.x_panel
+  %h2
+    .text-center
+      = subject.render(User.first).html_safe
+    .pull-right
+      = link_to 'Edit Template', edit_email_template_path(@campaign.email_template), class: 'btn btn-default btn-xs'
+  = body.render(User.first).html_safe
 
-%hr
 = form_tag send_emails_campaign_path(@campaign), method: :post do
   .actions.text-center
-    = submit_tag 'Send Campaign Emails', class: 'btn btn-success', data: { confirm: 'This email will send only to email addresses in draft status. Are you sure?' }
+    .col-md-6
+      Select SMTP Settings
+      = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_campaigns.try(:id)), include_blank: false, class: 'form-control'
+    .col-md-6
+      = submit_tag 'Send Campaign Emails', class: 'btn btn-success btn-block', data: { confirm: 'This email will send only to email addresses in draft status. Are you sure?' }, style: 'margin-top: 17px;'
+
+%hr

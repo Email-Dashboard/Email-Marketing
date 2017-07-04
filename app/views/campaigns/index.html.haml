@@ -42,7 +42,7 @@
                       %span.btn.btn-info.btn-xs
                         = tag
                   %td= campaign.users.count
-                  %td= CampaignUser.where.not(status: 'draft').count
+                  %td= campaign.campaign_users.where.not(status: 'draft').count
                   %td
                     = link_to "##{campaign.email_template.id}", email_template_path(campaign.email_template), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{campaign.email_template.subject}"
                   %td

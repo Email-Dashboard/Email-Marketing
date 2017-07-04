@@ -1,0 +1,41 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %title Email Marketing
+    = csrf_meta_tags
+    = stylesheet_link_tag    'landing', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+
+    %link{href: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", rel: "stylesheet", integrity: "sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN", crossorigin: "anonymous"}
+  %body
+    %nav.navbar.navbar-default.navbar-fixed-top.topnav{:role => "navigation"}
+      .container.topnav
+        / Brand and toggle get grouped for better mobile display
+        .navbar-header
+          %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand.topnav{:href => "/"} Smart Email Marketing
+        / Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{:href => "/documentation"} Documentation
+
+    = yield
+
+    / Footer
+    %footer{style: 'background-color: white'}
+      .container
+        .row
+          .col-lg-12
+            .col-md-6.text-left
+              %img{:alt => "Known Vulnerabilities", "data-canonical-src" => "https://snyk.io/test/github/svtek/smart-emailing", :src => "http://github-release-version.herokuapp.com/github/svtek/smart-emailing/release.svg?style=flat", :style => "max-width:100%;"}/
+            .col-md-6.text-right
+              %p.copyright.text-muted.small Copyright © 2017. All Rights Reserved

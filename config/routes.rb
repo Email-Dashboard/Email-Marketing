@@ -28,6 +28,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :smtp_settings do
+    member do
+      post :set_default_for_campaigns
+      post :set_default_for_reply
+    end
+  end
+  resources :imap_settings
+
   resources :email_templates
 
   resources :inbox do
@@ -44,8 +52,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'settings', to: 'home#settings'
-  post 'update_settings', to: 'home#update_settings'
+  get 'documentation', to: 'home#documentation'
 
 
   # config/routes.rb
