@@ -28,22 +28,22 @@
                       = render partial: 'tags/item_tags', locals: { item: campaign_user }
               - if campaign_users.count < 1
                 %p.text-center.text-danger Campaign User Not Found!
-
-          .row
-            .panel.panel-default
-              .panel-heading
-                User Attributes
-              .panel-body
-                %table.table-bordered.table-condensed
-                  %thead
-                    %tr
-                      %td Attribute
-                      %td Value
-                  %tbody
-                    - user.user_attributes.each do |attr|
+          - if user.user_attributes.present?
+            .row
+              .panel.panel-default
+                .panel-heading
+                  User Attributes
+                .panel-body
+                  %table.table-bordered.table-condensed
+                    %thead
                       %tr
-                        %td= attr.key
-                        %td= attr.value
+                        %td Attribute
+                        %td Value
+                    %tbody
+                      - user.user_attributes.each do |attr|
+                        %tr
+                          %td= attr.key
+                          %td= attr.value
 
 
 

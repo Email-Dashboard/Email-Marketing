@@ -10,10 +10,10 @@
 
       .field
         = f.label 'IMAP address'
-        = f.text_field :address, class: 'form-control'
+        = f.text_field :address, class: 'form-control', placeholder: 'outlook.office365.com'
       .field
         = f.label :port
-        = f.text_field :port, class: 'form-control', required: true
+        = f.text_field :port, class: 'form-control', required: true, placeholder: '993'
       .field
         = f.label :email
         = f.select :email, options_for_select(current_account.smtp_settings.pluck(:reply_to).uniq), { include_blank: false }, { class: 'form-control' }
