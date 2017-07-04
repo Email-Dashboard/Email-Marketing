@@ -1,5 +1,4 @@
 class SmtpSettingsController < ApplicationController
-  before_action :authenticate_account!
   before_action :set_smtp_setting, only: [:edit, :update, :destroy, :set_default_for_campaigns, :set_default_for_reply]
 
   # GET /smtp_settings

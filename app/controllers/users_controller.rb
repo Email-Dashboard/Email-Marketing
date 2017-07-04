@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_account!
   before_action :set_all_tags, only: [:new, :import]
 
   def index

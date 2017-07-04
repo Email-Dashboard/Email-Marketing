@@ -1,5 +1,4 @@
 class ImapSettingsController < ApplicationController
-  before_action :authenticate_account!
   before_action :set_imap_setting, only: [:edit, :update, :destroy]
 
   # GET /imap_settings

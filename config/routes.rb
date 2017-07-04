@@ -52,8 +52,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'settings', to: 'home#settings'
-  post 'update_settings', to: 'home#update_settings'
+  get 'documentation', to: 'home#documentation'
 
 
   # config/routes.rb

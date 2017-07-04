@@ -1,5 +1,4 @@
 class InboxController < ApplicationController
-  before_action :authenticate_account!
   before_action :set_imap_settings, only: :index
 
   def index
