@@ -8,23 +8,25 @@
               Inbox
               %small User Replies
             .clearfix
-          .title_right
-            .input-group
-              = form_for(inbox_index_path, method: :get) do
-                .col-md-4
-                  = label_tag 'Date From'
-                  = text_field_tag 'from', params[:from], 'data-provide': 'datepicker', class: 'form-control', id: 'dt1'
-                .col-md-4
-                  = label_tag 'Date To'
-                  = text_field_tag 'to', params[:to], 'data-provide': 'datepicker', class: 'form-control', id: 'dt2'
-                .col-md-4{style: 'margin-top: 4%;'}
-                  = button_tag :submit, class: 'btn btn-success' do
-                    %span.glyphicon.glyphicon.glyphicon-filter
-                    Filter Emails
+          .input-group
+            = form_for(inbox_index_path, method: :get) do
+              .col-md-4
+                = label_tag 'IMAP Email'
+                = select_tag 'imap_id', options_for_select(current_account.imap_settings.map{|ss| [ ss.email, ss.id ]}, current_account.imap_settings.first.try(:id)), include_blank: false, class: 'form-control'
+              .col-md-3
+                = label_tag 'Date From'
+                = text_field_tag 'from', params[:from], 'data-provide': 'datepicker', class: 'form-control', id: 'dt1'
+              .col-md-3
+                = label_tag 'Date To'
+                = text_field_tag 'to', params[:to], 'data-provide': 'datepicker', class: 'form-control', id: 'dt2'
+              .col-md-2{style: 'margin-top: 4%;'}
+                = button_tag :submit, class: 'btn btn-success' do
+                  %i.glyphicon.glyphicon.glyphicon-filter{color: 'white'}
+                  Filter
 
       .x_content
         .row
-          .col-sm-4
+          .col-sm-4{style: "max-height: 700px; overflow: scroll;"}
             .row
             - @emails.each do |message|
               .col-sm-12
@@ -33,7 +35,7 @@
                     .panel.panel-default
                       .panel-body{style: "width: 100%"}
                         %p{style: 'word-wrap: break-word;'}
-                          = message.from.try(:first)
+                          = current_account.users.find_by(email: message.from.try(:first)).try(:name) || message.from.try(:first)
                         %p
                           = message.date.strftime("%d-%m-%y %H:%M")
                         %p= message.subject
@@ -43,5 +45,6 @@
                   = hidden_field_tag 'message', display_part.force_encoding("UTF-8")
                   = hidden_field_tag 'email', email
                   = hidden_field_tag 'subject', message.subject
+                  = hidden_field_tag 'has_attachments', message.attachments.present?
                   = hidden_field_tag 'cu_id', campaign_user_id
           .col-sm-8#email-detail

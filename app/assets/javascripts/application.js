@@ -43,5 +43,5 @@ $( document ).ready(function() {
 });
 
 function reply_template_select(){
-    $('#body').text($('#reply_email_template').val());
+    $('#body').val($('#reply_email_template').val());
 }

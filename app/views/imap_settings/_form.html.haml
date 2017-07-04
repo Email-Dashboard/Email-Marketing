@@ -1,0 +1,25 @@
+.col-md-6
+  .x_panel
+    = form_for @imap_setting do |f|
+      - if @imap_setting.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@imap_setting.errors.count, "error")} prohibited this SMTP Setting from being saved:"
+          %ul
+            - @imap_setting.errors.full_messages.each do |msg|
+              %li= msg
+
+      .field
+        = f.label 'IMAP address'
+        = f.text_field :address, class: 'form-control'
+      .field
+        = f.label :port
+        = f.text_field :port, class: 'form-control', required: true
+      .field
+        = f.label :email
+        = f.select :email, options_for_select(current_account.smtp_settings.pluck(:reply_to).uniq), { include_blank: false }, { class: 'form-control' }
+      .field
+        = f.label :password
+        = f.password_field :password, class: 'form-control', required: true
+      .actions
+        = f.submit 'Save', class: 'btn btn-primary'
+.col-sm-6
