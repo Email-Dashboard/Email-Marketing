@@ -27,9 +27,9 @@
           %td= smtp_setting.reply_to
           %td= smtp_setting.provider
           %td= smtp_setting.address
+          %td= smtp_setting.username
           %td= smtp_setting.port
           %td= smtp_setting.domain
-          %td= smtp_setting.username
           %td
             = link_to 'Edit', edit_smtp_setting_path(smtp_setting), class: 'btn btn-xs btn-warning'
             - if !smtp_setting.is_default_for_campaigns && !smtp_setting.is_default_for_reply
