@@ -1,4 +1,5 @@
 class InboxController < ApplicationController
+  require 'net/imap'
   before_action :set_imap_settings, only: :index
 
   def index
@@ -38,6 +39,23 @@ class InboxController < ApplicationController
                 current_account.smtp_settings.where(is_default_for_campaigns: true).first.try(:id)
 
     UserMailer.reply_email(mail_to, subject, content, smtp_id).deliver_now
+  end
+
+  def add_to_archive
+    settings = current_account.imap_settings.find_by(id: params[:imap_id]) || current_account.imap_settings.first
+    @message_id = params[:message_id]
+
+    imap = Net::IMAP.new(settings.address, settings.port, usessl: true, ssl: true)
+    imap.login(settings.email, settings.password)
+
+    imap.select("Inbox")
+    uid = imap.search(["HEADER", "Message-ID", @message_id])
+
+    imap.create('Archive') unless imap.list('', 'Archive')
+    imap.copy(uid.try(:first), 'Archive')
+    imap.store(uid.try(:first), "+FLAGS", [:Deleted])
+    imap.expunge
+    imap.disconnect
   end
 
   private
