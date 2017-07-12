@@ -1,25 +1,25 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: sqlite3
-  pool: 30
-  timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
 
 development:
   <<: *default
-  database: db/marketing_development.sqlite3
+  database: marketing_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/marketing_test.sqlite3
+  database: marketing_test
 
 production:
   <<: *default
-  database: /var/db/marketing_production.sqlite3
+  username: <%= ENV['DB_PRODUCTION_USERNAME'] %>
+  password: <%= ENV['DB_PRODUCTION_PASSWORD'] %>
+  host: <%= ENV['DB_PRODUCTION_HOST'] %>
+  database: marketing_production

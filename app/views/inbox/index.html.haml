@@ -12,7 +12,7 @@
             = form_for(inbox_index_path, method: :get) do
               .col-md-4
                 = label_tag 'IMAP Email'
-                = select_tag 'imap_id', options_for_select(current_account.imap_settings.map{|ss| [ ss.email, ss.id ]}, current_account.imap_settings.first.try(:id)), include_blank: false, class: 'form-control'
+                = select_tag 'imap_id', options_for_select(current_account.imap_settings.map{|ss| [ ss.email, ss.id ]}, params[:imap_id]), include_blank: false, class: 'form-control'
               .col-md-3
                 = label_tag 'Date From'
                 = text_field_tag 'from', params[:from], 'data-provide': 'datepicker', class: 'form-control', id: 'dt1'
@@ -29,20 +29,23 @@
           .col-sm-4{style: "max-height: 700px; overflow: scroll;"}
             .row
             - @emails.each do |message|
-              .panel.panel-default
+              .panel.panel-default{id: "panel-#{message.message_id}"}
                 .panel-body{style: "width: 100%"}
                   = form_tag(add_to_archive_inbox_index_path, method: 'post', remote: true) do
                     = hidden_field_tag 'message_id', message.message_id
                     = hidden_field_tag 'imap_id', params[:imap_id]
-                    .col-sm-6
-                      %p{style: 'word-wrap: break-word;'}
-                        = current_account.users.find_by(email: message.from.try(:first)).try(:name) || message.from.try(:first)
-                    .col-sm-6.text-right
-                      = button_tag type: "submit", style: 'all: unset;cursor: pointer;' do
+                    .col-sm-6.text-left
+                      = button_tag type: "submit", style: 'all: unset;cursor: pointer;', onclick: "archiveSpinner('archiveIcon-#{message.message_id}')" do
                         Add To Archive
                         %i.fa.fa-bookmark-o{id: "archiveIcon-#{message.message_id}"}
+                    .col-sm-6.text-right
+                      = link_to delete_message_inbox_index_path(message_id: message.message_id, imap_id: params[:imap_id]), style: 'all: unset;cursor: pointer;', onclick: "archiveSpinner('trashIcon-#{message.message_id}')", method: :post, remote: true, data: { confirm: 'Are you sure to delete email?' } do
+                        Delete
+                        %i.fa.fa-trash{id: "trashIcon-#{message.message_id}"}
                   %hr
                   .col-sm-12
+                    %p{style: 'word-wrap: break-word;'}
+                      = current_account.users.find_by(email: message.from.try(:first)).try(:name) || message.from.try(:first)
                     = form_tag(detail_inbox_index_path, method: 'post', remote: true) do
                       = button_tag :submit, style: 'all: unset; cursor: pointer; width: 100%;' do
                         %p

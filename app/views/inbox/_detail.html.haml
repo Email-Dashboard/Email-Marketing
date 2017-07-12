@@ -1,5 +1,28 @@
 .row
   .col-sm-12
+    .panel.panel-default
+      .panel-heading Reply Email
+      .panel-body
+        = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
+          .col-md-12
+            = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
+            = hidden_field_tag 'mail_to', @email
+            = hidden_field_tag 'subject', @subject
+
+          .col-md-12
+            .col-md-8
+              .col-md-6
+                Select an email template:
+                = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+              .col-md-6
+                Select SMTP Settings
+                = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_reply.try(:id)), include_blank: false, class: 'form-control'
+            .col-md-4.text-right
+              = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
+        .col-md-12
+          #message-status.text-center.text-success
+
+  .col-sm-12
     - if user.present?
       .panel.panel-default
         .panel-heading
@@ -60,24 +83,3 @@
             This email has an attachment.
 
         = simple_format(@message, {}, :sanitize => false)
-
-
-= form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
-  .col-md-12
-    = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
-    = hidden_field_tag 'mail_to', @email
-    = hidden_field_tag 'subject', @subject
-
-  .col-md-12
-    .col-md-8
-      .col-md-6
-        Select an email template:
-        = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
-      .col-md-6
-        Select SMTP Settings
-        = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_reply.try(:id)), include_blank: false, class: 'form-control'
-    .col-md-4.text-right
-      = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
-.col-md-12
-
-#message-status.text-center.text-success
