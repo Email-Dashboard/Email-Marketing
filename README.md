@@ -24,6 +24,7 @@ A simple dockerized rails app to manage your emails and campaigns with taggings.
 
 **Inbox Management:**
 * Email inbox parsing and email macthing.
+* Delete, archive emails from inbox.
 * Add tags, and campaign-user tags directly from inbox
 * Quick template responses from directly from inbox
 
