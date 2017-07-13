@@ -43,8 +43,10 @@ Rails.application.routes.draw do
 
   resources :inbox do
     collection do
+      post :add_to_archive
       post :reply_email
       post :detail
+      post :delete_message
     end
   end
 

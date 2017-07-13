@@ -45,3 +45,8 @@ $( document ).ready(function() {
 function reply_template_select(){
     $('#body').val($('#reply_email_template').val());
 }
+
+function archiveSpinner(message_icon_id) {
+    var elm = document.getElementById(message_icon_id);
+    elm.className = "fa fa-spinner fa-spin";
+}
