@@ -1,5 +1,28 @@
 .row
   .col-sm-12
+    .panel.panel-default
+      .panel-heading Reply Email
+      .panel-body
+        = form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
+          .col-md-12
+            = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
+            = hidden_field_tag 'mail_to', @email
+            = hidden_field_tag 'subject', @subject
+
+          .col-md-12
+            .col-md-8
+              .col-md-6
+                Select an email template:
+                = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
+              .col-md-6
+                Select SMTP Settings
+                = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_reply.try(:id)), include_blank: false, class: 'form-control'
+            .col-md-4.text-right
+              = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
+        .col-md-12
+          #message-status.text-center.text-success
+
+  .col-sm-12
     - if user.present?
       .panel.panel-default
         .panel-heading
@@ -45,14 +68,23 @@
                           %td= attr.key
                           %td= attr.value
 
-
-
 .row
   .col-sm-12
     .panel.panel-default
-      .panel-heading
-        = @subject
-        %strong= @email
+      .panel-heading.clearfix
+        .pull-left
+          = @subject
+          %strong= @email
+        .pull-right.form-group
+          = form_tag(add_to_archive_inbox_index_path, method: 'post', remote: true) do
+            = hidden_field_tag 'message_id', @message_id
+            = hidden_field_tag 'imap_id', params[:imap_id]
+            = button_tag type: 'submit', class: 'btn btn-default btn-xs', onclick: "archiveSpinner('archiveIcon-#{@message_id}')" do
+              Add To Archive
+              %i.fa.fa-bookmark-o{id: "archiveIcon-#{@message_id}"}
+            = link_to delete_message_inbox_index_path(message_id: @message_id, imap_id: params[:imap_id]), class: 'btn btn-default btn-xs', onclick: "archiveSpinner('trashIcon-#{@message_id}')", method: :post, remote: true, data: { confirm: 'Are you sure to delete email?' } do
+              Delete
+              %i.fa.fa-trash-o{id: "trashIcon-#{@message_id}"}
       .panel-body
         - if @has_attach == 'true'
           %p.text-warning
@@ -60,24 +92,3 @@
             This email has an attachment.
 
         = simple_format(@message, {}, :sanitize => false)
-
-
-= form_tag reply_email_inbox_index_path, method: :post, remote: true, id: 'reply-form' do
-  .col-md-12
-    = text_area_tag 'body', nil, rows: 5, placeholder: 'Write a reply... (recommended: HTML)', class: 'form-control'
-    = hidden_field_tag 'mail_to', @email
-    = hidden_field_tag 'subject', @subject
-
-  .col-md-12
-    .col-md-8
-      .col-md-6
-        Select an email template:
-        = select_tag 'reply_email_template', options_for_select(current_account.email_templates.map{|et| [ et.subject, et.body.html_safe ]}), onchange: 'reply_template_select()', include_blank: '- select -', class: 'form-control'
-      .col-md-6
-        Select SMTP Settings
-        = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_reply.try(:id)), include_blank: false, class: 'form-control'
-    .col-md-4.text-right
-      = submit_tag 'Send Message', id: 'reply-submit', class: 'btn btn-success', style: 'margin-top: 8%;'
-.col-md-12
-
-#message-status.text-center.text-success

@@ -1,5 +1,7 @@
 class InboxController < ApplicationController
+  require 'net/imap'
   before_action :set_imap_settings, only: :index
+  before_action :set_message_uid, only: [:add_to_archive, :delete_message]
 
   def index
     if params[:from].present? && params[:to].present?
@@ -17,6 +19,7 @@ class InboxController < ApplicationController
     @email = params[:email]
     @has_attach = params[:has_attachments]
     @user = current_account.users.find_by(email: @email)
+    @message_id = params[:message_id]
 
     if @user.present?
       if params[:cu_id].present?
@@ -40,7 +43,34 @@ class InboxController < ApplicationController
     UserMailer.reply_email(mail_to, subject, content, smtp_id).deliver_now
   end
 
+  def add_to_archive
+    if @uid.present?
+      @imap.create('Archive') unless @imap.list('', 'Archive')
+      @imap.copy(@uid.try(:first), 'Archive')
+      @imap.store(@uid.try(:first), "+FLAGS", [:Deleted])
+    end
+    @imap.expunge
+    @imap.disconnect
+  end
+
+  def delete_message
+    @imap.store(@uid.try(:first), "+FLAGS", [:Deleted]) if @uid.present?
+    @imap.expunge
+    @imap.disconnect
+  end
+
   private
+  # for adding to archive and delete
+  def set_message_uid
+    settings = current_account.imap_settings.find_by(id: params[:imap_id]) || current_account.imap_settings.first
+    @message_id = params[:message_id]
+
+    @imap = Net::IMAP.new(settings.address, settings.port, usessl: true, ssl: true)
+    @imap.login(settings.email, settings.password)
+
+    @imap.select("Inbox")
+    @uid = @imap.search(["HEADER", "Message-ID", @message_id])
+  end
 
   # To read emails
   def set_imap_settings
