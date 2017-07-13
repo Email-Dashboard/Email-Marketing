@@ -68,14 +68,23 @@
                           %td= attr.key
                           %td= attr.value
 
-
-
 .row
   .col-sm-12
     .panel.panel-default
-      .panel-heading
-        = @subject
-        %strong= @email
+      .panel-heading.clearfix
+        .pull-left
+          = @subject
+          %strong= @email
+        .pull-right.form-group
+          = form_tag(add_to_archive_inbox_index_path, method: 'post', remote: true) do
+            = hidden_field_tag 'message_id', @message_id
+            = hidden_field_tag 'imap_id', params[:imap_id]
+            = button_tag type: 'submit', class: 'btn btn-default btn-xs', onclick: "archiveSpinner('archiveIcon-#{@message_id}')" do
+              Add To Archive
+              %i.fa.fa-bookmark-o{id: "archiveIcon-#{@message_id}"}
+            = link_to delete_message_inbox_index_path(message_id: @message_id, imap_id: params[:imap_id]), class: 'btn btn-default btn-xs', onclick: "archiveSpinner('trashIcon-#{@message_id}')", method: :post, remote: true, data: { confirm: 'Are you sure to delete email?' } do
+              Delete
+              %i.fa.fa-trash-o{id: "trashIcon-#{@message_id}"}
       .panel-body
         - if @has_attach == 'true'
           %p.text-warning

@@ -19,6 +19,7 @@ class InboxController < ApplicationController
     @email = params[:email]
     @has_attach = params[:has_attachments]
     @user = current_account.users.find_by(email: @email)
+    @message_id = params[:message_id]
 
     if @user.present?
       if params[:cu_id].present?
