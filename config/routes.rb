@@ -57,6 +57,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'tag_search', to: 'tags#tag_search'
   get 'documentation', to: 'home#documentation'
 
 

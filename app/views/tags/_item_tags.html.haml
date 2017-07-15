@@ -5,6 +5,8 @@
       %span.fa.fa-trash
 .row
   = form_tag(add_tag_to_item_tags_path, remote: true) do
-    = text_field_tag :name, nil, placeholder: "Type tag for #{item.class.name} and press Enter", class: 'form-control', style: 'height: 25px;width: 95%;'
+    -#= text_field_tag :name, nil, placeholder: "Type tag for #{item.class.name} and press Enter", class: 'form-control', style: 'height: 25px;width: 95%;'
     = hidden_field_tag :item_type, item.class.name
     = hidden_field_tag :item_id, item.id
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    = select_tag 'name', '', { class: 'tag-select form-control', style: 'height: 25px;width: 95%;', multiple: true, include_blank: true, onchange: "$(this).submit();", placeholder: "Type tag for #{item.class.name} and press Enter" }

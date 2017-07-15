@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
   helper_method :xeditable?
   before_action :set_tag, only: [:update, :destroy]
+  skip_before_action :authenticate_account!, only: :tag_search
 
   def index
     @all_tags = ActsAsTaggableOn::Tag.order('taggings_count desc')
@@ -41,6 +42,13 @@ class TagsController < ApplicationController
     @item.tag_list.remove(params[:name])
     @item.save
     render 'update_tags'
+  end
+
+  def tag_search
+    @tags = ActsAsTaggableOn::Tag.where("name like ?", "%#{params[:term]}%")
+    respond_to do |format|
+      format.json { render json: { results: @tags.map{|t| { id: t.id, name: t.name }} } }
+    end
   end
 
   private
