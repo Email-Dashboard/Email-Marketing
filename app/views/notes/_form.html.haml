@@ -1,0 +1,25 @@
+.col-md-12.x_panel
+  = form_for @note do |f|
+    - if @note.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@note.errors.count, "error")} prohibited this note from being saved:"
+        %ul
+          - @note.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    .field
+      = f.label :content
+      = f.text_area :content, id: 'editable', class: 'form-control', input_html: { rows: 10 }
+    .actions
+      = f.submit 'Save', class: 'btn btn-primary'
+
+%script{src: "https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=#{ENV['TINYMCE_API_KEY']}"}
+:javascript
+  tinymce.init({
+    selector:'textarea#editable',
+    plugins: 'link image code',
+    relative_urls: false
+   });
