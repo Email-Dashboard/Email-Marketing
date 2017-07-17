@@ -57,6 +57,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :notes
+
   get 'documentation', to: 'home#documentation'
 
 
