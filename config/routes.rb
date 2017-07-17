@@ -59,6 +59,7 @@ Rails.application.routes.draw do
 
   resources :notes
 
+  get 'tag_search', to: 'tags#tag_search'
   get 'documentation', to: 'home#documentation'
 
 
