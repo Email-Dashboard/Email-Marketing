@@ -20,7 +20,47 @@ $( document ).ready(function() {
       width: '100%'
   });
 
-  // ransack advenced filter scripts
+    $(".tag-select").select2({
+        theme: "bootstrap",
+        allowClear: false,
+        selectOnBlur: true,
+        tags: true,
+        width: '100%',
+        ajax: {
+            url: "/tag_search.json",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    term: params.term
+                };
+            },
+            processResults: function (data) {
+                var items = $.map(data.results, function (obj) {
+                    obj.id = obj.name;
+                    return obj;
+                });
+                return {
+                    results: items
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) {
+            return markup; // let our custom formatter work
+        },
+        minimumInputLength: 1,
+        templateResult: function(tag) {
+            if (tag.loading) return tag.name;
+            return tag.name;
+        },
+        templateSelection: function(tag) {
+            return tag.name;
+        }
+    });
+
+
+    // ransack advenced filter scripts
   $('form').on('click', '.remove_fields', function(event) {
     $(this).closest('.field').remove();
     return event.preventDefault();

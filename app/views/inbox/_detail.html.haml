@@ -66,8 +66,11 @@
                       - user.user_attributes.each do |attr|
                         %tr
                           %td= attr.key
-                          %td= attr.value
-
+                          %td
+                            - if attr.value.include?('http')
+                              = link_to attr.value, attr.value, target: '_blank'
+                            - else
+                              = attr.value
 .row
   .col-sm-12
     .panel.panel-default
