@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170704205043) do
+ActiveRecord::Schema.define(version: 20170717125321) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 20170704205043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_imap_settings_on_account_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_notes_on_account_id"
   end
 
   create_table "smtp_settings", force: :cascade do |t|
