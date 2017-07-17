@@ -1,17 +1,17 @@
 # == Schema Information
 #
-# Table name: imap_settings
+# Table name: notes
 #
 #  id         :integer          not null, primary key
 #  account_id :integer
-#  address    :string
-#  port       :string
-#  email      :string
-#  password   :string
+#  title      :string
+#  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class ImapSetting < ApplicationRecord
+class Note < ApplicationRecord
   belongs_to :account
+
+  validates :title, presence: true
 end

@@ -1,19 +1,19 @@
 # == Schema Information
 #
-# Table name: email_templates
+# Table name: notes
 #
 #  id         :integer          not null, primary key
 #  account_id :integer
-#  subject    :string
-#  body       :text
+#  title      :string
+#  content    :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 FactoryGirl.define do
-  factory :email_template do
+  factory :note do
     account nil
-    subject { Faker::Lorem.sentence }
-    body "<p> #{Faker::Lorem.paragraph(8)} </p>"
+    title { Faker::Lorem.sentence }
+    content "<p> #{Faker::Lorem.paragraph(8)} </p>"
   end
 end

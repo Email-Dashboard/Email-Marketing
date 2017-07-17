@@ -5,9 +5,10 @@
 #  id          :integer          not null, primary key
 #  campaign_id :integer
 #  user_id     :integer
-#  status      :string
+#  status      :string           default("draft")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  sent_at     :datetime
 #
 
 FactoryGirl.define do

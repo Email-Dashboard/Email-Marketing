@@ -1,0 +1,9 @@
+.x_panel
+  .panel-body
+    %h2.text-center= @note.title
+    = @note.content.try (:html_safe)
+
+%hr/
+
+= link_to 'Edit', edit_note_path(@note)
+

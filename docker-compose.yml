@@ -38,6 +38,7 @@ services:
       SIDEKIQ_PASSWORD: sidekiqPass
       REDIS_HOST_URL: redis
       REDIS_PASSWORD: yourpassword
+      TINYMCE_API_KEY: GetAtinymceApiKey
     links:
       - redis:redis
       - sidekiq:sidekiq
