@@ -36,11 +36,13 @@
                         %span.fa.fa-chevron-down
                       %ul.nav.child_menu
                         %li
-                          %a{:href => users_path } List Users
+                          %a{:href => users_path } List
                         %li
-                          %a{:href => new_user_path } Add a User
+                          %a{:href => detailed_list_users_path } Detailed List
                         %li
-                          %a{:href => import_users_path} Import Users List
+                          %a{:href => new_user_path } Add
+                        %li
+                          %a{:href => import_users_path} Import
 
                     %li
                       %a{:href => inbox_index_path}

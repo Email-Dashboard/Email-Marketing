@@ -7,7 +7,7 @@
     Export to Excel
 
 
-= page_title 'Users'
+= page_title 'Detailed Users'
 
 
 = content_for :page_title_right do
@@ -16,14 +16,16 @@
       %span.fa.fa-plus
       New User
 
+.clearfix
+
 .row
   .col-md-12
     .x_panel
       .x_title
-        %h4 Users
+        %h4 Detailed Users
       .x_content
 
-        = render partial: 'shared/advanced_search', locals: { form_url: nil }
+        = render partial: 'shared/advanced_search', locals: { form_url: detailed_list_users_path }
 
         = render 'create_campaign_buttons'
 
@@ -36,7 +38,8 @@
               %th{width: "200"} Tags
               %th Name
               %th Campaigns
-              %th Attributes
+              - @user_attribute_keys.each do |key|
+                %th= key
               %th{width: "100"}
           %tbody
             - @users.each do |user|
@@ -50,11 +53,13 @@
                 %td
                   - user.campaigns.each do |cp|
                     = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
-                %td
-                  = render partial: 'user_attributes/index', locals: { user: user }
+                - @user_attribute_keys.each do |key|
+                  %td= user.user_attributes.to_a.select{ |ua| ua.key == key }.first.try(:value)
+
                 %td
                   = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
                     %i.fa.fa-trash-o
+
                   = link_to user_path(user), class: 'btn btn-default btn-xs' do
                     %i.fa.fa-eye
 

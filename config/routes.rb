@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       post 'create_single'
       get  'import'
+      get 'detailed_list'
     end
 
     resources :user_attributes

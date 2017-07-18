@@ -1,9 +1,10 @@
+= page_title @note.title
+
+- content_for :page_title_right do
+  = link_to 'Edit', edit_note_path(@note), class: 'btn btn-default'
+
 .x_panel
+  .x_title
+    %h4= @note.title
   .panel-body
-    %h2.text-center= @note.title
     = @note.content.try (:html_safe)
-
-= link_to 'Edit', edit_note_path(@note)
-\-
-= link_to 'Back', notes_path
-
