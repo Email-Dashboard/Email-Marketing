@@ -2,7 +2,17 @@ class UsersController < ApplicationController
   before_action :set_all_tags, only: [:new, :import]
 
   def index
-    users_list
+    @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
+             .ransack(params[:q])
+    @q.build_grouping unless @q.groupings.any?
+    @q.sorts = 'created_at DESC' if @q.sorts.empty?
+
+    @users = ransack_results_with_limit
+    @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
+    @total_user_count = @users.total_count
+
+    @user_attribute_keys = UserAttribute.joins(:user).where('users.account_id = ?', current_account.id).select('DISTINCT key').order('key ASC').map(&:key)
+
     respond_to do |format|
       format.html
       format.xlsx { render xlsx: 'download', filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.xlsx", locals: { users: users_to_export } }
@@ -11,13 +21,7 @@ class UsersController < ApplicationController
   end
 
   def detailed_list
-    users_list
-
-    respond_to do |format|
-      format.html
-      format.xlsx { render xlsx: 'download', filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.xlsx", locals: { users: users_to_export } }
-      format.csv { send_data  users_to_export.to_csv_file, filename: "Users-#{Time.now.strftime("%Y%m%d%H%M")}.csv" }
-    end
+    index
   end
 
   def new; end
@@ -63,20 +67,5 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
-  end
-
-  private
-
-  def users_list
-    @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
-             .ransack(params[:q])
-    @q.build_grouping unless @q.groupings.any?
-    @q.sorts = 'created_at DESC' if @q.sorts.empty?
-
-    @users = ransack_results_with_limit
-    @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
-    @total_user_count = @users.total_count
-
-    @user_attribute_keys = UserAttribute.joins(:user).where('users.account_id = ?', current_account.id).select('DISTINCT key').order('key ASC').map(&:key)
   end
 end
