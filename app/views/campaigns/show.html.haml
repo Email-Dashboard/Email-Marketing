@@ -1,52 +1,66 @@
-.x_panel
-  .x_title
-    %h3
-      #{@campaign.name}
-    .clearfix
-  .col-md-4
-    %p Campaign Tags:
-    %div{id: "CampaignTags-#{@campaign.id}"}
-      = render partial: 'tags/item_tags', locals: { item: @campaign }
+= page_title @campaign.name
 
+- content_for :page_title_right do
+  = form_tag send_emails_campaign_path(@campaign), method: :post, class: 'form-inline' do
+    %div.form-group
+      %label SMTP
+      = select_tag 'smtp_id', options_for_select(current_account.smtp_settings.map{|ss| [ ss.provider, ss.id ]}, current_account.smtp_settings.default_for_campaigns.try(:id)), include_blank: false, class: 'form-control'
+    = submit_tag 'Send', class: 'btn btn-success', data: { confirm: 'This email will send only to email addresses in draft status. Are you sure?' }
 
-= render 'template_form'
 
 .x_panel
   .x_title
-    %h3 Campaign Statistics
-    %small Add Sendgrid settings to get more detaily statistics.
-  = render 'stats'
-
-.x_panel
-  = pie_chart @stats
-
-.x_panel
-  .x_title
-    %h2 Filter Users
-    %ul.nav.navbar-right.panel_toolbox
-      %li
-        %a.collapse-link.pull-right
-          %i.fa.fa-chevron-up
-    .clearfix
+    %h4 Detail
   .x_content
-    %p Filter users to create new campaign from the existing campaign.
+    .row
+      .col-sm-4
+        .panel.panel-default
+          .panel-heading
+            Tags
+          .panel-body
+            %div{id: "CampaignTags-#{@campaign.id}"}
+              = render partial: 'tags/item_tags', locals: { item: @campaign }
+
+      .col-sm-8
+        .panel.panel-default
+          .panel-heading
+            Template
+          .panel-body
+            = render partial: 'email_templates/email_template', locals: { email_template: @campaign.email_template, user: @campaign.users.first }
+
+
+.x_panel
+  .x_title
+    %h4 Stats
+  .x_content
+    .row
+      .col-sm-8
+        = render 'stats'
+      .col-sm-4
+        = pie_chart @stats
+
+
+.x_panel
+  .x_title
+    %h4 Users
+  .title_right
+    .col-md-12.col-sm-12.col-xs-12.text-right
+
+  .x_content
     = render partial: 'shared/advanced_search', locals: { form_url: "/campaigns/#{@campaign.id}" }
-    .col-sm-6
-      = paginate @campaign_users
-  .clearfix
+    = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+          limit: params[:limit_count], query_from: 'campaign', campaign_id: @campaign.id }),
+          class: 'btn btn-primary'
 
-.x_panel
-  = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
-      limit: params[:limit_count], query_from: 'campaign', campaign_id: @campaign.id }),
-      class: 'btn btn-success pull-right', style: 'margin-top: 1%'
-  .x_content
+    %hr/
+
     %table.table.table-striped.projects
       %thead
         %tr
           %th Email
           %th Name
           %th Email Status
-          %th Tags
+          %th Campaing User Tags
       %tbody
         - @campaign_users.each do |camp_user|
           - if camp_user.user.present?
@@ -57,3 +71,5 @@
               %td
                 %div{id: "CampaignUserTags-#{camp_user.id}"}
                   = render partial: 'tags/item_tags', locals: { item: camp_user }
+
+    = paginate @campaign_users

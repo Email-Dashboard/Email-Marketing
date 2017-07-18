@@ -15,4 +15,5 @@
       = s.sort_select
 
   .actions
-    = f.submit "Search", class: 'btn btn-primary'
+    = f.submit "Search", class: 'btn btn-default'
+    = yield :extra_buttons_in_search

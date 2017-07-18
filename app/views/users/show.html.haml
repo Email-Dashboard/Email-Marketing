@@ -1,0 +1,20 @@
+.page-title
+  .title_left
+    %h1= @user.email
+
+.clearfix
+
+.row
+  .col-sm-6
+    .x_panel
+      .x_title
+        %h3 Attributes
+      .x_content
+        = render partial: 'user_attributes/index', locals: { user: @user }
+
+  .col-sm-6
+    .x_panel
+      .x_title
+        %h3 Campaigns
+      .x_content
+        = render partial: 'campaign_users/index', locals: { user: @user }

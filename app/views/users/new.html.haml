@@ -1,17 +1,23 @@
-.x_panel
-  %h4 Add a user
-  = form_tag create_single_users_path, id: 'single-user', method: :post do
+.row
+  .col-sm-8
+    .x_panel
+      .x_title
+        %h4 New User
 
-    = label_tag 'Name (optional)'
-    = text_field_tag :name, nil, { class: 'form-control' }
+      = form_tag create_single_users_path, id: 'single-user', method: :post do
 
-    = label_tag 'Email'
-    = email_field_tag :email, nil, { class: 'form-control', required: true }
+        = label_tag 'Name (optional)'
+        = text_field_tag :name, nil, { class: 'form-control' }
 
-    = label_tag 'Tags'
-    = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2', multiple: true }
-    .actions
-      .col-md-6
-        = submit_tag 'Add User', class: 'btn btn-primary'
-      .col-md-6.text-right
-        = link_to 'Import Users From a File', import_users_path, class: 'btn btn-default'
+        = label_tag 'Email'
+        = email_field_tag :email, nil, { class: 'form-control', required: true }
+
+        = label_tag 'Tags'
+        = select_tag :tags, options_for_select(@all_tags.map{ |t| [t, t] }), { include_blank: false, class: 'select2', multiple: true }
+        .actions
+          .pull-right
+            = submit_tag 'Save', class: 'btn btn-primary'
+
+  .col-sm-4
+    = link_to 'Import Users From CSV or XLS files', import_users_path, class: 'btn btn-default'
+    = link_to 'Create Users Over API', '#', class: 'btn btn-default'

@@ -1,0 +1,17 @@
+- body = Tilt::ERBTemplate.new { "#{email_template.body}" }
+- subject = Tilt::ERBTemplate.new { "#{email_template.subject}" }
+
+%p
+  %strong Subject:
+  = subject.render(user).html_safe
+
+%p
+  %strong Body:
+
+= body.render(User.first).html_safe
+
+%p
+
+
+= link_to 'Edit', edit_email_template_path(@campaign.email_template), class: 'btn btn-default'
+

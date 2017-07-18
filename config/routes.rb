@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :users, only: [:index, :destroy, :new, :create] do
+  resources :users do
     collection do
       post 'create_single'
       get  'import'

@@ -22,6 +22,10 @@ class UsersController < ApplicationController
 
   def import; end
 
+  def show
+    @user = current_account.users.find(params[:id])
+  end
+
   def create
     if params[:file].present? && params[:tags].present?
 

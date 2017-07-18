@@ -1,94 +1,88 @@
-%div
-  .page-title
-    .title_left
-      %h3 Listing Users
-    .title_right
-      .col-md-12.col-sm-12.col-xs-12.text-right
-        = link_to new_user_path do
-          %button.btn.btn-primary Add a User
-        = link_to import_users_path do
-          %button.btn.btn-success Import Users
+= content_for :extra_buttons_in_search do
+  = link_to (request.fullpath + '?&format=csv'), class: 'btn btn-default' do
+    %i.fa.fa-external-link
+    Export to CSV
+  = link_to (request.fullpath + '?&format=xlsx'), class: 'btn btn-default' do
+    %i.fa.fa-external-link
+    Export to Excel
 
-  .clearfix
-  .row
-    .col-md-12
-      .x_panel
-        .x_title
-          %h2 Filter Users
-          %ul.nav.navbar-right.panel_toolbox
-            %li
-              %a.collapse-link.pull-right
-                %i.fa.fa-chevron-up
-          .clearfix
-        .x_content
-          %p Filter users to create new campaign or add to existing campaign.
-          / start project list
-          = render partial: 'shared/advanced_search', locals: { form_url: nil }
 
-  .row
-    .col-md-12
-      .x_panel
-        .x_title
-          %h2 Filtered Users
-          %p.label.label-primary{style: 'margin-left: 1%;'}
-            = @total_user_count
+= page_title 'Users'
 
-        - if @total_user_count > 0
-          .title_right
-            .col-md-12.col-sm-12.col-xs-12.text-right
-              .pull-right
-                = link_to new_campaign_path({ q: (params[:q].presence || 'all'), limit: params[:limit_count] }), class: 'btn btn-success' do
-                  %i.fa.fa-plus
-                  Create New Campaign
-              - if current_account.campaigns.present?
-                .pull-right
-                  = form_tag add_users_campaigns_path, method: :post do
-                    = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control', style: 'width: 28%; display: inline'
-                    = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
-                    = hidden_field_tag 'limit', params[:limit_count]
-                    = button_tag class: 'btn btn-primary btn-mid', type: :submit do
-                      %i.fa.fa-arrow-circle-right
-                      Add to selected campaign
-                    %span or &nbsp;
-          .clearfix
-        .x_content
-          %table.table.table-striped.projects
-            %thead
-              %tr
-                %th Email
-                %th Name
-                %th Tags
-                %th Campaigns
-                %th Attributes
-                %th.text-center #
-            %tbody
-              - @users.each do |user|
-                %tr{id: "user-#{user.id}"}
-                  %td= user.email
-                  %td= user.name
-                  %td
-                    %div{id: "UserTags-#{user.id}"}
-                      = render partial: 'tags/item_tags', locals: { item: user }
 
-                  %td
-                    - user.campaigns.each do |cp|
-                      = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
-                  %td
-                    - user.user_attributes.each do |attr|
-                      = "#{attr.key}: #{attr.value}"
-                      %br/
-                  %td
-                    = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
-                      %i.fa.fa-trash-o
-                      Delete
-                    = link_to user_user_attributes_path(user), class: 'btn btn-warning btn-xs' do
-                      %i.fa.fa-eye
-                      Show
+= content_for :page_title_right do
+  = link_to new_user_path do
+    %button.btn.btn-primary
+      %span.fa.fa-plus
+      New User
 
-          = paginate @users
-          = link_to (request.fullpath + '?&format=csv'), class: 'btn btn-dark pull-right' do
-            %i.fa.fa-external-link
-            Export to CSV
-          = link_to (request.fullpath + '?&format=xlsx'), class: 'btn btn-dark pull-right' do
-            %i.fa.fa-external-link
-            Export to Excel
+.clearfix
+
+.row
+  .col-md-12
+    .x_panel
+      .x_title
+        %h4 Users
+      .x_content
+
+        = render partial: 'shared/advanced_search', locals: { form_url: nil }
+
+        - if params[:q].present?
+          .pull-left
+            = link_to new_campaign_path({ q: (params[:q].presence || 'all'), limit: params[:limit_count] }), class: 'btn btn-primary' do
+              %i.fa.fa-plus
+              = "Create new campaign for"
+              %span.label.label-success= @total_user_count
+              = "users"
+
+            - if current_account.campaigns.count > 0
+              OR
+              &nbsp;
+
+          - if current_account.campaigns.count > 0
+            = form_tag add_users_campaigns_path, method: :post, class: 'form-inline' do
+
+              .form-group
+                = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
+                = hidden_field_tag 'limit', params[:limit_count]
+                = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control'
+
+              = button_tag class: 'btn btn-primary btn-mid', type: :submit do
+                %i.fa.fa-arrow-circle-right
+                = "Add"
+                %span.label.label-success= @total_user_count
+                = "users to selected campaign"
+
+        = paginate @users
+
+        %table.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th{width: "200"} Email
+              %th{width: "200"} Tags
+              %th Name
+              %th Campaigns
+              %th Attributes
+              %th{width: "100"}
+          %tbody
+            - @users.each do |user|
+              %tr{id: "user-#{user.id}"}
+                %td= user.email
+                %td
+                  %div{id: "UserTags-#{user.id}"}
+                    = render partial: 'tags/item_tags', locals: { item: user }
+                %td= user.name
+
+                %td
+                  - user.campaigns.each do |cp|
+                    = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
+                %td
+                  = render partial: 'user_attributes/index', locals: { user: user }
+                %td
+                  = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
+                    %i.fa.fa-trash-o
+
+                  = link_to user_path(user), class: 'btn btn-default btn-xs' do
+                    %i.fa.fa-eye
+
+        = paginate @users

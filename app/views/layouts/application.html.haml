@@ -104,12 +104,20 @@
 
         /Page Content
         .right_col{:role => "main"}
-          %div
-            .col-md-12
-              - if flash.now[:notice]
+          - if flash.now[:notice]
+            .row
+              .col-md-12
                 .alert.alert-info
                   %p#notice= flash.now[:notice]
-            = yield
+
+          .page-title
+            .title_left
+              %h1= yield :page_title
+            .title_right
+              .col-md-12.col-sm-12.col-xs-12.text-right
+                = yield :page_title_right
+
+          = yield
 
   - else
     %body.login
