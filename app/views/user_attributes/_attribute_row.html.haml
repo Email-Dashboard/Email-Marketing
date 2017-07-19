@@ -1,6 +1,10 @@
 %tr{id: "attr-#{attr.id}"}
   %td= editable attr, :key, url: user_user_attribute_path(user, attr), value: attr.key
-  %td= editable attr, :value, url: user_user_attribute_path(user, attr), value: attr.value
+  %td
+    - if attr.value.present? && attr.value.include?('http')
+      = link_to attr.value, attr.value,target: '_blank'
+    - else
+      = editable attr, :value, url: user_user_attribute_path(user, attr), value: attr.value
   %td{width: "30"}
     = link_to user_user_attribute_path(user, attr), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: '' do
       %span.fa.fa-trash
