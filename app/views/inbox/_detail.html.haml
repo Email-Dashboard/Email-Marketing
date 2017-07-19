@@ -11,7 +11,7 @@
             .col-lg-6
               .panel.panel-default
                 .panel-heading
-                  = link_to (user.name || user.email), user_user_attributes_path(user), target: '_blank'
+                  = link_to (user.name || user.email), user_path(user), target: '_blank'
                 .panel-body
                   %div{id: "UserTags-#{user.id}"}
                     = render partial: 'tags/item_tags', locals: { item: user }
@@ -28,8 +28,10 @@
                       = render partial: 'tags/item_tags', locals: { item: campaign_user }
               - if campaign_users.count < 1
                 %p.text-center.text-danger Campaign User Not Found!
-
-          = render partial: 'user_attributes/index', locals: { user: user }
+          .row
+          .clearfix
+            = form_for [user, UserAttribute.new], remote: true do |f|
+              = render partial: 'user_attributes/index', locals: { user: user }
 
 .row
   .col-sm-12
