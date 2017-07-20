@@ -3,7 +3,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Draft Emails
+      Draft
     .count= @stats['draft'] || 0
     %span.count_bottom
       %i.green
@@ -12,7 +12,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Processed Emails
+      Processed
     .count.green= @stats['processed'] || 0
     %span.count_bottom
       %i.green
@@ -21,7 +21,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Dropped Emails
+      Dropped
     .count= @stats['dropped'] || 0
     %span.count_bottom
       %i.green
@@ -30,7 +30,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Delivered Emails
+      Delivered
     .count= @stats['delivered'] || 0
     %span.count_bottom
       %i.green
@@ -39,7 +39,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Deferred Emails
+      Deferred
     .count= @stats['deferred'] || 0
     %span.count_bottom
       %i.green
@@ -50,7 +50,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Bounced Emails
+      Bounced
     .count= @stats['bounce'] || 0
     %span.count_bottom
       %i.green
@@ -59,7 +59,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Opened Emails
+      Opened
     .count.green= @stats['open'] || 0
     %span.count_bottom
       %i.green
@@ -68,7 +68,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Clicked Emails
+      Clicked
     .count= @stats['click'] || 0
     %span.count_bottom
       %i.green
@@ -77,7 +77,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Spamreport Emails
+      Spamreport
     .count= @stats['spamreport'] || 0
     %span.count_bottom
       %i.green
@@ -86,7 +86,7 @@
   .col-md-2.col-sm-4.col-xs-6.tile_stats_count
     %span.count_top
       %i.fa.fa-user
-      Unsubscribed Emails
+      Unsubscribed
     .count= @stats['unsubscribe'] || 0
     %span.count_bottom
       %i.green

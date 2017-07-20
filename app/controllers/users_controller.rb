@@ -3,13 +3,15 @@ class UsersController < ApplicationController
 
   def index
     @q = current_account.users.includes(:user_attributes, :campaigns, :campaign_users, :tags)
-                        .ransack(params[:q])
+             .ransack(params[:q])
     @q.build_grouping unless @q.groupings.any?
     @q.sorts = 'created_at DESC' if @q.sorts.empty?
 
     @users = ransack_results_with_limit
     @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
     @total_user_count = @users.total_count
+
+    @user_attribute_keys = UserAttribute.joins(:user).where('users.account_id = ?', current_account.id).select('DISTINCT key').order('key ASC').map(&:key)
 
     respond_to do |format|
       format.html
@@ -18,9 +20,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def detailed_list
+    index
+  end
+
   def new; end
 
   def import; end
+
+  def show
+    @user = current_account.users.find(params[:id])
+  end
 
   def create
     if params[:file].present? && params[:tags].present?

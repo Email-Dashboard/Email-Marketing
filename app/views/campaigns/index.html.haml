@@ -1,51 +1,37 @@
-%div
-  .page-title
-    .title_left
-      %h3 Listing Campaigns
+= page_title 'Campaigns'
 
-  .clearfix
-  .row
-    .col-md-12
-      .x_panel
-        .x_title
-          %h2 Filter Campaigns
-          %ul.nav.navbar-right.panel_toolbox
-            %li
-              %a.collapse-link.pull-right
-                %i.fa.fa-chevron-up
-          .clearfix
-        .x_content
-          = render partial: 'shared/advanced_search', locals: { form_url: nil }
+.x_panel
+  .x_title
+    %h4 Campaigns
 
-  .row
-    .col-md-12
-      .x_panel
-        .x_title
-          %h2 Campaigns List
-          .clearfix
-        .x_content
-          %table.table.table-striped.projects
-            %thead
-              %tr
-                %th Name
-                %th Tags
-                %th Users Count
-                %th Sent Emails
-                %th Template
-                %th #
-            %tbody
-              - @campaigns.each do |campaign|
-                %tr
-                  %td= campaign.name
-                  %td
-                    - campaign.tags.each do |tag|
-                      %span.btn.btn-info.btn-xs
-                        = tag
-                  %td= campaign.users.count
-                  %td= campaign.campaign_users.where.not(status: 'draft').count
-                  %td
-                    = link_to "##{campaign.email_template.id}", email_template_path(campaign.email_template), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{campaign.email_template.subject}"
-                  %td
-                    = link_to 'Show', campaign, class: 'btn btn-sm btn-default'
-                    = link_to 'Destroy', campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+  .x_content
+    = render partial: 'shared/advanced_search', locals: { form_url: nil }
+    %hr/
+
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th Name
+          %th Tags
+          %th Users Count
+          %th Sent Emails
+          %th Template
+          %th{width: 80} #
+      %tbody
+        - @campaigns.each do |campaign|
+          %tr
+            %td= campaign.name
+            %td
+              - campaign.tags.each do |tag|
+                %span.btn.btn-info.btn-xs
+                  = tag
+            %td= campaign.users.count
+            %td= campaign.campaign_users.where.not(status: 'draft').count
+            %td
+              = link_to "##{campaign.email_template.id}", email_template_path(campaign.email_template), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{campaign.email_template.subject}"
+            %td
+              = link_to  campaign, class: 'btn btn-sm btn-default  btn-xs' do
+                %fa.fa.fa-eye
+              = link_to campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-xs' do
+                %fa.fa.fa-trash
 

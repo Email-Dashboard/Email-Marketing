@@ -1,0 +1,25 @@
+- if params[:q].present?
+  .pull-left
+    = link_to new_campaign_path({ q: (params[:q].presence || 'all'), limit: params[:limit_count] }), class: 'btn btn-primary' do
+      %i.fa.fa-plus
+      = "Create new campaign for"
+      %span.label.label-success= @total_user_count
+      = "users"
+
+    - if current_account.campaigns.count > 0
+      OR
+      &nbsp;
+
+  - if current_account.campaigns.count > 0
+    = form_tag add_users_campaigns_path, method: :post, class: 'form-inline' do
+
+      .form-group
+        = hidden_field_tag 'filter', (params[:q].presence || {}).to_json
+        = hidden_field_tag 'limit', params[:limit_count]
+        = select_tag 'campaign_id', options_for_select(current_account.campaigns.map{ |c| [c.name, c.id] }, nil), class: 'form-control'
+
+      = button_tag class: 'btn btn-primary btn-mid', type: :submit do
+        %i.fa.fa-arrow-circle-right
+        = "Add"
+        %span.label.label-success= @total_user_count
+        = "users to selected campaign"

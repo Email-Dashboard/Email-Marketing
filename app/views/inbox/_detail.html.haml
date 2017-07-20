@@ -1,5 +1,40 @@
 .row
   .col-sm-12
+    - if user.present?
+      .panel.panel-default
+        .panel-heading
+          User & Campaign User Details
+          %span.pull-right
+            %i.fa.fa-angle-down.fa-2x{'data-toggle': 'collapse', 'data-target': "#UserInfo-#{user.id}"}
+        .panel-body{id: "UserInfo-#{user.id}", class: 'collapse'}
+          .row
+            .col-lg-6
+              .panel.panel-default
+                .panel-heading
+                  = link_to (user.name || user.email), user_path(user), target: '_blank'
+                .panel-body
+                  %div{id: "UserTags-#{user.id}"}
+                    = render partial: 'tags/item_tags', locals: { item: user }
+
+            .col-lg-6
+              - campaign_users.each do |campaign_user|
+                .panel.panel-default
+                  .panel-heading
+                    Campaign:
+                    = link_to campaign_user.campaign.name, campaign_path(campaign_user.campaign.id), target: '_blank'
+                  .panel-body
+                    %p Tags for CampaignUser item
+                    %div{id: "CampaignUserTags-#{campaign_user.id}"}
+                      = render partial: 'tags/item_tags', locals: { item: campaign_user }
+              - if campaign_users.count < 1
+                %p.text-center.text-danger Campaign User Not Found!
+          .row
+          .clearfix
+            = form_for [user, UserAttribute.new], remote: true do |f|
+              = render partial: 'user_attributes/index', locals: { user: user }
+
+.row
+  .col-sm-12
     .panel.panel-default
       .panel-heading Reply Email
       .panel-body
@@ -22,55 +57,6 @@
         .col-md-12
           #message-status.text-center.text-success
 
-  .col-sm-12
-    - if user.present?
-      .panel.panel-default
-        .panel-heading
-          User & Campaign User Details
-          %span.pull-right
-            %i.fa.fa-angle-down.fa-2x{'data-toggle': 'collapse', 'data-target': "#UserInfo-#{user.id}"}
-        .panel-body{id: "UserInfo-#{user.id}", class: 'collapse'}
-          .row
-            .col-lg-6
-              .panel.panel-default
-                .panel-heading
-                  = link_to (user.name || user.email), user_user_attributes_path(user), target: '_blank'
-                .panel-body
-                  %div{id: "UserTags-#{user.id}"}
-                    = render partial: 'tags/item_tags', locals: { item: user }
-
-            .col-lg-6
-              - campaign_users.each do |campaign_user|
-                .panel.panel-default
-                  .panel-heading
-                    Campaign:
-                    = link_to campaign_user.campaign.name, campaign_path(campaign_user.campaign.id), target: '_blank'
-                  .panel-body
-                    %p Tags for CampaignUser item
-                    %div{id: "CampaignUserTags-#{campaign_user.id}"}
-                      = render partial: 'tags/item_tags', locals: { item: campaign_user }
-              - if campaign_users.count < 1
-                %p.text-center.text-danger Campaign User Not Found!
-          - if user.user_attributes.present?
-            .row
-              .panel.panel-default
-                .panel-heading
-                  User Attributes
-                .panel-body
-                  %table.table-bordered.table-condensed
-                    %thead
-                      %tr
-                        %td Attribute
-                        %td Value
-                    %tbody
-                      - user.user_attributes.each do |attr|
-                        %tr
-                          %td= attr.key
-                          %td
-                            - if attr.value.include?('http')
-                              = link_to attr.value, attr.value, target: '_blank'
-                            - else
-                              = attr.value
 .row
   .col-sm-12
     .panel.panel-default

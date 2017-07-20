@@ -7,4 +7,14 @@ module ApplicationHelper
     end
     link_to(name, '#', class: 'add_fields', data: { id: id, fields: fields.delete("\n") })
   end
+
+  def xeditable?(arg)
+    true
+  end
+
+  def page_title(title)
+    content_for :page_title do
+      title
+    end
+  end
 end

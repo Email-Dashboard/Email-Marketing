@@ -1,21 +1,12 @@
-- if user.user_attributes.count > 0
-  .row
-    .col-md-12
-      .x_panel
-        .x_content
-          %table.table.table-striped.projects
-            %thead
-              %tr
-                %th Key
-                %th Value
-                %th #
-            %tbody
-              - user.user_attributes.each do |attr|
-                - if attr.id
-                  %tr{id: "attr-#{attr.id}"}
-                    %td= editable attr, :key, url: user_user_attribute_path(user, attr), value: attr.key
-                    %td= editable attr, :value, url: user_user_attribute_path(user, attr), value: attr.value
-                    %td
-                      = link_to user_user_attribute_path(user, attr), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do
-                        Remove
-                        %span.fa.fa-trash
+.row
+  .col-md-12
+    %table.table.table-condensed.table-bordered
+      %thead
+        %tr
+          %th{width: "50%"} Key
+          %th{width: "50%"} Value
+          %th #
+      %tbody
+        = render partial: 'user_attributes/form', locals: { user: user }
+        - user.user_attributes.each do |attr|
+          = render partial: 'user_attributes/attribute_row', locals: { attr: attr, user: user }
