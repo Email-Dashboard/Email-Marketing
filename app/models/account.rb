@@ -33,4 +33,11 @@ class Account < ApplicationRecord
   has_many :smtp_settings
   has_many :imap_settings
   has_many :notes
+
+  before_create :set_authentication_token
+
+  private
+  def set_authentication_token
+    self.authentication_token = Devise.friendly_token
+  end
 end

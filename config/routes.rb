@@ -62,6 +62,11 @@ Rails.application.routes.draw do
   get 'tag_search', to: 'tags#tag_search'
   get 'documentation', to: 'home#documentation'
 
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
 
   # config/routes.rb
   require "sidekiq/web"
