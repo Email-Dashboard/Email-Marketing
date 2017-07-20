@@ -2,7 +2,7 @@ class Api::V1::UsersController < Api::V1::ApiBaseController
   # Creates User.
   # Create a user for authenticated account.
   # == Example Request
-  # curl -i -H "Authorization: Token token=7LGWItoVYJmjCAMbdRHTSAtt" -X POST -d "user[name]=API User" -d "user[email]=email@api.com" -d "user[tag_list]= tester, new user" -d "attributes[phone]=+123456456" -d "attributes[custom_key]=custom_value" http://smart-mailing.eastus.cloudapp.azure.com/api/v1/users
+  # curl -i -H "Authorization: Token token=7LGWItoVYJmjCAMbdRHTSAtt" -X POST -d "user[name]=API User" -d "user[email]=email@api.com" -d "user[tag_list]= tester, new user" -d "attributes[phone]=+123456456" -d "attributes[custom_key]=custom_value" http://localhost:3000/api/v1/users
   # == Request Type:
   # POST
   # == Parameters:
