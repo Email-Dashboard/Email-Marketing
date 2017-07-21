@@ -1,0 +1,6 @@
+- if source.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(source.errors.count, "error")} prohibited this campaign from being saved:"
+    %ul
+      - source.errors.full_messages.each do |msg|
+        %li= msg

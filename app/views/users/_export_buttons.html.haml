@@ -1,0 +1,7 @@
+= content_for :extra_buttons_in_search do
+  = link_to (request.fullpath + '?&format=csv'), class: 'btn btn-default' do
+    %i.fa.fa-external-link
+    Export to CSV
+  = link_to (request.fullpath + '?&format=xlsx'), class: 'btn btn-default' do
+    %i.fa.fa-external-link
+    Export to Excel
