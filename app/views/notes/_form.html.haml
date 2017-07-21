@@ -1,11 +1,6 @@
 .col-md-12.x_panel
   = form_for @note do |f|
-    - if @note.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@note.errors.count, "error")} prohibited this note from being saved:"
-        %ul
-          - @note.errors.full_messages.each do |msg|
-            %li= msg
+    = render partial: 'shared/form_error_explanation', locals: { source: @note }
 
     .field
       = f.label :title

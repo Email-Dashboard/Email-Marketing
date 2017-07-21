@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717125321) do
+ActiveRecord::Schema.define(version: 20170719120303) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20170717125321) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "authentication_token"
+    t.index ["authentication_token"], name: "index_accounts_on_authentication_token", unique: true
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 

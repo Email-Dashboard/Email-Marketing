@@ -1,0 +1,9 @@
+= form_for [user, UserAttribute.new], remote: true do |f|
+  %tr
+    %td
+      = f.text_field :key, class: 'form-control'
+    %td
+      = f.text_field :value, class: 'form-control'
+    %td
+      .hide
+        = f.submit 'Save', class: 'btn btn-primary btn-xs'

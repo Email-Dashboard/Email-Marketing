@@ -1,0 +1,15 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Campaign
+      %th Status
+      %th Tags
+
+  %tbody
+    - user.campaign_users.each do |cu|
+      %tr
+        %td= link_to cu.campaign.name, cu.campaign
+        %td= cu.status
+        %td
+          %div{id: "CampaignUserTags-#{cu.id}"}
+            = render partial: 'tags/item_tags', locals: { item: cu }

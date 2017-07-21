@@ -1,2 +1,2 @@
-$("#attrTable").html("<%= escape_javascript render(partial: 'user_attributes/attributes_table', locals: { user: @user }) %>");
+$("#<%= "attrTable-#{@user.id}" %> table tbody").append("<%= escape_javascript render(partial: 'user_attributes/attribute_row', locals: { attr: @attribute, user: @user }) %>").effect('highlight', {}, 3000);
 $("#new_user_attribute")[0].reset();

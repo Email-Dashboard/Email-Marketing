@@ -2,8 +2,6 @@ class UserAttributesController < ApplicationController
   helper_method :xeditable?
   before_action :set_user
 
-  def index; end
-
   def create
     @attribute = @user.user_attributes.create(attribute_params)
   end

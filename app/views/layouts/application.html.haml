@@ -36,11 +36,13 @@
                         %span.fa.fa-chevron-down
                       %ul.nav.child_menu
                         %li
-                          %a{:href => users_path } List Users
+                          %a{:href => users_path } List
                         %li
-                          %a{:href => new_user_path } Add a User
+                          %a{:href => detailed_list_users_path } Detailed List
                         %li
-                          %a{:href => import_users_path} Import Users List
+                          %a{:href => new_user_path } Add
+                        %li
+                          %a{:href => import_users_path} Import
 
                     %li
                       %a{:href => inbox_index_path}
@@ -104,12 +106,20 @@
 
         /Page Content
         .right_col{:role => "main"}
-          %div
-            .col-md-12
-              - if flash.now[:notice]
+          - if flash.now[:notice]
+            .row
+              .col-md-12
                 .alert.alert-info
                   %p#notice= flash.now[:notice]
-            = yield
+
+          .page-title
+            .title_left
+              %h1= yield :page_title
+            .title_right
+              .col-md-12.col-sm-12.col-xs-12.text-right
+                = yield :page_title_right
+
+          = yield
 
   - else
     %body.login

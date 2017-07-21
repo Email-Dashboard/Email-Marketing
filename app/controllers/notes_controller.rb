@@ -3,7 +3,7 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.all
+    @notes = current_account.notes.all
   end
 
   # GET /notes/1
@@ -12,7 +12,7 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    @note = Note.new
+    @note = current_account.notes.new
   end
 
   # GET /notes/1/edit
@@ -21,7 +21,7 @@ class NotesController < ApplicationController
 
   # POST /notes
   def create
-    @note = Note.new(note_params)
+    @note = current_account.notes.new(note_params)
 
     respond_to do |format|
       if @note.save
@@ -54,7 +54,7 @@ class NotesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_note
-      @note = Note.find(params[:id])
+      @note = current_account.notes.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

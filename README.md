@@ -106,6 +106,13 @@ sudo docker-compose build
 sudo docker-compose run web rake db:migrate
 sudo docker-compose up -d
 ```
+### Configure Sendgrid
+If you are using sendgrid as email provider, you will be able to
+get status of sent emails.
+
+
+  Go to: https://app.sendgrid.com/settings/mail_settings ->
+  Event Notification -> `<yourhost.com>`/campaigns/event_receiver
 
 ## Tests
 We used the tool very day, so we test on production :)

@@ -1,42 +1,35 @@
 .row
-  .col-md-12
+  .col-md-6
     .x_panel
-      .col-md-6
-        .x_panel
-          .x_content
-            = form_for @smtp_setting do |f|
-              - if @smtp_setting.errors.any?
-                #error_explanation
-                  %h2= "#{pluralize(@smtp_setting.errors.count, "error")} prohibited this SMTP Setting from being saved:"
-                  %ul
-                    - @smtp_setting.errors.full_messages.each do |msg|
-                      %li= msg
+      .x_content
+        = form_for @smtp_setting do |f|
+          = render partial: 'shared/form_error_explanation', locals: { source: @smtp_setting }
 
-              .field
-                = f.label :from_email
-                = f.text_field :from_email, class: 'form-control', required: true, placeholder: 'email@example.com'
-              .field
-                = f.label :reply_to
-                = f.text_field :reply_to, class: 'form-control', required: true, placeholder: 'support@example.com'
-              .field
-                = f.label :provider
-                = f.text_field :provider, class: 'form-control', required: true, placeholder: 'sendgrid, google, outlook etc...'
-              .field
-                = f.label :address
-                = f.text_field :address, class: 'form-control', required: true, placeholder: 'smtp.sendgrid.net'
-              .field
-                = f.label :port
-                = f.text_field :port, class: 'form-control', required: true, placeholder: '587'
-              .field
-                = f.label :domain
-                = f.text_field :domain, class: 'form-control', required: true, placeholder: 'email-domain.com'
-              .field
-                = f.label :username
-                = f.text_field :username, class: 'form-control', required: true
-              .field
-                = f.label :password
-                = f.password_field :password, class: 'form-control', required: true
-              .actions
-                = f.submit 'Save', class: 'btn btn-primary'
-                = link_to 'Cancel', smtp_settings_path, class: 'btn btn-default pull-right'
-      .clearfix
+          .field
+            = f.label :from_email
+            = f.text_field :from_email, class: 'form-control', required: true, placeholder: 'email@example.com'
+          .field
+            = f.label :reply_to
+            = f.text_field :reply_to, class: 'form-control', required: true, placeholder: 'support@example.com'
+          .field
+            = f.label :provider
+            = f.text_field :provider, class: 'form-control', required: true, placeholder: 'sendgrid, google, outlook etc...'
+          .field
+            = f.label :address
+            = f.text_field :address, class: 'form-control', required: true, placeholder: 'smtp.sendgrid.net'
+          .field
+            = f.label :port
+            = f.text_field :port, class: 'form-control', required: true, placeholder: '587'
+          .field
+            = f.label :domain
+            = f.text_field :domain, class: 'form-control', required: true, placeholder: 'email-domain.com'
+          .field
+            = f.label :username
+            = f.text_field :username, class: 'form-control', required: true
+          .field
+            = f.label :password
+            = f.password_field :password, class: 'form-control', required: true
+          .actions
+            = f.submit 'Save', class: 'btn btn-primary pull-right'
+            = link_to 'Cancel', smtp_settings_path, class: 'btn btn-default pull-left'
+  .clearfix

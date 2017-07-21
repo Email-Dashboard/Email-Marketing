@@ -1,27 +1,33 @@
-%div
-  .page-title
-    .title_left
-      %h3 Listing Email Templates
-    .title_right
-      .col-md-12.col-sm-12.col-xs-12.text-right
-        = link_to new_email_template_path do
-          %button.btn.btn-primary New Email template
-.clearfix
+= page_title "Email Templates"
+
+- content_for :page_title_right do
+  = link_to new_email_template_path do
+    %button.btn.btn-primary
+      %fa.fa.fa-plus
+      New Email Template
+
+
 .x_panel
-  %table.table.table-striped.projects
-    %thead
-      %tr
-        %th Subject
-        %th Campaigns
-        %th.text-center{width: '200px'} #
-    %tbody
-      - @email_templates.each do |template|
+  .x_content
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
         %tr
-          %td= template.subject
-          %td
-            - template.campaigns.each do |campaign|
-              = link_to campaign.name, campaign_path(campaign), class: 'btn btn-info btn-xs'
+          %th Subject
+          %th Campaigns
+          %th{width: '100'} #
+      %tbody
+        - @email_templates.each do |template|
+          %tr
+            %td= template.subject
             %td
-              = link_to 'Edit', edit_email_template_path(template), class: 'btn btn-sm btn-warning'
-              = link_to 'Show', template, class: 'btn btn-sm btn-default'
-              = link_to 'Destroy', template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+              - template.campaigns.each do |campaign|
+                = link_to campaign.name, campaign_path(campaign), class: ''
+                ,
+
+            %td
+              = link_to edit_email_template_path(template), class: 'btn btn-sm btn-default btn-xs' do
+                %fa.fa.fa-pencil
+              = link_to template, class: 'btn btn-sm btn-default btn-xs' do
+                %fa.fa.fa-eye
+              = link_to template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-xs' do
+                %fa.fa.fa-trash

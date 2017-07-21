@@ -11,10 +11,11 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :users, only: [:index, :destroy, :new, :create] do
+  resources :users do
     collection do
       post 'create_single'
       get  'import'
+      get 'detailed_list'
     end
 
     resources :user_attributes
@@ -60,8 +61,12 @@ Rails.application.routes.draw do
   resources :notes
 
   get 'tag_search', to: 'tags#tag_search'
-  get 'documentation', to: 'home#documentation'
 
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
 
   # config/routes.rb
   require "sidekiq/web"
