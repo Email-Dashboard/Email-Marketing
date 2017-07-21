@@ -2,12 +2,7 @@
 
 .x_panel
   = form_for @campaign do |f|
-    - if @campaign.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@campaign.errors.count, "error")} prohibited this campaign from being saved:"
-        %ul
-          - @campaign.errors.full_messages.each do |msg|
-            %li= msg
+    = render partial: 'shared/form_error_explanation', locals: { source: @campaign }
 
     = f.label :name
     = f.text_field :name, class: 'form-control'

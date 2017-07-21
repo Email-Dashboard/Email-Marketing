@@ -1,12 +1,6 @@
 .col-md-12.content-box-large.panel-heading
   = form_for @email_template do |f|
-    - if @email_template.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@email_template.errors.count, "error")} prohibited this email_template from being saved:"
-        %ul
-          - @email_template.errors.full_messages.each do |msg|
-            %li= msg
-
+    = render partial: 'shared/form_error_explanation', locals: { source: @email_template }
 
     = f.label 'Mail Subject'
     = f.text_field :subject, class: 'form-control'
