@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @associations = [:tags, :user_attributes, :campaign_users, :campaign_users_tags, :campaigns, :campaigns_tags]
     @total_user_count = @users.total_count
 
-    @user_attribute_keys = UserAttribute.joins(:user).where('users.account_id = ?', current_account.id).select('DISTINCT key').order('key ASC').map(&:key)
+    @user_attribute_keys = UserAttribute.joins(:user).where('users.account_id = ?', current_account.id).distinct.pluck(:key)
 
     respond_to do |format|
       format.html
