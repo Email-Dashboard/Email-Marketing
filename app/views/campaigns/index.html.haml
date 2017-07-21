@@ -1,9 +1,6 @@
 = page_title 'Campaigns'
 
 .x_panel
-  .x_title
-    %h4 Campaigns
-
   .x_content
     = render partial: 'shared/advanced_search', locals: { form_url: nil }
     %hr/
@@ -34,4 +31,3 @@
                 %fa.fa.fa-eye
               = link_to campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-xs' do
                 %fa.fa.fa-trash
-

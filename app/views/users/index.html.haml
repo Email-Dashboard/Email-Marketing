@@ -1,14 +1,5 @@
-= content_for :extra_buttons_in_search do
-  = link_to (request.fullpath + '?&format=csv'), class: 'btn btn-default' do
-    %i.fa.fa-external-link
-    Export to CSV
-  = link_to (request.fullpath + '?&format=xlsx'), class: 'btn btn-default' do
-    %i.fa.fa-external-link
-    Export to Excel
-
-
+= render 'users/export_buttons'
 = page_title 'Users'
-
 
 = content_for :page_title_right do
   = link_to new_user_path do
@@ -19,10 +10,7 @@
 .row
   .col-md-12
     .x_panel
-      .x_title
-        %h4 Users
       .x_content
-
         = render partial: 'shared/advanced_search', locals: { form_url: nil }
 
         = render 'create_campaign_buttons'
@@ -46,7 +34,6 @@
                   %div{id: "UserTags-#{user.id}"}
                     = render partial: 'tags/item_tags', locals: { item: user }
                 %td= user.name
-
                 %td
                   - user.campaigns.each do |cp|
                     = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"

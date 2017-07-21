@@ -1,9 +1,7 @@
+= page_title 'New User'
 .row
   .col-sm-8
     .x_panel
-      .x_title
-        %h4 New User
-
       = form_tag create_single_users_path, id: 'single-user', method: :post do
 
         = label_tag 'Name (optional)'
@@ -20,4 +18,30 @@
 
   .col-sm-4
     = link_to 'Import Users From CSV or XLS files', import_users_path, class: 'btn btn-default'
-    = link_to 'Create Users Over API', '#', class: 'btn btn-default'
+    %button.btn.btn-default{"data-target" => ".bs-api-modal-sm", "data-toggle" => "modal", :type => "button"} Create Users Over API
+
+.modal.fade.bs-api-modal-sm{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#myModalLabel2.modal-title Create Users Over API
+      .modal-body
+        %h4
+          Your authentication token:
+          %mark= current_account.authentication_token
+        %h4
+          %mark.text-success POST /api/v1/users
+        %h4 Parameters:
+        %p String: user[email] -> required. Example: test@example.com
+        %p String: user[name] -> optional. Example: Api User
+        %p String: user[tag_list] -> optional. Example: new tag, api-users, campaigns
+        %p String: attribute[custom_data_key] -> optional. Example: attribute[phone]: +11234543, attribute[location]: USA
+        %h4
+          Example Request:
+        %mark.text-danger
+          curl -i -H "Authorization: Token token=
+          = current_account.authentication_token
+          " -X POST -d "user[name]=API User" -d "user[email]=email@api.com" -d "user[tag_list]= tester, new user" -d "attributes[phone]=+123456456" -d "attributes[custom_key]=custom_value"
+          = "#{request.base_url}/api/v1/users"
