@@ -7,18 +7,4 @@
 
 .clearfix
 .x_panel
-  %table.table.table-striped.projects
-    %thead
-      %tr
-        %th Title
-        %th Content
-        %th.text-center{width: '200px'} #
-    %tbody
-      - @notes.each do |note|
-        %tr
-          %td= note.title
-          %td= strip_tags note.content.first(200)
-          %td
-            = link_to 'Edit', edit_note_path(note), class: 'btn btn-sm btn-warning'
-            = link_to 'Show', note, class: 'btn btn-sm btn-default'
-            = link_to 'Destroy', note, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+  = render partial: 'shared/stripped_dynamic_table', locals: { collection: @notes, fields: ['id', 'title'], actions: ['show', 'edit', 'destroy'] }

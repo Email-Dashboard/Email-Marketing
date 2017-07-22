@@ -9,7 +9,7 @@
 .clearfix
 .x_panel
   %p Add SMTP settings to send campaign emails and reply users from dashboard.
-  %table.table.table-striped.projects
+  %table.table.table-striped.table-bordered.table-hover
     %thead
       %tr
       %th From email
@@ -30,10 +30,10 @@
           %td= smtp_setting.username
           %td= smtp_setting.port
           %td= smtp_setting.domain
-          %td
-            = link_to 'Edit', edit_smtp_setting_path(smtp_setting), class: 'btn btn-xs btn-warning'
+          %td.text-center
+            = source_action_icons(smtp_setting, ['edit']).html_safe
             - if !smtp_setting.is_default_for_campaigns && !smtp_setting.is_default_for_reply
-              = link_to 'Destroy', smtp_setting, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+              = source_action_icons(smtp_setting, ['destroy']).html_safe
             %br
             - if smtp_setting.is_default_for_campaigns
               %span.label.label-default Default For Campaign Emails

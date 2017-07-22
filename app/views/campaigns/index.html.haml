@@ -27,7 +27,4 @@
             %td
               = link_to "##{campaign.email_template.id}", email_template_path(campaign.email_template), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{campaign.email_template.subject}"
             %td
-              = link_to  campaign, class: 'btn btn-sm btn-default  btn-xs' do
-                %fa.fa.fa-eye
-              = link_to campaign, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-xs' do
-                %fa.fa.fa-trash
+              = source_action_icons(campaign, ['show', 'destroy']).html_safe

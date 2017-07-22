@@ -9,20 +9,4 @@
 .clearfix
 .x_panel
   %p Add IMAP settings to read replied emails.
-  %table.table.table-striped.projects
-    %thead
-      %tr
-      %th Address
-      %th Port
-      %th Email
-      %th.text-center{width: '200px'} #
-    %tbody
-      - @imap_settings.each do |imap_setting|
-        %tr
-          %td= imap_setting.address
-          %td= imap_setting.port
-          %td= imap_setting.email
-          %td
-            = link_to 'Edit', edit_imap_setting_path(imap_setting), class: 'btn btn-xs btn-warning'
-            = link_to 'Destroy', imap_setting, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-xs btn-danger'
-
+  = render partial: 'shared/stripped_dynamic_table', locals: { collection: @imap_settings, fields: ['address', 'port', 'email'], actions: ['edit', 'destroy'] }

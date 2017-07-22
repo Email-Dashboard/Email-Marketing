@@ -25,7 +25,7 @@
               %th Name
               %th Campaigns
               %th Attributes
-              %th{width: "100"}
+              %th.text-center{width: "80"} #
           %tbody
             - @users.each do |user|
               %tr{id: "user-#{user.id}"}
@@ -39,10 +39,6 @@
                     = link_to "##{cp.id},", campaign_path(cp), 'data-toggle': 'tooltip', 'data-placement': 'top', 'data-original-title': "#{cp.name}"
                 %td
                   = render partial: 'user_attributes/index', locals: { user: user }
-                %td
-                  = link_to user_path(user), class: 'btn btn-danger btn-xs', method: :delete, remote: true, data: { confirm: 'Are you sure?' } do
-                    %i.fa.fa-trash-o
-                  = link_to user_path(user), class: 'btn btn-default btn-xs' do
-                    %i.fa.fa-eye
+                %td.text-center= source_action_icons(user, ['show', 'destroy', 'remote']).html_safe
 
         = paginate @users

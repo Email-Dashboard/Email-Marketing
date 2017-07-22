@@ -1,0 +1,12 @@
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      - fields.each do |header|
+        %th= header.humanize
+      %th.text-center{width: "100"} #
+  %tbody
+    - collection.each do |col|
+      %tr
+        - fields.each do |field|
+          %td= col.send(field)
+        %td.text-center= source_action_icons(col, actions).html_safe

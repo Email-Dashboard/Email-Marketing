@@ -6,7 +6,6 @@
       %fa.fa.fa-plus
       New Email Template
 
-
 .x_panel
   .x_content
     %table.table.table-striped.table-bordered.table-hover
@@ -23,11 +22,5 @@
               - template.campaigns.each do |campaign|
                 = link_to campaign.name, campaign_path(campaign), class: ''
                 ,
-
             %td
-              = link_to edit_email_template_path(template), class: 'btn btn-sm btn-default btn-xs' do
-                %fa.fa.fa-pencil
-              = link_to template, class: 'btn btn-sm btn-default btn-xs' do
-                %fa.fa.fa-eye
-              = link_to template, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-sm btn-danger btn-xs' do
-                %fa.fa.fa-trash
+              = source_action_icons(template, ['show', 'edit', 'destroy']).html_safe
