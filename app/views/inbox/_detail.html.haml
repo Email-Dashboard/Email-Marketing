@@ -74,7 +74,7 @@
             = link_to delete_message_inbox_index_path(message_id: @message_id, imap_id: params[:imap_id]), class: 'btn btn-default btn-xs', onclick: "archiveSpinner('trashIcon-#{@message_id}')", method: :post, remote: true, data: { confirm: 'Are you sure to delete email?' } do
               Delete
               %i.fa.fa-trash-o{id: "trashIcon-#{@message_id}"}
-      .panel-body
+      .panel-body.large-data-table
         - if @has_attach == 'true'
           %p.text-warning
             %i.fa.fa-exclamation-triangle
