@@ -11,9 +11,9 @@
             %li
               %a.btn.btn-success.btn-lg{:href => new_account_session_path }
                 %span.network-name Login
-            %li
-              %a.btn.btn-info.btn-lg{:href => new_account_registration_path }
-                %span.network-name Sign Up
+            -# %li
+            -#   %a.btn.btn-info.btn-lg{:href => new_account_registration_path }
+            -#     %span.network-name Sign Up
             %li
               %a.btn.btn-default.btn-lg{:href => 'https://github.com/svtek/smart-emailing', target: '_blank'}
                 %i.fa.fa-github.fa-fw
@@ -81,5 +81,3 @@
       .col-lg-5.col-lg-offset-2.col-sm-6
         -#%img.img-responsive{:alt => "", :src => "img/ipad.png"}/
         = image_tag 'template.png', class: 'img-responsive'
-
-
