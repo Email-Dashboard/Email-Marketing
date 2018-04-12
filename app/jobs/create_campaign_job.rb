@@ -11,11 +11,11 @@ class CreateCampaignJob < ApplicationJob
     # Set Campaign Users from the query
     campaign_users = collect_query_users(args[:query], args[:query_from], current_account, args[:campaign_id])
 
-    campaign_users = campaign_users.first(args[:limit]) if args[:limit].present?
+    campaign_users = campaign_users.first(args[:limit].to_i) if args[:limit].present?
 
     campaign = current_account.campaigns.new(args[:campaign_params])
     campaign.users = campaign_users
-    campaign.tag_list = args[:tags]
+    campaign.tag_list.add args[:tags]
 
     campaign.save!
   end

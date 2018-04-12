@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   def ransack_results_with_limit
     if params[:limit_count].present?
       Kaminari.paginate_array(
-        @q.result(distinct: true).first(params[:limit_count])
+        @q.result(distinct: true).first(params[:limit_count].try(:to_i))
       ).page(params[:page])
     else
       @q.result(distinct: true).page(params[:page])
