@@ -7,9 +7,16 @@ class InboxController < ApplicationController
     if params[:from].present? && params[:to].present?
       date_from = Date.parse(params[:from]).strftime('%d-%b-%Y')
       date_to   = Date.parse(params[:to]).strftime('%d-%b-%Y')
-      @emails = Mail.find(count: :all, order: :desc, keys: ['SINCE', date_from, 'BEFORE', date_to])
+      filter    = { count: :all, order: :desc, keys: ['SINCE', date_from, 'BEFORE', date_to] }
     else
-      @emails = Mail.find(what: :last, count: 5, order: :desc)
+      filter = { what: :last, count: 5, order: :desc }
+    end
+
+    begin
+      @emails = Mail.find(filter)
+    rescue => e
+      @emails = []
+      flash[:notice] = "IMAP: #{e}"
     end
   end
 

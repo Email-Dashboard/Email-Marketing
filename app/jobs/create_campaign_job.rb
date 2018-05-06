@@ -21,7 +21,8 @@ class CreateCampaignJob < ApplicationJob
   end
 
   def collect_query_users(query, query_from, account, campaign_id)
-    query_hash = Rack::Utils.parse_nested_query(query) # convert string params to hash
+    # convert string params to hash
+    query_hash = JSON.parse query.gsub('=>', ':') unless query == 'all'
 
     if query_from == 'campaign'
       campaign = account.campaigns.find campaign_id

@@ -48,7 +48,7 @@
 
   .x_content
     = render partial: 'shared/advanced_search', locals: { form_url: "/campaigns/#{@campaign.id}" }
-    = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].presence || 'all'),
+    = link_to 'Create New Campaign For Filtered Users', new_campaign_path({ q: (params[:q].present? ? params[:q].permit! : 'all'),
           limit: params[:limit_count], query_from: 'campaign', campaign_id: @campaign.id }),
           class: 'btn btn-primary'
 

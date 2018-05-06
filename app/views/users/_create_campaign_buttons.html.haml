@@ -1,6 +1,6 @@
 - if params[:q].present?
   .pull-left
-    = link_to new_campaign_path({ q: (params[:q].presence || 'all'), limit: params[:limit_count] }), class: 'btn btn-primary' do
+    = link_to new_campaign_path({ q: (params[:q].present? ? params[:q].permit! : 'all'), limit: params[:limit_count] }), class: 'btn btn-primary' do
       %i.fa.fa-plus
       = "Create new campaign for"
       %span.label.label-success= @total_user_count
