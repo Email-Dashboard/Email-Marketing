@@ -96,8 +96,8 @@
                       = current_account.email
                       %span.fa.fa-angle-down
                     %ul.dropdown-menu.dropdown-usermenu.pull-right
-                      %li
-                        = link_to 'Account Settings', edit_account_registration_path
+                      -# %li
+                      -#   = link_to 'Account Settings', edit_account_registration_path
                       %li
                         = link_to(destroy_account_session_path, :method => :delete) do
                           %i.fa.fa-sign-out.pull-right

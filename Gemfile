@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.2.0'
 
 gem 'puma', '~> 3.0'
 
@@ -20,24 +20,25 @@ gem 'sidekiq', '< 5'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-unique-jobs'
 
-gem 'acts-as-taggable-on', '~> 4.0'
+gem 'acts-as-taggable-on', '~> 5.0'
 gem 'devise', '~> 4.2'
-gem 'haml-rails', '~> 0.9'
+gem 'haml', '~> 5.0'
+gem 'haml-rails', '~> 1.0'
 gem 'kaminari'
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'ransack', '~> 1.8.8'
 gem 'select2-rails'
 
 gem 'binding_of_caller'
 gem 'tilt'
 
 gem 'chartkick'
-gem 'rails_admin', '~> 1.1.1'
+gem 'rails_admin', '~> 1.3'
 
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
 
 # Support all dbs
-gem 'activerecord-sqlserver-adapter'
+# gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 
 gem 'mysql2'
@@ -51,6 +52,8 @@ gem 'bulk_insert'
 gem 'mail'
 
 gem 'bootstrap-datepicker-rails'
+
+gem 'nokogiri', '~> 1.8.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
