@@ -38,7 +38,7 @@ gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
 
 # Support all dbs
-# gem 'activerecord-sqlserver-adapter'
+gem 'activerecord-sqlserver-adapter'
 gem 'tiny_tds'
 
 gem 'mysql2'

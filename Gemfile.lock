@@ -33,6 +33,7 @@ GEM
       activemodel (= 5.2.0)
       activesupport (= 5.2.0)
       arel (>= 9.0)
+    activerecord-sqlserver-adapter (2.3.8)
     activestorage (5.2.0)
       actionpack (= 5.2.0)
       activerecord (= 5.2.0)
@@ -339,6 +340,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-sqlserver-adapter
   acts-as-taggable-on (~> 5.0)
   annotate
   axlsx (~> 2.0)
