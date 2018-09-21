@@ -26,6 +26,36 @@ class Api::V1::UsersController < Api::V1::ApiBaseController
     end
   end
 
+  def add_tags
+    user = @api_account.users.find_or_create_by(email: params[:email])
+
+    unless params[:tags].present?
+      render json: { errors: ['tag param is missing'] }, status: 422
+      return
+    end
+
+    user.tag_list = user.tag_list + params[:tags].split(',')
+
+    user.save!
+
+    render json: { user: user.reload }, status: 200
+  end
+
+  def remove_tags
+    user = @api_account.users.find_or_create_by(email: params[:email])
+
+    unless params[:tags].present?
+      render json: { errors: ['tag param is missing'] }, status: 422
+      return
+    end
+
+    user.tag_list = user.tag_list - params[:tags].split(',')
+
+    user.save!
+
+    render json: { user: user.reload }, status: 200
+  end
+
   # Requiered Paramaters for create a User
   def user_params
     params.require(:user).permit(:name, :email, :tag_list)
