@@ -16,6 +16,7 @@ class CampaignsController < ApplicationController
 
   def show
     @stats = @campaign.campaign_users.group(:status).count
+
     @total_users_count = @campaign.campaign_users.count
 
     @q = @campaign.campaign_users.ransack(params[:q])

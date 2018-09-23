@@ -1,24 +1,10 @@
 .row.tile_count
-  .col-md-1
+  .tile_stats_count
+
   = status_card('Draft', (@stats['draft'] || 0), Campaign.calculate_percent(@stats['draft'], @total_users_count).to_i)
 
   = status_card('Processed', (@stats['processed'] || 0), Campaign.calculate_percent(@stats['processed'], @total_users_count).to_i)
 
-  = status_card('Dropped', (@stats['dropped'] || 0), Campaign.calculate_percent(@stats['dropped'], @total_users_count).to_i)
 
-  = status_card('Delivered', (@stats['delivered'] || 0), Campaign.calculate_percent(@stats['delivered'], @total_users_count).to_i)
-
-  = status_card('Deferred', (@stats['deferred'] || 0), Campaign.calculate_percent(@stats['deferred'], @total_users_count).to_i)
-
-.row.tile_count
-  .col-md-1
-  = status_card('Bounced', (@stats['bounce'] || 0), Campaign.calculate_percent(@stats['bounce'], @total_users_count).to_i)
-
-  = status_card('Opened', (@stats['open'] || 0), Campaign.calculate_percent(@stats['open'], @total_users_count).to_i)
-
-  = status_card('Clicked', (@stats['click'] || 0), Campaign.calculate_percent(@stats['click'], @total_users_count).to_i)
-
-  = status_card('Spam', (@stats['spamreport'] || 0), Campaign.calculate_percent(@stats['spamreport'], @total_users_count).to_i)
-
-  = status_card('Unsubscribed', (@stats['unsubscribe'] || 0), Campaign.calculate_percent(@stats['unsubscribe'], @total_users_count).to_i)
-  .col-md-1
+  - @stats.reject { |k,_v| %w(draft processed).include?(k) }.each do |k,v|
+    = status_card(k.humanize, (v || 0), Campaign.calculate_percent(v, @total_users_count).to_i)

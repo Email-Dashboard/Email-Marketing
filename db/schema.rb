@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719120303) do
+ActiveRecord::Schema.define(version: 20180923085753) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20170719120303) do
     t.boolean  "is_default_for_reply",     default: false
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.string   "ses_configuration_set"
     t.index ["account_id"], name: "index_smtp_settings_on_account_id"
   end
 

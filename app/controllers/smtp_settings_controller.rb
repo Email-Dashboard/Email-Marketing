@@ -66,6 +66,6 @@ class SmtpSettingsController < ApplicationController
     end
 
     def smtp_setting_params
-      params.require(:smtp_setting).permit(:from_email, :reply_to, :provider, :address, :port, :domain, :username, :password, :is_default_for_campaigns, :is_default_for_reply)
+      params.require(:smtp_setting).permit(:from_email, :reply_to, :provider, :address, :port, :domain, :username, :password, :is_default_for_campaigns, :is_default_for_reply, :ses_configuration_set)
     end
 end
