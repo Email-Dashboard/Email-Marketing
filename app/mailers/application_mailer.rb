@@ -9,6 +9,8 @@ class ApplicationMailer < ActionMailer::Base
     # Set unique args at header
     headers 'X-SMTPAPI' => { unique_args: { campaign_user_id: campaign_user.id } }.to_json
 
+    headers 'X-SES-CONFIGURATION-SET' => settings.ses_configuration_set
+
     mail(
       to: campaign_user.user.email,
       reply_to: settings.reply_to.presence || settings.try(:from_email),

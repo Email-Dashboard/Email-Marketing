@@ -139,6 +139,8 @@ GEM
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
     htmlentities (4.3.4)
+    httparty (0.16.2)
+      multi_xml (>= 0.5.2)
     i18n (0.8.1)
     jbuilder (2.6.2)
       activesupport (>= 3.0.0, < 5.1)
@@ -170,6 +172,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     mysql2 (0.4.5)
     nested_form (0.3.2)
     nio4r (1.2.1)
@@ -339,6 +342,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   haml-rails (~> 0.9)
+  httparty
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
@@ -372,4 +376,4 @@ DEPENDENCIES
   x-editable-rails
 
 BUNDLED WITH
-   1.15.1
+   1.16.3

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  namespace :webhooks do
+    resources :sns
+  end
+
   resources :users do
     collection do
       post 'create_single'
