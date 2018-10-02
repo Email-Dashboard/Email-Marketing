@@ -26,7 +26,7 @@ services:
   web:
     depends_on:
       - 'redis'
-    image: mojilala/smart-emailing
+    image: svtek/smart-emailing
     volumes:
       - /datadrive/data/db:/var/db
       - /datadrive/database.yml:/smart-email-marketing/config/database.yml
