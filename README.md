@@ -152,13 +152,15 @@ get status of sent emails.
 
 # 💝 Contributing
 
-We are so grateful for all volunteers like you for contributions. And we are so exciting to welcome your contributions! But first, please take a moment to read our 🔗[contributing guild](https://github.com/svtek/smart-emailing/blob/master/CONTRIBUTING.md) to make the contribution process effective for everyone. After that, you can start to fork!
+We are so grateful for all volunteers like you for contributions. And we are so exciting to welcome your contributions!🙏 But first, please take a moment to read our 🔗[contributing guild](https://github.com/svtek/smart-emailing/blob/master/CONTRIBUTING.md) to make the contribution process effective for everyone. Our 🔗[issue tracker](https://github.com/svtek/smart-emailing/issues) is the preferred channel for bug reports, features requests and submitting pull requests. After that, you can start to fork!
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+🔎 But before opening a feature request, please take a moment to find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. So, you can provide as much detail and context as possible.
 
 # :muscle: Team
 
