@@ -1,124 +1,158 @@
-## Smart Email Marketing
+<p align="center">
+ *buraya logo gelecek*
+ </p>
+ 
+<br>
+<p align="center">
+    A simple dockerized Rails app,<br> 
+  to manage your emails and campaigns with taggings!
+</p>
 
-A simple dockerized rails app to manage your emails and campaigns with taggings.
+# Smart-Emailing
 
 [![Code Climate](https://codeclimate.com/github/mojilala/smart-emailing/badges/gpa.svg)](https://codeclimate.com/github/mojilala/smart-emailing)
 
+There are two important factors for Email marketing. Manage whole process effectively and analysis results easily. If you follow these two factor, your email campaigns will be more successful. Because of **flexible time management**, **less energy** and **knowledge of right targets**. So, guess which project focused on these important two factors for the good of community? Of course Smart-Emailing did it! You can personalize your emails and use CRM for your emails or inbox. And you can do all of this with a simple **dockerized rails app**!
 
-## Features
-**CRM:**
-* Filter users with advanced search such as tags, previous campaign,campaign status, email open status
-* Import users from csv (any column name will become custom data)
-* Export filtered users to csv and xlsx 
-* Add tags, custom data to users 
-* Create a campaign from filtered user result
+> buraya gif veya screen shot gelecek
 
+# 🚻 For whom?
 
-**Campaign Management:**
-* Create a campaign from filtered user result
-* Campaign's tagging, user-campaign tagging
-* Email templates
-* Send campaign from any service provider sendgrid, AWS (Send Newsletters 100x cheaper)
+:vertical_traffic_light: If you need to send **automatic** emails,<br>
+:rainbow: If you need to create and manage email **campaigns with taggings**,<br>
+ 🔍 If you need to **track** your campaigns and **analyse** your results,<br>
+ 📊 If you need to **monitoring** your activities,<br>
+ 📑 If you want to use email **templates**,<br>
+ 🕵️ If you need to add tags or custom data and **categorize users**,<br>
+ 💯 And if you want to do all of this **easily**,<br>
 
-**Campaign Results:**
-* Email stats from sendgrid
+Then you're at the right place. Because **Smart-Emailing builded for you!** :tada:
 
-**Inbox Management:**
-* Email inbox parsing and email macthing.
-* Delete, archive emails from inbox.
-* Add tags, and campaign-user tags directly from inbox
-* Quick template responses from directly from inbox
+# ☑ Features
+:arrow_forward: **CRM:**<br>
+🔸 Filter users with advanced search such as tags, previous campaign, campaign status or email open status<br>
+🔸 Import users from csv (any column name will become custom data)<br>
+🔸 Export filtered users to csv and xlsx<br>
+🔸 Add tags, custom data to users<br>
+🔸 Create a campaign from filtered user result<br>
 
-**Email**
-* Template emails
-* Simple access to any custom fields about the user
-* Write any ruby code
+:arrow_forward: **Campaign Management:**<br>
+🔸 Create a campaign from filtered user result<br>
+🔸 Campaign's tagging, user-campaign tagging<br>
+🔸 Email templates<br>
+🔸 Send campaign from any service provider sendgrid, AWS (Send Newsletters 100x cheaper)<br>
 
+:arrow_forward: **Campaign Results:**<br>
+🔸 Email stats from sendgrid<br>
 
-## Installation
+:arrow_forward: **Inbox Management:**<br>
+🔸 Email inbox parsing and email macthing<br>
+🔸 Delete, archive emails from inbox<br>
+🔸 Add tags, and campaign-user tags directly from inbox<br>
+🔸 Quick template responses from directly from inbox<br>
 
-### Install Docker
-Install the most recent version of the Docker Engine for your platform using the [official Docker releases](http://docs.docker.com/engine/installation/), which can also be installed using:
+:arrow_forward: **Email**<br>
+🔸 Template emails<br>
+🔸 Simple access to any custom fields about the user<br>
+🔸 Write any Ruby code<br>
+🔸 Support multiple SMTP option<br>
+🔸 Support IMAP option<br>
+
+# 🔱 Installation
+
+### 1- Install Docker
+
+:droplet: Install the most recent version of the Docker Engine for your platform using the 🔗[official Docker releases](http://docs.docker.com/engine/installation/), which can also be installed using:
 
 ```bash
 wget -qO- https://get.docker.com/ | sh
 ```
 
-### Install Docker Compose
-Install docker compose from the [official page](https://docs.docker.com/compose/install/).    
+### 2- Install Docker Compose
+
+:droplet: Install docker compose from the 🔗[official page](https://docs.docker.com/compose/install/).    
 
 ```bash
 curl -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
 
-### Database Settings
+### 3- Database Settings
 
-You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
+:droplet: You can use `sqlite`, `postgresql`, `mysql` and `sql server`.
 
-Create a database.yml and link it in the docker-compose.yml
+:droplet: Create a database.yml and link it in the docker-compose.yml
 
-### Create data folders
+### 4- Create data folders
+
 ```bash
 mkdir -p /datadrive/csv-files && mkdir -p /datadrive/data/db && mkdir -p /datadrive/data/redis && mkdir -p /datadrive/data/nginx && mkdir -p /datadrive/working-dir 
 ```
 
-### Create a database.yml
-* Sqlite 
+### 5- Create a database.yml
+
+:droplet: Sqlite 
+
 ```bash
 cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database.yml
 ```
 
-* MySQL
+:droplet: MySQL
 
 ```bash
 cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_mysql.example.yml
 ```
-* PostgreSQL
+
+:droplet: PostgreSQL
 
 ```bash
 cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_postgresql.example.yml
 ```
-* Sql SERVER
+:droplet: Sql SERVER
 
 ```bash
 cd /datadrive && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/config/database_azure_sql.example.yml
 ```
 
+### 6- Create nginx settings
 
-### Create nginx settings
 ```bash
 cd /datadrive/data/nginx && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/nginx/my_proxy.conf
 ```
 
-### Get docker-compose.yml
-* Download
+### 7- Get docker-compose.yml
+
+:droplet: Download
+
 ```bash
 cd /datadrive/working-dir && wget https://raw.githubusercontent.com/mojilala/smart-emailing/master/docker-compose.yml
 ```
 
-* Update environment variables with your settings https://github.com/mojilala/smart-emailing/blob/master/docker-compose.yml#L34
+:droplet: Update environment variables with your settings https://github.com/mojilala/smart-emailing/blob/master/docker-compose.yml#L34
 
-### Run
+### 8- Run
 
 ```bash
 sudo docker-compose build
 sudo docker-compose run web rake db:migrate
 sudo docker-compose up -d
 ```
-### Configure Sendgrid
-If you are using sendgrid as email provider, you will be able to
+### 9- Configure Sendgrid
+
+:droplet: If you are using sendgrid as email provider, you will be able to
 get status of sent emails.
 
 
-  Go to: https://app.sendgrid.com/settings/mail_settings ->
+:droplet: Go to: https://app.sendgrid.com/settings/mail_settings ->
   Event Notification -> `<yourhost.com>`/campaigns/event_receiver
+  
+# 🏆 Usage
 
-## Tests
-We used the tool very day, so we test on production :)
-There are no tests. any test contrubtions are verywelcome.
+> Buralara text ve gif gelecek
 
-## Contributing
+# 💝 Contributing
+
+We are so grateful for all volunteers like you for contributions. And we are so exciting to welcome your contributions! But first, please take a moment to read our 🔗[contributing guild](https://github.com/svtek/smart-emailing/blob/master/CONTRIBUTING.md) to make the contribution process effective for everyone. After that, you can start to fork!
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -126,9 +160,23 @@ There are no tests. any test contrubtions are verywelcome.
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## Created by
-* Sahin https://github.com/sahin
+# :muscle: Team
 
-## Developed by
-* Sadik Ay https://github.com/sadikay
-* Muhammet Dilek https://github.com/muhammet
+| [<img src="https://pbs.twimg.com/profile_images/508440350495485952/U1VH52UZ_200x200.jpeg" width="100px;"/>](https://twitter.com/sahinboydas) <br/> [Sahin Boydas](https://twitter.com/sahinboydas)<br/><sub>Creator</sub><br/> [![LinkedIn][1.1]][1] | [<img src="https://avatars1.githubusercontent.com/u/989759?s=460&v=4" width="100px;"/>](https://github.com/muhammet) <br/>[Muhammet](https://github.com/muhammet)<br/><sub>Developer</sub><br/> [![Github][2.1]][2] | [<img src="https://avatars1.githubusercontent.com/u/8470005?s=460&v=4" width="100px;"/>](https://github.com/sadikay)  <br/>[Sadik](https://github.com/sadikay)<br/><sub>Developer</sub><br/> [![Github][3.1]][3] |
+| - | - | - | 
+
+[1.1]: https://www.kingsfund.org.uk/themes/custom/kingsfund/dist/img/svg/sprite-icon-linkedin.svg (linkedin icon)
+[1]: https://www.linkedin.com/in/sahinboydas
+[2.1]: http://i.imgur.com/9I6NRUm.png (github.com/muhammet)
+[2]: http://www.github.com/muhammet
+[3.1]: http://i.imgur.com/9I6NRUm.png (github.com/sadikay)
+[3]: http://www.github.com/sadikay
+
+
+# 🎓 License
+
+This program is a free and open source software. You can redistribute it and/or modify it under the terms of the license provided in the 🔗[LICENSE](LICENSE) file. Use of this software is subject to important terms and conditions as set forth in the 🔗[LICENSE](LICENSE) file.
+
+# 🔍 Acknowledgement
+
+If you liked Smart-Emailing app, please give us a "**Star** :star:". Your support is what keep us moving forward and delivering happiness to you! Thank's a million, you're our *Clark Kent*/*Kara Danvers*! In case of any questions or concerns, feel free to contact us anytime. :blush:
