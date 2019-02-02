@@ -145,10 +145,6 @@ get status of sent emails.
 
 :droplet: Go to: https://app.sendgrid.com/settings/mail_settings ->
   Event Notification -> `<yourhost.com>`/campaigns/event_receiver
-  
-# 🏆 Usage
-
-> Buralara text ve gif gelecek
 
 # 💝 Contributing
 
