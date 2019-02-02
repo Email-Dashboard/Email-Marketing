@@ -14,7 +14,7 @@
 
 There are two important factors for Email marketing. Manage whole process effectively and analysis results easily. If you follow these two factor, your email campaigns will be more successful. Because of **flexible time management**, **less energy** and **knowledge of right targets**. So, guess which project focused on these important two factors for the good of community? Of course Smart-Emailing did it! You can personalize your emails and use CRM for your emails or inbox. And you can do all of this with a simple **dockerized rails app**!
 
-> buraya gif veya screen shot gelecek
+<img src="https://github.com/mesutgulecen/smart-emailing/blob/master/doc/assets/campaigns_ss.png" width="900" height="500">
 
 # 🚻 For whom?
 
