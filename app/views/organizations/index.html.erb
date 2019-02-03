@@ -1,0 +1,6 @@
+<% @organizations.each do |org| %>
+  <h1><%= org.name %></h1>
+<% end %>
+
+
+<%= link_to 'New Org', new_organization_path %>

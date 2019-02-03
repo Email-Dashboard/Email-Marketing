@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  role: one
+  organization: one
+  user: one
+
+two:
+  role: two
+  organization: two
+  user: two

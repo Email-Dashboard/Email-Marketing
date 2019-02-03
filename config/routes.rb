@@ -1,3 +1,25 @@
+class OrganizationSubdomain
+  def self.matches? request
+    case request.subdomain
+    when 'www'
+      false
+    when ''
+      false
+    else
+      true
+    end
+  end
+end
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users
+
+  root to: 'pages#index'
+
+  resources :organizations
+
+  constraints(OrganizationSubdomain) do
+    root to: 'contacts#index'
+    resources :contacts
+  end
 end
