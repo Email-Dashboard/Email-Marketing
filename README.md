@@ -4,7 +4,7 @@
  
 <br>
 <p align="center">
-    A simple dockerized Rails app,<br> 
+    A simple dockerized rails app,<br> 
   to manage your emails and campaigns with taggings!
 </p>
 
