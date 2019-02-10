@@ -1,14 +1,8 @@
 <p align="center">
- *buraya logo gelecek*
+<img src="https://github.com/mesutgulecen/smart-emailing/blob/master/doc/assets/smart.png" style="max-width:100%;">
  </p>
  
-<br>
-<p align="center">
-    A simple dockerized rails app,<br> 
-  to manage your emails and campaigns with taggings!
-</p>
-
-# Smart-Emailing
+<hr>
 
 [![Code Climate](https://codeclimate.com/github/mojilala/smart-emailing/badges/gpa.svg)](https://codeclimate.com/github/mojilala/smart-emailing) ![](https://img.shields.io/github/stars/svtek/smart-emailing.svg) ![](https://img.shields.io/github/forks/svtek/smart-emailing.svg) ![](https://img.shields.io/github/tag/svtek/smart-emailing.svg) ![](https://img.shields.io/github/issues/svtek/smart-emailing.svg) ![](https://img.shields.io/github/contributors/svtek/smart-emailing.svg) ![](https://img.shields.io/github/license/svtek/smart-emailing.svg)
 
