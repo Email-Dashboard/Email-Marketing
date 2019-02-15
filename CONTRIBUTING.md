@@ -23,7 +23,7 @@ Here we are! There are many ways you can contribute to Smart-Emailing. For examp
 🛠 You can <b>report bugs</b> you find. Also you can also fix these bugs!  
 :guardsman: You can write <b>unit tests</b> for Smart-Emailing.<br>
 🌐 You can <b>translate</b> Smart-Emailing's UI, our README and CONTRIBUTING contents into other languages or help to keep those translations up to date.<br>
-📝 You can write <b>guide articles</b> about usage of Email-Dashboard and help to keep it up to date.<br>
+📝 You can write <b>guide articles</b> about usage of Smart-Emailing and help to keep it up to date.<br>
 💻 You can implement a <b>new feature</b> to Smart-Emailing!<br>
 :mailbox: You can create new <b>email templates</b> for community.<br>
 🛠 You can help people on the <b>issue</b> tracker.<br>
