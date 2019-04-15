@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180923085753) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "authentication_token"
-    t.index ["authentication_token"], name: "index_accounts_on_authentication_token"
-    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["authentication_token"], name: "index_accounts_on_authentication_token", using: :btree
+    t.index ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -47,8 +50,8 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "campaign_users", force: :cascade do |t|
@@ -58,9 +61,9 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.datetime "sent_at"
-    t.index ["campaign_id", "user_id"], name: "index_campaign_users_on_campaign_id_and_user_id", unique: true
-    t.index ["campaign_id"], name: "index_campaign_users_on_campaign_id"
-    t.index ["user_id"], name: "index_campaign_users_on_user_id"
+    t.index ["campaign_id", "user_id"], name: "index_campaign_users_on_campaign_id_and_user_id", unique: true, using: :btree
+    t.index ["campaign_id"], name: "index_campaign_users_on_campaign_id", using: :btree
+    t.index ["user_id"], name: "index_campaign_users_on_user_id", using: :btree
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -69,8 +72,8 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "email_template_id"
-    t.index ["account_id"], name: "index_campaigns_on_account_id"
-    t.index ["email_template_id"], name: "index_campaigns_on_email_template_id"
+    t.index ["account_id"], name: "index_campaigns_on_account_id", using: :btree
+    t.index ["email_template_id"], name: "index_campaigns_on_email_template_id", using: :btree
   end
 
   create_table "email_templates", force: :cascade do |t|
@@ -79,7 +82,7 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_email_templates_on_account_id"
+    t.index ["account_id"], name: "index_email_templates_on_account_id", using: :btree
   end
 
   create_table "imap_settings", force: :cascade do |t|
@@ -90,7 +93,7 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.string   "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_imap_settings_on_account_id"
+    t.index ["account_id"], name: "index_imap_settings_on_account_id", using: :btree
   end
 
   create_table "notes", force: :cascade do |t|
@@ -99,7 +102,7 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_notes_on_account_id"
+    t.index ["account_id"], name: "index_notes_on_account_id", using: :btree
   end
 
   create_table "smtp_settings", force: :cascade do |t|
@@ -117,7 +120,7 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.string   "ses_configuration_set"
-    t.index ["account_id"], name: "index_smtp_settings_on_account_id"
+    t.index ["account_id"], name: "index_smtp_settings_on_account_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -128,21 +131,21 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.integer  "tagger_id"
     t.string   "context",       limit: 128
     t.datetime "created_at"
-    t.index ["context"], name: "index_taggings_on_context"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
-    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
-    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+    t.index ["context"], name: "index_taggings_on_context", using: :btree
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy", using: :btree
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id", using: :btree
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type", using: :btree
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type", using: :btree
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
 
   create_table "user_attributes", force: :cascade do |t|
@@ -151,7 +154,7 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.string   "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_user_attributes_on_user_id"
+    t.index ["user_id"], name: "index_user_attributes_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -160,8 +163,17 @@ ActiveRecord::Schema.define(version: 20180923085753) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_users_on_account_id"
-    t.index ["email"], name: "index_users_on_email"
+    t.index ["account_id"], name: "index_users_on_account_id", using: :btree
+    t.index ["email"], name: "index_users_on_email", using: :btree
   end
 
+  add_foreign_key "campaign_users", "campaigns"
+  add_foreign_key "campaign_users", "users"
+  add_foreign_key "campaigns", "accounts"
+  add_foreign_key "campaigns", "email_templates"
+  add_foreign_key "email_templates", "accounts"
+  add_foreign_key "imap_settings", "accounts"
+  add_foreign_key "notes", "accounts"
+  add_foreign_key "smtp_settings", "accounts"
+  add_foreign_key "user_attributes", "users"
 end

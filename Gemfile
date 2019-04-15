@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.6.2'
+
 gem 'rails', '~> 5.0.1'
 
 gem 'puma', '~> 3.0'
@@ -44,7 +46,7 @@ gem 'mysql2'
 
 gem 'pg'
 
-gem 'sqlite3'
+# gem 'sqlite3'
 
 gem 'bulk_insert'
 
