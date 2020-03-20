@@ -172,3 +172,4 @@ This program is a free and open source software. You can redistribute it and/or 
 # 🔍 Acknowledgement
 
 If you liked Smart-Emailing app, please give us a "**Star** :star:". Your support is what keep us moving forward and delivering happiness to you! Thank's a million, you're our *Clark Kent*/*Kara Danvers*! In case of any questions or concerns, feel free to contact us anytime. :blush:
+
