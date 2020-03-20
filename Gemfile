@@ -23,7 +23,7 @@ gem 'sidekiq-limit_fetch'
 gem 'sidekiq-unique-jobs'
 
 gem 'acts-as-taggable-on', '~> 4.0'
-gem 'devise', '~> 4.2'
+gem 'devise', '~> 4.7'
 gem 'haml-rails', '~> 0.9'
 gem 'kaminari'
 gem 'ransack', github: 'activerecord-hackery/ransack'
