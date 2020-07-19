@@ -6,7 +6,7 @@
 
 [![Code Climate](https://codeclimate.com/github/mojilala/smart-emailing/badges/gpa.svg)](https://codeclimate.com/github/mojilala/smart-emailing) ![](https://img.shields.io/github/stars/svtek/smart-emailing.svg) ![](https://img.shields.io/github/forks/svtek/smart-emailing.svg) ![](https://img.shields.io/github/tag/svtek/smart-emailing.svg) ![](https://img.shields.io/github/issues/svtek/smart-emailing.svg) ![](https://img.shields.io/github/contributors/svtek/smart-emailing.svg) ![](https://img.shields.io/github/license/svtek/smart-emailing.svg)
 
-There are two important factors for Email marketing. Manage whole process effectively and analysis results easily. If you follow these two factor, your email campaigns will be more successful. Because of **flexible time management**, **less energy** and **knowledge of right targets**. So, guess which tool focused on these two important factors for the good of community? Of course Smart-Emailing did it! You can personalize your emails and use CRM for your emails or inbox. And you can do all of this with a simple **dockerized rails app**!
+There are two important factors for Email marketing. Manage whole process effectively and analyze results easily. If you follow these two factor, your email campaigns will be more successful. Because of **flexible time management**, **less energy** and **knowledge of right targets**. So, guess which tool focused on these two important factors for the good of community? Of course Smart-Emailing did it! You can personalize your emails and use CRM for your emails or inbox. And you can do all of this with a simple **dockerized rails app**!
 
 <img src="https://github.com/mesutgulecen/smart-emailing/blob/master/doc/assets/campaigns_ss.png" width="900" height="500">
 
