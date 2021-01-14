@@ -33,7 +33,7 @@ gem 'binding_of_caller'
 gem 'tilt'
 
 gem 'chartkick'
-gem 'rails_admin', '~> 1.1.1'
+gem 'rails_admin', '~> 2.0.2'
 
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
