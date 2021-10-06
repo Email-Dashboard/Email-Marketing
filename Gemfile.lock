@@ -105,8 +105,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
-    connection_pool (2.2.2)
+    concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.4)
     debug_inspector (0.0.3)
     devise (4.6.2)
@@ -192,12 +192,10 @@ GEM
     pg (1.1.4)
     public_suffix (3.0.3)
     puma (3.12.1)
-    rack (2.0.7)
+    rack (2.2.3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
-    rack-protection (2.0.5)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7.2)
@@ -240,7 +238,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    redis (3.3.5)
+    redis (4.4.0)
     redis-namespace (1.6.0)
       redis (>= 3.0.4)
     regexp_parser (1.4.0)
@@ -284,11 +282,10 @@ GEM
     sexp_processor (4.12.0)
     shoulda-matchers (4.0.1)
       activesupport (>= 4.2.0)
-    sidekiq (4.2.10)
-      concurrent-ruby (~> 1.0)
-      connection_pool (~> 2.2, >= 2.2.0)
-      rack-protection (>= 1.5.0)
-      redis (~> 3.2, >= 3.2.1)
+    sidekiq (6.2.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sidekiq-limit_fetch (3.4.0)
       sidekiq (>= 4)
     sidekiq-unique-jobs (6.0.13)
@@ -374,7 +371,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   select2-rails
   shoulda-matchers
-  sidekiq (< 5)
+  sidekiq (< 7)
   sidekiq-limit_fetch
   sidekiq-unique-jobs
   spring
