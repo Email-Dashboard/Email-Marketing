@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'x-editable-rails'
 
 gem 'redis-namespace'
-gem 'sidekiq', '< 5'
+gem 'sidekiq', '< 7'
 gem 'sidekiq-limit_fetch'
 gem 'sidekiq-unique-jobs'
 
